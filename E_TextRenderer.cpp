@@ -34,7 +34,7 @@ void E_TextRenderer::init(EScript::Namespace & lib) {
 		std::u32string wideString(256, 0);
 		std::iota(wideString.begin(), wideString.end(), 0);
 		const auto result = fontRenderer.createGlyphBitmap(parameter[1].toUInt(), wideString);
-		return new E_TextRenderer(result.first.get(), result.second);
+		return new E_TextRenderer(*result.first.get(), result.second);
 	})
 
 	//! [ESMF] self TextRenderer.draw(RenderingContext, String, Vec2, Color)

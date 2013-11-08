@@ -95,7 +95,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 
 	//! [ESF] Texture createTextureFromBitmap(Util.Bitmap[,bool mipmap=false[,bool clampToEdges=false]])
 	ES_FUN(lib,"createTextureFromBitmap",1,3, TextureUtils::createTextureFromBitmap(
-			parameter[0].to<Util::Bitmap*>(rt),parameter[1].toBool(false),parameter[2].toBool(false)))
+			parameter[0].to<Util::Bitmap &>(rt),parameter[1].toBool(false),parameter[2].toBool(false)))
 
 	//! [ESF] Texture createNoiseTexture(width,height,alpha[,bool mipmap=false[,scaling=1.0]])
 	ES_FUN(lib,"createNoiseTexture",3,5, TextureUtils::createNoiseTexture(
