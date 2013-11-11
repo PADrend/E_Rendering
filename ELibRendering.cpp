@@ -36,9 +36,7 @@
 #include <Rendering/Serialization/Serialization.h>
 #include <Rendering/Texture/Texture.h>
 #include <Rendering/Texture/TextureUtils.h>
-#include <Util/Encoding.h>
-#include <Util/Graphics/Bitmap.h>
-#include <Util/Serialization/Serialization.h>
+#include <Util/IO/FileName.h>
 
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
