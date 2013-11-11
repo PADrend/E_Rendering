@@ -110,7 +110,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	// EXPERIMENTAL!!!!!!!!!!!!!!
-	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap * depth [, Util.Bitmap * color=nullptr [, Util.Bitmap * normals=nullptr]] )
+	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap depth[, Util.Bitmap color[, Util.Bitmap normals]])
 	ES_FUNCTION2(typeObject,"createMeshFromBitmaps",1,3,{
 		Util::Reference<Util::Bitmap> depth = parameter[0].to<Util::Reference<Util::Bitmap>>(rt);
 		Util::Reference<Util::Bitmap> color;
