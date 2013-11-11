@@ -112,21 +112,24 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	// EXPERIMENTAL!!!!!!!!!!!!!!
 	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap * depth [, Util.Bitmap * color=nullptr [, Util.Bitmap * normals=nullptr]] )
 	ES_FUNCTION2(typeObject,"createMeshFromBitmaps",1,3,{
-		Util::Bitmap * depth = parameter[0].to<Util::Bitmap*>(rt);
-		Util::Bitmap * color=nullptr;
-		Util::Bitmap * normal=nullptr;
+		Util::Reference<Util::Bitmap> depth = parameter[0].to<Util::Reference<Util::Bitmap>>(rt);
+		Util::Reference<Util::Bitmap> color;
+		Util::Reference<Util::Bitmap> normal;
 
 		Rendering::VertexDescription vertexDescription;
 		vertexDescription.appendPosition3D();
 		if(parameter.count()>1){
-			color = parameter[1].to<Util::Bitmap*>(rt);
+			color = parameter[1].to<Util::Reference<Util::Bitmap>>(rt);
 			vertexDescription.appendColorRGBAByte();
 		}
 		if(parameter.count()>2){
-			normal = parameter[2].to<Util::Bitmap*>(rt);
+			normal = parameter[2].to<Util::Reference<Util::Bitmap>>(rt);
 			vertexDescription.appendNormalByte();
 		}
-		Mesh * m=MeshBuilder::createMeshFromBitmaps(vertexDescription, depth,color,normal);
+		Mesh * m=MeshBuilder::createMeshFromBitmaps(vertexDescription,
+													std::move(depth), 
+													std::move(color), 
+													std::move(normal));
 		if(m)
 			return EScript::create(m);
 		else return nullptr;
