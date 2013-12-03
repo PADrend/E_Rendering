@@ -12,7 +12,7 @@
 #define E_ParameterStructs_H
 
 #include <EScript/Objects/ReferenceObject.h>
-#include <Rendering/RenderingContext/ParameterStructs.h>
+#include <Rendering/RenderingContext/RenderingParameters.h>
 #include <Util/References.h>
 
 namespace E_Rendering{
