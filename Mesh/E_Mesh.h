@@ -26,7 +26,8 @@ class E_Mesh : public EScript::ReferenceObject<Util::Reference<Rendering::Mesh> 
 		static EScript::Type* getTypeObject();
 		static void init(EScript::Namespace & lib);
 
-		E_Mesh(Rendering::Mesh * t);
+		E_Mesh(Rendering::Mesh * t):ReferenceObject<Util::Reference<Rendering::Mesh> >(t,getTypeObject()){}
+		E_Mesh(const Util::Reference<Rendering::Mesh>& t):ReferenceObject<Util::Reference<Rendering::Mesh> >(t,getTypeObject()){}
 		virtual ~E_Mesh(){}
 
 		E_Mesh * clone() const override {
@@ -36,7 +37,8 @@ class E_Mesh : public EScript::ReferenceObject<Util::Reference<Rendering::Mesh> 
 };
 }
 
-ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_Mesh,	Rendering::Mesh*, 		(**eObj).get())
-ES_CONV_OBJ_TO_EOBJ(Rendering::Mesh *,		E_Rendering::E_Mesh,	obj?new E_Rendering::E_Mesh(obj) : nullptr)
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_Mesh,					Rendering::Mesh*, 		(**eObj).get())
+ES_CONV_OBJ_TO_EOBJ(Rendering::Mesh *,						E_Rendering::E_Mesh,	obj?new E_Rendering::E_Mesh(obj) : nullptr)
+ES_CONV_OBJ_TO_EOBJ(Util::Reference<Rendering::Mesh>,		E_Rendering::E_Mesh,	obj?new E_Rendering::E_Mesh(obj) : nullptr)
 
 #endif // E_MESH_H

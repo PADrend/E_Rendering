@@ -141,8 +141,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 
 //---
 
-E_Mesh::E_Mesh(Rendering::Mesh * t):ReferenceObject<Util::Reference<Rendering::Mesh> >(t,getTypeObject()){
-}
+
 
 std::string E_Mesh::toString() const{
 	std::stringstream ss;

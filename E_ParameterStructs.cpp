@@ -81,7 +81,7 @@ EScript::Type * E_CullFaceParameters::getTypeObject() {
 //! initMembers
 void init(EScript::Namespace & lib) {
 	{
-		EScript::Namespace * comparison = new EScript::Namespace();
+		EScript::Namespace * comparison = new EScript::Namespace;
 		declareConstant(&lib, "Comparison", comparison);
 		declareConstant(comparison, "NEVER", static_cast<uint32_t>(Rendering::Comparison::NEVER));
 		declareConstant(comparison, "LESS", static_cast<uint32_t>(Rendering::Comparison::LESS));
@@ -93,7 +93,7 @@ void init(EScript::Namespace & lib) {
 		declareConstant(comparison, "ALWAYS", static_cast<uint32_t>(Rendering::Comparison::ALWAYS));
 	}
 	{
-		EScript::Namespace * blendingFunc = new EScript::Namespace();
+		EScript::Namespace * blendingFunc = new EScript::Namespace;
 		declareConstant(&lib, "BlendFunc", blendingFunc);
 		declareConstant(blendingFunc, "ZERO", static_cast<uint32_t>(Rendering::BlendingParameters::ZERO));
 		declareConstant(blendingFunc, "ONE", static_cast<uint32_t>(Rendering::BlendingParameters::ONE));
@@ -112,7 +112,7 @@ void init(EScript::Namespace & lib) {
 		declareConstant(blendingFunc, "ONE_MINUS_CONSTANT_ALPHA", static_cast<uint32_t>(Rendering::BlendingParameters::ONE_MINUS_CONSTANT_ALPHA));
 	}
 	{
-		EScript::Namespace * blendingEquation = new EScript::Namespace();
+		EScript::Namespace * blendingEquation = new EScript::Namespace;
 		declareConstant(&lib, "BlendEquation", blendingEquation);
 		declareConstant(blendingEquation, "FUNC_ADD", static_cast<uint32_t>(Rendering::BlendingParameters::FUNC_ADD));
 		declareConstant(blendingEquation, "FUNC_SUBTRACT", static_cast<uint32_t>(Rendering::BlendingParameters::FUNC_SUBTRACT));
@@ -381,7 +381,7 @@ void init(EScript::Namespace & lib) {
 		declareConstant(typeObject,"POINT",static_cast<uint32_t>(Rendering::PolygonModeParameters::POINT));
 	}
 
-//---------------------------------------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------------------------------------------------
 	{ //E_ScissorParameters
 		Type * typeObject = E_ScissorParameters::getTypeObject();
 		declareConstant(&lib, E_ScissorParameters::getClassName(), typeObject);
@@ -395,7 +395,15 @@ void init(EScript::Namespace & lib) {
 				return new E_ScissorParameters(Rendering::ScissorParameters());
 		})
 	}
-
+	// ------------------------------------------------------------------------------------------------------------------------------------
+	{ // E_TexUnitUsageParameter
+		EScript::Namespace * ns = new EScript::Namespace;
+		declareConstant(&lib, "TexUnitUsageParameter", ns);
+		declareConstant(ns, "GENERAL_PURPOSE", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::GENERAL_PURPOSE));
+		declareConstant(ns, "TEXTURE_MAPPING_1D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_1D));
+		declareConstant(ns, "TEXTURE_MAPPING_2D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_2D));
+		declareConstant(ns, "TEXTURE_MAPPING_3D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_3D));
+	}
 }
 
 }

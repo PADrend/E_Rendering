@@ -291,18 +291,18 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.popTexture( unit )
 	ES_MFUN(typeObject,RenderingContext, "popTexture", 1,1, (thisObj->popTexture(parameter[0].to<uint32_t>(rt)),thisEObj))
 
-	//!	[ESMF] thisEObj RenderingContext.setTexture( unit, Texture|Void )
-	ES_MFUNCTION(typeObject,RenderingContext, "setTexture",2,2,{
+	//!	[ESMF] thisEObj RenderingContext.setTexture( unit, Texture|Void, [usage] )
+	ES_MFUNCTION(typeObject,RenderingContext, "setTexture",2,3,{
 		Texture * t = parameter[1].toBool() ? parameter[1].to<Rendering::Texture*>(rt) : nullptr;
 
-		thisObj->setTexture(parameter[0].to<uint32_t>(rt),t);
+		thisObj->setTexture(parameter[0].to<uint32_t>(rt),t,static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING_3D))));
 		return thisEObj;
 	})
 
-	//!	[ESMF] thisEObj RenderingContext.pushAndSetTexture( unit, Texture|Void )
-		ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetTexture",2,2,{
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetTexture( unit, Texture|Void, [usage] )
+		ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetTexture",2,3,{
 			Texture * t = parameter[1].toBool() ? parameter[1].to<Rendering::Texture*>(rt) : nullptr;
-			thisObj->pushAndSetTexture(parameter[0].to<uint32_t>(rt),t);
+			thisObj->pushAndSetTexture(parameter[0].to<uint32_t>(rt),t, static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING_3D))));
 			return thisEObj;
 		})
 
