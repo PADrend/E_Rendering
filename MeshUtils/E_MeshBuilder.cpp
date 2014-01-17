@@ -164,8 +164,8 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		uint32_t index=0;
 		if(parameter.count() == 8) {
 			index=thisObj->addVertex(
-					parameter[0].to<const Geometry::Vec3&>(rt), // pos
-					parameter[1].to<const Geometry::Vec3&>(rt), // normal
+					parameter[0].to<Geometry::Vec3>(rt), // pos
+					parameter[1].to<Geometry::Vec3>(rt), // normal
 					parameter[2].toFloat(),	parameter[3].toFloat(),	parameter[4].toFloat(), parameter[5].toFloat(),	 // color
 					parameter[6].toFloat(),	parameter[7].toFloat()); // tex0
 		}
@@ -196,19 +196,19 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 
 	//!	[ESMF] thisEObj MeshBuilder.normal( Vec3 )
 	ES_MFUN(typeObject,MeshBuilder,"normal",1,1,
-				( thisObj->normal( parameter[0].to<const Geometry::Vec3&>(rt)),thisEObj))
+				( thisObj->normal( parameter[0].to<Geometry::Vec3>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj MeshBuilder.position( Vec3 )
 	ES_MFUN(typeObject,MeshBuilder,"position",1,1,
-				( thisObj->position( parameter[0].to<const Geometry::Vec3&>(rt)),thisEObj))
+				( thisObj->position( parameter[0].to<Geometry::Vec3>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj MeshBuilder.position2D(Vec2)
 	ES_MFUN(typeObject,MeshBuilder, "position2D", 1, 1,
-				 (thisObj->position(parameter[0].to<const Geometry::Vec2&>(rt)),thisEObj))
+				 (thisObj->position(parameter[0].to<Geometry::Vec2>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj MeshBuilder.texCoord0( Vec2 )
 	ES_MFUN(typeObject,MeshBuilder,"texCoord0",1,1,
-				( thisObj->texCoord0( parameter[0].to<const Geometry::Vec2&>(rt)),thisEObj))
+				( thisObj->texCoord0( parameter[0].to<Geometry::Vec2>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj MeshBuilder.setTransformation( Matrix4x4 | SRT )
 	ES_MFUNCTION(typeObject,MeshBuilder,"setTransformation",1,1,{
