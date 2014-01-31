@@ -110,11 +110,11 @@ void E_Draw::init(EScript::Namespace & lib) {
 	//! [ESF] void Rendering.drawVector(RenderingContext, Vec3 from, Vec3 to, [Color])
 	ES_FUNCTION2(&lib,"drawVector", 3, 4, {
 		if(parameter.count() == 3) {
-            Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Vec3&>(rt), parameter[2].to<const Geometry::Vec3&>(rt));
+            Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<Geometry::Vec3>(rt), parameter[2].to<Geometry::Vec3>(rt));
 		} else {
 			Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt),
-							  parameter[1].to<const Geometry::Vec3&>(rt),
-							  parameter[2].to<const Geometry::Vec3&>(rt),
+							  parameter[1].to<Geometry::Vec3>(rt),
+							  parameter[2].to<Geometry::Vec3>(rt),
 							  parameter[3].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);

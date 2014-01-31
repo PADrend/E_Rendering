@@ -179,8 +179,8 @@ void initMeshUtils(EScript::Namespace * lib) {
 	//! [ESF] void Rendering.eliminateTrianglesBehindPlane(Mesh, Vec3, Vec3)
 	ES_FUNCTION2(lib, "eliminateTrianglesBehindPlane", 3, 3, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
-		const Geometry::Vec3f & position = parameter[1].to<const Geometry::Vec3&>(rt);
-		const Geometry::Vec3f & normal = parameter[2].to<const Geometry::Vec3&>(rt);
+		const Geometry::Vec3f & position = parameter[1].to<Geometry::Vec3>(rt);
+		const Geometry::Vec3f & normal = parameter[2].to<Geometry::Vec3>(rt);
 		Util::Reference<Mesh> newMesh(Rendering::MeshUtils::eliminateTrianglesBehindPlane(mesh, Geometry::Plane(position, normal)));
 		mesh->_getIndexData().swap(newMesh->_getIndexData());
 		mesh->_getVertexData().swap(newMesh->_getVertexData());

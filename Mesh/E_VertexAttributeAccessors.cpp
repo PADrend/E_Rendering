@@ -100,7 +100,7 @@ void E_NormalAttributeAccessor::init(EScript::Namespace & lib) {
 	//! [ESMF] thisEObj colorAttributeAccessor.setNormal(Geometry.Vec3)
 	ES_MFUN(typeObject,NormalAttributeAccessor,"setNormal",2,2,(
 				thisObj->setNormal(parameter[0].to<uint32_t>(rt),
-										parameter[1].to<const Geometry::Vec3&>(rt)),thisEObj))
+										parameter[1].to<Geometry::Vec3>(rt)),thisEObj))
 }
 
 // ---------------------------------------------------------
@@ -128,7 +128,7 @@ void E_PositionAttributeAccessor::init(EScript::Namespace & lib) {
 	//! [ESMF] thisEObj colorAttributeAccessor.setPosition(Geometry.Vec3)
 	ES_MFUN(typeObject,PositionAttributeAccessor,"setPosition",2,2,(
 				thisObj->setPosition(parameter[0].to<uint32_t>(rt),
-											parameter[1].to<const Geometry::Vec3&>(rt)),thisEObj))
+											parameter[1].to<Geometry::Vec3>(rt)),thisEObj))
 }
 
 // ---------------------------------------------------------
