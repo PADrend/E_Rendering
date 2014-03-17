@@ -89,6 +89,9 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	
 	//! [ESMF] thisEObj Mesh.setDrawLines()
 	ES_MFUN(typeObject,Mesh,"setDrawLines",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_LINES),thisEObj))
+	
+	//! [ESMF] thisEObj Mesh.setDrawLineStrip()
+	ES_MFUN(typeObject,Mesh,"setDrawLineStrip",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_LINE_STRIP),thisEObj))
 		
 	//! [ESMF] thisEObj Mesh.setDrawPoints()
 	ES_MFUN(typeObject,Mesh,"setDrawPoints",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_POINTS),thisEObj))
