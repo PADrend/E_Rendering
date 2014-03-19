@@ -3,9 +3,9 @@
 	Copyright (C) 2009-2012 Benjamin Eikel <benjamin@eikel.org>
 	Copyright (C) 2009-2012 Claudius Jähn <claudius@uni-paderborn.de>
 	Copyright (C) 2009-2012 Ralf Petring <ralf@petring.net>
-	
+
 	This library is subject to the terms of the Mozilla Public License, v. 2.0.
-	You should have received a copy of the MPL along with this library; see the 
+	You should have received a copy of the MPL along with this library; see the
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_Mesh.h"
@@ -35,7 +35,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	declareConstant(&lib,getClassName(),typeObject);
 
 	using namespace Rendering;
-	
+
 	//! [ESMF] VertexDescription Mesh.getVertexDescription()
 	ES_MFUN(typeObject,const Mesh,"getVertexDescription",0,0,thisObj->getVertexDescription())
 
@@ -51,7 +51,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 			arr->pushBack(EScript::create(indexData[idx]));
 		return arr;
 	})
-	
+
 	//! [ESMF] Number Mesh.getIndexCount()
 	ES_MFUN(typeObject,const Mesh,"getIndexCount",0,0,thisObj->getIndexCount())
 
@@ -60,13 +60,13 @@ void E_Mesh::init(EScript::Namespace & lib) {
 
 	//! [ESMF] FileName Mesh.getFileName()
 	ES_MFUN(typeObject,const Mesh,"getFileName",0,0,	new E_Util::E_FileName(thisObj->getFileName()))
-	
+
 	//! [ESMF] FileName Mesh.getMainMemoryUsage()
 	ES_MFUN(typeObject,const Mesh,"getMainMemoryUsage",0,0,	static_cast<double>(thisObj->getMainMemoryUsage()))
-	
+
 	//! [ESMF] FileName Mesh.getGraphicsMemoryUsage()
 	ES_MFUN(typeObject,const Mesh,"getGraphicsMemoryUsage",0,0,	static_cast<double>(thisObj->getGraphicsMemoryUsage()))
-		
+
 	//! [ESMF] Number Mesh.getPrimitiveCount()
 	ES_MFUN(typeObject,const Mesh,"getPrimitiveCount",0,0,	static_cast<double>(thisObj->getPrimitiveCount()))
 
@@ -86,10 +86,13 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		thisObj->openIndexData();
 		return thisEObj;
 	})
-	
+
 	//! [ESMF] thisEObj Mesh.setDrawLines()
 	ES_MFUN(typeObject,Mesh,"setDrawLines",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_LINES),thisEObj))
-		
+
+	//! [ESMF] thisEObj Mesh.setDrawLineStrip()
+	ES_MFUN(typeObject,Mesh,"setDrawLineStrip",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_LINE_STRIP),thisEObj))
+
 	//! [ESMF] thisEObj Mesh.setDrawPoints()
 	ES_MFUN(typeObject,Mesh,"setDrawPoints",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_POINTS),thisEObj))
 
@@ -106,7 +109,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		indices.updateIndexRange();
 		return thisEObj;
 	})
-	
+
 	//! [ESMF] thisEObj Mesh.setFileName([[FileName, String] name])
 	ES_MFUNCTION(typeObject,Mesh,"setFileName",0,1,{
 		if(parameter.count() == 0){
