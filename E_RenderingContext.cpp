@@ -14,6 +14,7 @@
 #include "Shader/E_Uniform.h"
 #include "E_FBO.h"
 #include "Texture/E_Texture.h"
+#include "Mesh/E_Mesh.h"
 #include "E_ParameterStructs.h"
 
 #include <E_Geometry/E_Matrix4x4.h>
@@ -72,6 +73,9 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	//!	[ESMF] thisEObj RenderingContext.clearStencil(Number)
 	ES_MFUN(typeObject,RenderingContext,"clearStencil", 1, 1,(thisObj->clearStencil(parameter[0].to<int32_t>(rt)),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.displayMesh(Mesh)
+	ES_MFUN(typeObject,RenderingContext,"displayMesh", 1, 1,(thisObj->displayMesh(parameter[0].to<Rendering::Mesh*>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj RenderingContext.finish()
 	ES_MFUN(typeObject,RenderingContext, "finish", 0, 0, (thisObj->finish(),thisEObj))
@@ -265,7 +269,17 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		(thisObj->setGlobalUniform(	parameter[0].to<const Rendering::Uniform&>(rt) ),thisEObj))
 
 	// Material
-	ES_MFUN(typeObject,RenderingContext, "pushAndSetColorMaterial", 1, 1, (thisObj->pushAndSetColorMaterial(parameter[0].to<Util::Color4f>(rt)),thisEObj))
+	//! [ESMF] thisEObj pushAndSetColorMaterial( [color] )
+	ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetColorMaterial", 0, 1,{
+		if(parameter.count()==1){
+			thisObj->pushAndSetColorMaterial(parameter[0].to<Util::Color4f>(rt));
+		}else{
+			MaterialParameters p;
+			p.enableColorMaterial();
+			thisObj->pushAndSetMaterial(p);
+		}
+		return thisEObj;
+	})
 	ES_MFUN(typeObject,RenderingContext, "popMaterial", 0,0, (thisObj->popMaterial(),thisEObj))
 
 	// Matrix
