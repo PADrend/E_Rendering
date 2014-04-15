@@ -14,7 +14,7 @@
 #include <Util/Macros.h>
 #include "../E_RenderingContext.h"
 #include "E_Uniform.h"
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -41,7 +41,7 @@ void E_Shader::init(EScript::Namespace & lib) {
 
 
 	//! [ESF] (static) Shader Shader.loadShader(string vsFile, string fsFile, flag usage)
-	ES_FUNCTION2(typeObject,"loadShader",2,3,{
+	ES_FUNCTION(typeObject,"loadShader",2,3,{
 		const Util::FileName vsFile(parameter[0].toString());
 		const Util::FileName fsFile(parameter[1].toString());
 		const Shader::flag_t flag = parameter[2].toInt(Shader::USE_GL | Shader::USE_UNIFORMS);
@@ -53,7 +53,7 @@ void E_Shader::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESF] (static) Shader Shader.createShader( [usage] | string vs, string fs[, flag usage])
-	ES_FUNCTION2(typeObject,"createShader",0,3,{
+	ES_FUNCTION(typeObject,"createShader",0,3,{
 		if(parameter.size()>1){
 			return EScript::create(
 						Shader::createShader(parameter[0].toString().c_str(), parameter[1].toString().c_str(), parameter[2].to<uint32_t>(rt,Shader::USE_GL | Shader::USE_UNIFORMS)));

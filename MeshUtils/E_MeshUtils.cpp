@@ -26,7 +26,7 @@
 #include <E_Geometry/E_Vec3.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_PixelAccessor.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 #include <memory>
@@ -51,7 +51,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 
 	//! [ESF] Mesh Rendering.combineMeshes(Array of Meshes)
 	//! [ESF] Mesh Rendering.combineMeshes(Array of Meshes [,Array of Transformation Matrixes])
-	ES_FUNCTION2(lib,"combineMeshes",1,2,{
+	ES_FUNCTION(lib,"combineMeshes",1,2,{
 		Array * a = parameter[0].to<EScript::Array*>(rt);
 		std::deque<Mesh *> meshes;
 
@@ -83,7 +83,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] [Array|Void] Rendering.splitPointMeshIntoSmallerMeshes(Mesh, Points per Submesh)
-	ES_FUNCTION2(lib, "splitPointMeshIntoSmallerMeshes", 2, 2, {
+	ES_FUNCTION(lib, "splitPointMeshIntoSmallerMeshes", 2, 2, {
 			Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 			uint32_t chunkSize = parameter[1].to<uint32_t>(rt);
 
@@ -109,7 +109,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] [Mesh|Void] Rendering.extractPointsFromMesh(Mesh, First Point, Number of Points)
-	ES_FUNCTION2(lib, "extractPointsFromMesh", 3, 3, {
+	ES_FUNCTION(lib, "extractPointsFromMesh", 3, 3, {
 			Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 			uint32_t begin = parameter[1].to<uint32_t>(rt);
 			uint32_t length = parameter[2].to<uint32_t>(rt);
@@ -144,7 +144,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 				parameter[2].to<const Geometry::Matrix4x4&>(rt)), EScript::create(nullptr)))
 
 	//! [ESF] Void Rendering.convertVertices(Mesh, VertexDescription)
-	ES_FUNCTION2(lib, "convertVertices", 2, 2, {
+	ES_FUNCTION(lib, "convertVertices", 2, 2, {
 		Rendering::Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		Rendering::VertexDescription vertexDesc = EScript::assertType<E_VertexDescription>(rt, parameter[1])->ref();
 
@@ -168,7 +168,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	))
 
 	//! [ESF] void Rendering.eliminateLongTriangles(Mesh,ratio)
-	ES_FUNCTION2(lib,"eliminateLongTriangles",2,2,{
+	ES_FUNCTION(lib,"eliminateLongTriangles",2,2,{
 		Mesh * m=parameter[0].to<Rendering::Mesh*>(rt);
 		Util::Reference<Mesh> m2(Rendering::MeshUtils::eliminateLongTriangles(m,parameter[1].toFloat()));
 		m->_getIndexData().swap( m2->_getIndexData() );
@@ -177,7 +177,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] void Rendering.eliminateTrianglesBehindPlane(Mesh, Vec3, Vec3)
-	ES_FUNCTION2(lib, "eliminateTrianglesBehindPlane", 3, 3, {
+	ES_FUNCTION(lib, "eliminateTrianglesBehindPlane", 3, 3, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		const Geometry::Vec3f & position = parameter[1].to<Geometry::Vec3>(rt);
 		const Geometry::Vec3f & normal = parameter[2].to<Geometry::Vec3>(rt);
@@ -188,7 +188,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] void Rendering.eliminateZeroAreaTriangles(Mesh)
-	ES_FUNCTION2(lib, "eliminateZeroAreaTriangles", 1, 1, {
+	ES_FUNCTION(lib, "eliminateZeroAreaTriangles", 1, 1, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		Util::Reference<Mesh> newMesh(Rendering::MeshUtils::eliminateZeroAreaTriangles(mesh));
 		mesh->_getIndexData().swap(newMesh->_getIndexData());
@@ -197,7 +197,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] void Rendering.removeSkinsWithHoleCovering(Mesh, Number, Number)
-	ES_FUNCTION2(lib, "removeSkinsWithHoleCovering", 3, 3, {
+	ES_FUNCTION(lib, "removeSkinsWithHoleCovering", 3, 3, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		Util::Reference<Mesh> newMesh(Rendering::MeshUtils::removeSkinsWithHoleCovering(mesh, parameter[1].toFloat(), parameter[2].toFloat()));
 		mesh->_getIndexData().swap(newMesh->_getIndexData());
@@ -206,7 +206,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] void Rendering.eliminateUnusedVertices(Mesh)
-	ES_FUNCTION2(lib,"eliminateUnusedVertices",1,1,{
+	ES_FUNCTION(lib,"eliminateUnusedVertices",1,1,{
 		Mesh * m=parameter[0].to<Rendering::Mesh*>(rt);
 		Util::Reference<Mesh> m2(Rendering::MeshUtils::eliminateUnusedVertices(m));
 		m->_getIndexData().swap( m2->_getIndexData() );
@@ -218,14 +218,14 @@ void initMeshUtils(EScript::Namespace * lib) {
 	ES_FUN(lib, "loadMesh", 1, 1, EScript::create(Rendering::Serialization::loadMesh(Util::FileName(parameter[0].toString()))))
 
 	//! [ESF] Void Rendering.optimizeIndices(Mesh)
-	ES_FUNCTION2(lib, "optimizeIndices", 1, 2, {
+	ES_FUNCTION(lib, "optimizeIndices", 1, 2, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		Rendering::MeshUtils::optimizeIndices(mesh, parameter[1].toInt(24));
 		return EScript::create(nullptr);
 	})
 
 	//! [ESF] Void Rendering.shrinkMesh(Mesh)
-	ES_FUNCTION2(lib, "shrinkMesh", 1, 1, {
+	ES_FUNCTION(lib, "shrinkMesh", 1, 1, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		MeshUtils::shrinkMesh(mesh);
 		return EScript::create(nullptr);
@@ -235,7 +235,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"reverseMeshWinding", 1, 1, (Rendering::MeshUtils::reverseWinding(parameter[0].to<Rendering::Mesh*>(rt)), EScript::create(nullptr)))
 
 	//! [ESF] void saveMesh(Mesh *, string s)
-	ES_FUNCTION2(lib,"saveMesh",2,2,{
+	ES_FUNCTION(lib,"saveMesh",2,2,{
 		Mesh * m= parameter[0].to<Rendering::Mesh*>(rt);
 		Util::FileName file(parameter[1].toString());
 		return Bool::create(Rendering::Serialization::saveMesh(m, file));
@@ -255,7 +255,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 				parameter[4].to<float>(rt) ),EScript::create(nullptr)))
 
 	//! [ESF] void Rendering.simplifyMesh(Mesh,numberOfPolygons)
-	ES_FUNCTION2(lib,"simplifyMesh",6,6,{
+	ES_FUNCTION(lib,"simplifyMesh",6,6,{
 		Mesh *m=parameter[0].to<Rendering::Mesh*>(rt);
 
 		Rendering::MeshUtils::Simplification::weights_t weights;
@@ -278,7 +278,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] Mesh Rendering.createMeshByQuadTree(Util.PixelAccessor depthTexture[, Util.PixelAccessor colorTexture[, Util.PixelAccessor normalTexture[, Util.PixelAccessor stencilTexture[,disruption=0.0075f]]]])
-	ES_FUNCTION2(lib, "createMeshByQuadTree", 1, 5, {
+	ES_FUNCTION(lib, "createMeshByQuadTree", 1, 5, {
 		Util::PixelAccessor * depthTexture = parameter[0].to<Util::PixelAccessor*>(rt);
 		Util::PixelAccessor * colorTexture = nullptr;
 		if(parameter.count() > 1 && !parameter[1].toType<Void>()) {
@@ -325,7 +325,7 @@ void initMeshUtils(EScript::Namespace * lib) {
 
 	/*! ***temporary***
 		[ESF] void Rendering._transformMeshCoordinates(Mesh, String VertexAttrName, Matrix)    */
-	ES_FUNCTION2(lib,"_transformMeshCoordinates",3,3,{
+	ES_FUNCTION(lib,"_transformMeshCoordinates",3,3,{
 		Mesh * m = parameter[0].to<Rendering::Mesh*>(rt);
 		MeshVertexData & vd= m->openVertexData();
 		Rendering::MeshUtils::transformCoordinates(vd, parameter[1].toString(),

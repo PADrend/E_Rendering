@@ -20,7 +20,7 @@
 #include <E_Util/Graphics/E_Bitmap.h>
 #include <E_Util/Graphics/E_PixelAccessor.h>
 #include <Util/Graphics/PixelAccessor.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/EScript.h>
 
 namespace E_Rendering{
@@ -32,7 +32,7 @@ using namespace Rendering;
 void initTextureUtils(EScript::Namespace * lib) {
 
 	//! [ESF] void drawTextureToScreen(RenderingContext,screenRect,(Texture,textureRect) | (TextureArray,textureRectArray))
-	ES_FUNCTION2(lib,"drawTextureToScreen",4,4,{
+	ES_FUNCTION(lib,"drawTextureToScreen",4,4,{
 		const Geometry::Rect_i screenRect(parameter[1].toType<E_Geometry::E_Rect>()->ref());
 
 		Array * textureArray=parameter[2].toType<Array>();
@@ -62,7 +62,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] Bool compareTextures(Texture, Texture)
-	ES_FUNCTION2(lib,"compareTextures",2,2,{
+	ES_FUNCTION(lib,"compareTextures",2,2,{
 		Texture * t1 = parameter[0].to<Rendering::Texture*>(rt);
 		Texture * t2 = parameter[1].to<Rendering::Texture*>(rt);
 		return Bool::create(TextureUtils::compareTextures(t1,t2));
@@ -72,7 +72,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"createRedTexture",2,2, TextureUtils::createRedTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
 	//!	[ESF] E_Bitmap createBitmapFromTexture(RenderingContext,E_Texture)
-	ES_FUNCTION2(lib,"createBitmapFromTexture",2,2,{
+	ES_FUNCTION(lib,"createBitmapFromTexture",2,2,{
 		return EScript::create(Rendering::TextureUtils::createBitmapFromTexture(
 																parameter[0].to<RenderingContext&>(rt),
 																parameter[1].to<Rendering::Texture*>(rt)));
@@ -111,7 +111,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	))
 
 	//! [ESF] Texture createTextureFromScreen( Rect screenRect,bool alpha=true] |  [bool alpha=true])
-	ES_FUNCTION2(lib,"createTextureFromScreen",0,2,{
+	ES_FUNCTION(lib,"createTextureFromScreen",0,2,{
 		E_Geometry::E_Rect * er = parameter[0].toType<E_Geometry::E_Rect>();
 		if(er!=nullptr){
 			return EScript::create(TextureUtils::createTextureFromScreen(
@@ -123,7 +123,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] PixelAccessor|Void createColorPixelAccessor(RenderingContext, Texture)
-	ES_FUNCTION2(lib, "createColorPixelAccessor", 2, 2, {
+	ES_FUNCTION(lib, "createColorPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createColorPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
 			parameter[1].to<Rendering::Texture*>(rt));
@@ -135,7 +135,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] PixelAccessor|Void createDepthPixelAccessor(RenderingContext, Texture)
-	ES_FUNCTION2(lib, "createDepthPixelAccessor", 2, 2, {
+	ES_FUNCTION(lib, "createDepthPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createDepthPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
 			parameter[1].to<Rendering::Texture*>(rt));
@@ -147,7 +147,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	})
 
 	//! [ESF] PixelAccessor|Void createStencilPixelAccessor(RenderingContext, Texture)
-	ES_FUNCTION2(lib, "createStencilPixelAccessor", 2, 2, {
+	ES_FUNCTION(lib, "createStencilPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createStencilPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
 			parameter[1].to<Rendering::Texture*>(rt));
@@ -172,7 +172,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 			Util::FileName(parameter[2].toString())))
 
 	//! [ESF] void updateTextureFromScreen( RenderingContext,[Texture,textureRect,screenX=0,screenY=0] )
-	ES_FUNCTION2(lib,"updateTextureFromScreen",2,5,{
+	ES_FUNCTION(lib,"updateTextureFromScreen",2,5,{
 		Texture * t= parameter[1].to<Rendering::Texture*>(rt);
 		if(parameter.count()==1){
 			TextureUtils::updateTextureFromScreen(parameter[0].to<RenderingContext&>(rt),t);

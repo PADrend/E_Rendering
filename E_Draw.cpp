@@ -20,7 +20,7 @@
 #include <Rendering/Draw.h>
 #include <Rendering/DrawCompound.h>
 #include <Rendering/RenderingContext/RenderingContext.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -40,7 +40,7 @@ void E_Draw::init(EScript::Namespace & lib) {
     ES_FUN(&lib, "drawGrid", 1, 2, (Rendering::drawGrid(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].toFloat(1.0f)), EScript::create(nullptr)))
 
     //!	[ESF] void Rendering.drawQuad(RenderingContext, lower left, lower right, upper right, upper left, [color])
-    ES_FUNCTION2(&lib, "drawQuad", 5, 6, {
+    ES_FUNCTION(&lib, "drawQuad", 5, 6, {
                      if(parameter.count()==5) Rendering::drawQuad(
                             parameter[0].to<Rendering::RenderingContext&>(rt),
                             parameter[1].to<Geometry::Vec3f&>(rt),
@@ -58,7 +58,7 @@ void E_Draw::init(EScript::Namespace & lib) {
                  })
 
 	//! [ESF] void Rendering.drawBox(RenderingContext, Box, [Color])
-	ES_FUNCTION2(&lib, "drawBox", 2, 3, {
+	ES_FUNCTION(&lib, "drawBox", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 		} else {
@@ -68,7 +68,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESF] void Rendering.drawAbsBox(RenderingContext, Box, [Color])
-		ES_FUNCTION2(&lib, "drawAbsBox", 2, 3, {
+		ES_FUNCTION(&lib, "drawAbsBox", 2, 3, {
 			if(parameter.count() == 2) {
 				Rendering::drawAbsBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 			} else {
@@ -78,7 +78,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 		})
 
     //![[ESF] void Rendering.drawRect(RenderingContext, Rec, [Color])
-    ES_FUNCTION2(&lib,"drawRect", 2, 3, {
+    ES_FUNCTION(&lib,"drawRect", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt));
 		} else {
@@ -88,7 +88,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 	})
 
 	//! [[ESF] void Rendering.drawWireframeBox(RenderingContext, Box, [Color])
-	ES_FUNCTION2(&lib,"drawWireframeBox", 2, 3, {
+	ES_FUNCTION(&lib,"drawWireframeBox", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 		} else {
@@ -98,7 +98,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 	})
 
 	//![[ESF] void Rendering.drawWireframeRect(RenderingContext, Rec, [Color])
-    ES_FUNCTION2(&lib,"drawWireframeRect", 2, 3, {
+    ES_FUNCTION(&lib,"drawWireframeRect", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawWireframeRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt));
 		} else {
@@ -108,7 +108,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESF] void Rendering.drawVector(RenderingContext, Vec3 from, Vec3 to, [Color])
-	ES_FUNCTION2(&lib,"drawVector", 3, 4, {
+	ES_FUNCTION(&lib,"drawVector", 3, 4, {
 		if(parameter.count() == 3) {
             Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<Geometry::Vec3>(rt), parameter[2].to<Geometry::Vec3>(rt));
 		} else {

@@ -22,7 +22,7 @@
 #include <E_Util/Graphics/E_Bitmap.h>
 #include <Rendering/Mesh/VertexAttributeIds.h>
 #include <Rendering/MeshUtils/MeshUtils.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -57,7 +57,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	ES_FUN(typeObject,"createConicalFrustum", 4, 4, (MeshBuilder::createConicalFrustum(parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].toFloat(), parameter[3].to<uint32_t>(rt))))
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createDiscSector(Number radius, Number segments, Number angle)
-	ES_FUNCTION2(typeObject,"createDiscSector",2,3,{
+	ES_FUNCTION(typeObject,"createDiscSector",2,3,{
 		if (parameter.count() == 2) {
 			return EScript::create(MeshBuilder::createDiscSector(parameter[0].toFloat(), parameter[1].to<uint32_t>(rt)));
 		} else {
@@ -77,7 +77,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 				parameter[4].toFloat(1.0))))
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createRectangle([VertexDescription],width,height)
-	ES_FUNCTION2(typeObject, "createRectangle", 2, 3, {
+	ES_FUNCTION(typeObject, "createRectangle", 2, 3, {
 		if (parameter.count() == 3) {
 			return EScript::create(MeshBuilder::createRectangle(parameter[0].to<const VertexDescription&>(rt),parameter[1].toFloat(), parameter[2].toFloat()));
 		} else {
@@ -91,7 +91,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createRingSector(Number innerRadius, Number outerRadius, Number segments, Number angle)
-	ES_FUNCTION2(typeObject,"createRingSector",3,4,{
+	ES_FUNCTION(typeObject,"createRingSector",3,4,{
 		if (parameter.count() == 3) {
 			return EScript::create(MeshBuilder::createRingSector(parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].to<uint32_t>(rt)));
 		} else {
@@ -100,7 +100,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createSphere(Number, Number)
-	ES_FUNCTION2(typeObject, "createSphere", 2, 2, {
+	ES_FUNCTION(typeObject, "createSphere", 2, 2, {
 		Rendering::VertexDescription vertexDescription;
 		vertexDescription.appendPosition3D();
 		vertexDescription.appendNormalFloat();
@@ -111,7 +111,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 
 	// EXPERIMENTAL!!!!!!!!!!!!!!
 	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap depth[, Util.Bitmap color[, Util.Bitmap normals]])
-	ES_FUNCTION2(typeObject,"createMeshFromBitmaps",1,3,{
+	ES_FUNCTION(typeObject,"createMeshFromBitmaps",1,3,{
 		Util::Reference<Util::Bitmap> depth = parameter[0].to<Util::Reference<Util::Bitmap>>(rt);
 		Util::Reference<Util::Bitmap> color;
 		Util::Reference<Util::Bitmap> normal;
