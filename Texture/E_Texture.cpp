@@ -55,9 +55,9 @@ void E_Texture::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,Texture,"allocateLocalData",0,0,
 				(thisObj->allocateLocalData(),thisEObj))
 
-	//! thisEObj Texture.upload(RenderingContext)
-	ES_MFUN(typeObject,Texture,"upload",1,1,
-				(thisObj->uploadGLTexture(parameter[0].to<RenderingContext&>(rt)),thisEObj))
+	//! thisEObj Texture.createMipMaps(RenderingContext)
+	ES_MFUN(typeObject,Texture,"createMipMaps",1,1,
+				(thisObj->createMipMaps(parameter[0].to<RenderingContext&>(rt)),thisEObj))
 
 	//! thisEObj Texture.dataChanged()
 	ES_MFUN(typeObject,Texture,"dataChanged",0,0,
@@ -88,11 +88,6 @@ void E_Texture::init(EScript::Namespace & lib) {
 
 //! (ctor)
 E_Texture::E_Texture(Rendering::Texture * t):ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){
-}
-
-//! ---|> Object
-E_Texture * E_Texture::clone()const{
-	return new E_Texture(get()->clone());
 }
 
 std::string E_Texture::toString() const {

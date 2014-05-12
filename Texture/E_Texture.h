@@ -33,7 +33,7 @@ class E_Texture : public EScript::ReferenceObject<Util::Reference<Rendering::Tex
 			return ref().isNull()?nullptr:ref().get();
 		}
 
-		E_Texture * clone() const override;
+//		E_Texture * clone() const override;
 		std::string toString() const override;
 };
 
