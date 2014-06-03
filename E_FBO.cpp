@@ -35,27 +35,28 @@ void E_FBO::init(EScript::Namespace & lib) {
 	//! [ESMF] new Rendering.FBO()
 	ES_CTOR(typeObject,0,0,new FBO)
 
-	//! [ESMF] thisEObj FBO.attachColorTexture(RenderingContext,Texture,unit=0)
-	ES_MFUN(typeObject,FBO,"attachColorTexture",2,3,(thisObj->
+	//! [ESMF] thisEObj FBO.attachColorTexture(RenderingContext,Texture,colorBufferId=0,level=0,layer=0)
+	ES_MFUN(typeObject,FBO,"attachColorTexture",2,5,(thisObj->
 			attachColorTexture(parameter[0].to<RenderingContext&>(rt),
-								parameter[1].to<Rendering::Texture*>(rt),static_cast<uint8_t>(parameter[2].to<uint32_t>(rt))),thisEObj))
+								parameter[1].to<Rendering::Texture*>(rt),
+								static_cast<uint8_t>(parameter[2].to<uint32_t>(rt)),parameter[3].toUInt(0),parameter[4].toUInt(0)),thisEObj))
 
-	//! [ESMF] thisEObj FBO.attachDepthStencilTexture(RenderingContext, Texture)
-	ES_MFUN(typeObject,FBO, "attachDepthStencilTexture", 2, 2,(thisObj->
+	//! [ESMF] thisEObj FBO.attachDepthStencilTexture(RenderingContext, Texture,level=0,layer=0)
+	ES_MFUN(typeObject,FBO, "attachDepthStencilTexture", 2, 4,(thisObj->
 			attachDepthStencilTexture(parameter[0].to<RenderingContext&>(rt),
-								parameter[1].to<Rendering::Texture*>(rt)), thisEObj))
+								parameter[1].to<Rendering::Texture*>(rt),parameter[2].toUInt(0),parameter[3].toUInt(0)), thisEObj))
 
-	//! [ESMF] thisEObj FBO.attachDepthTexture(RenderingContext,Texture)
-	ES_MFUN(typeObject,FBO,"attachDepthTexture",2,2,(thisObj->
+	//! [ESMF] thisEObj FBO.attachDepthTexture(RenderingContext,Texture,level=0,layer=0)
+	ES_MFUN(typeObject,FBO,"attachDepthTexture",2,4,(thisObj->
 			attachDepthTexture(parameter[0].to<RenderingContext&>(rt),
-								parameter[1].to<Rendering::Texture*>(rt)),thisEObj))
+								parameter[1].to<Rendering::Texture*>(rt),parameter[2].toUInt(0),parameter[3].toUInt(0)),thisEObj))
 
-	//! [ESMF] thisEObj FBO.attachTexture(RenderingContext,attachmentPoint,Texture)
-	ES_MFUN(typeObject,FBO,"attachTexture",3,3,(thisObj->
+	//! [ESMF] thisEObj FBO.attachTexture(RenderingContext,attachmentPoint,Texture, level=0,layer=0)
+	ES_MFUN(typeObject,FBO,"attachTexture",3,5,(thisObj->
 			attachTexture(parameter[0].to<RenderingContext&>(rt),
-							parameter[1].to<uint32_t>(rt), parameter[2].to<Rendering::Texture*>(rt)),thisEObj))
+							parameter[1].to<uint32_t>(rt), parameter[2].to<Rendering::Texture*>(rt),parameter[3].toUInt(0),parameter[4].toUInt(0)),thisEObj))
 
-	//! [ESMF] thisEObj FBO.detachColorTexture(RenderingContext,unit=0)
+	//! [ESMF] thisEObj FBO.detachColorTexture(RenderingContext,colorBufferId=0)
 	ES_MFUN(typeObject,FBO,"detachColorTexture",1,2,(thisObj->
 			detachColorTexture(parameter[0].to<RenderingContext&>(rt),
 								parameter[1].to<uint32_t>(rt,0)),thisEObj))
