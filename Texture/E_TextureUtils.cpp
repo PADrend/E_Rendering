@@ -78,37 +78,32 @@ void initTextureUtils(EScript::Namespace * lib) {
 																parameter[1].to<Rendering::Texture*>(rt)));
 	})
 
-	//! [ESF] Texture createChessTexture(width,height,fieldSize_powOfTwo,[, Bool useMipmaps = false])
-	ES_FUN(lib,"createChessTexture",3,4,
-		new E_Texture(TextureUtils::createChessTexture(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].toBool(false))))
+	//! [ESF] Texture createChessTexture(width,height,fieldSize_powOfTwo)
+	ES_FUN(lib,"createChessTexture",3,3,
+			TextureUtils::createChessTexture(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)))
 
 	//! [ESF] Texture createDepthTexture(Number width, Number height)
 	ES_FUN(lib, "createDepthTexture", 2, 2, TextureUtils::createDepthTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
-	//! [ESF] Texture createHDRTexture(width,height,alpha[,bool mipmap=false])
-	ES_FUN(lib,"createHDRTexture",3,4, TextureUtils::createHDRTexture(
-			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toBool(false)))
+	//! [ESF] Texture createHDRTexture(width,height,alpha)
+	ES_FUN(lib,"createHDRTexture",3,3, TextureUtils::createHDRTexture(
+			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool()))
 
-	//! [ESF] Texture createStdTexture(width,height,alpha[,bool mipmap=false[,bool clampToEdges=false]])
-	ES_FUN(lib,"createStdTexture",3,5, TextureUtils::createStdTexture(
-			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toBool(false),parameter[4].toBool(false)))
+	//! [ESF] Texture createStdTexture(width,height,alpha)
+	ES_FUN(lib,"createStdTexture",3,3, TextureUtils::createStdTexture(
+			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool()))
 
-	//! [ESF] Texture createTextureFromBitmap(Util.Bitmap[,bool mipmap=false[,bool clampToEdges=false]])
-	ES_FUN(lib,"createTextureFromBitmap",1,3, TextureUtils::createTextureFromBitmap(
-			parameter[0].to<Util::Bitmap &>(rt),parameter[1].toBool(false),parameter[2].toBool(false)))
+	//! [ESF] Texture createTextureFromBitmap(Util.Bitmap[,bool clampToEdges=false]])
+	ES_FUN(lib,"createTextureFromBitmap",1,23, TextureUtils::createTextureFromBitmap(
+			parameter[0].to<Util::Bitmap &>(rt),parameter[1].toBool(false)))
 
-	//! [ESF] Texture createNoiseTexture(width,height,alpha[,bool mipmap=false[,scaling=1.0]])
-	ES_FUN(lib,"createNoiseTexture",3,5, TextureUtils::createNoiseTexture(
-			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toBool(false),parameter[4].toFloat(1.0)))
+	//! [ESF] Texture createNoiseTexture(width,height,alpha[,scaling=1.0])
+	ES_FUN(lib,"createNoiseTexture",3,4, TextureUtils::createNoiseTexture(
+			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toFloat(1.0)))
 
 
-	//! [ESF] Texture createTextureFromFile(String fileName[, Bool useMipmaps = false[, Bool clampToEdge = false]])
-	ES_FUN(lib, "createTextureFromFile", 1, 3, 
-		Rendering::Serialization::loadTexture(
-			Util::FileName(parameter[0].toString()),
-			parameter[1].toBool(false),
-			parameter[2].toBool(false)
-	))
+	//! [ESF] Texture createTextureFromFile(String fileName)
+	ES_FUN(lib, "createTextureFromFile", 1, 1, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString())))
 
 	//! [ESF] Texture createTextureFromScreen( Rect screenRect,bool alpha=true] |  [bool alpha=true])
 	ES_FUNCTION(lib,"createTextureFromScreen",0,2,{

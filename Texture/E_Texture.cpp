@@ -35,37 +35,47 @@ void E_Texture::init(EScript::Namespace & lib) {
 	EScript::Type * typeObject = getTypeObject();
 	declareConstant(&lib,getClassName(),typeObject);
 
-	//! Number Texture.getDataSize()
-	ES_MFUN(typeObject,Texture,"getDataSize",0,0,
-				Number::create(thisObj->getDataSize()))
-
-	//! Number Texture.getWidth()
-	ES_MFUN(typeObject,Texture,"getWidth",0,0,
-				Number::create(thisObj->getWidth()))
-
-	//! Number Texture.getHeight()
-	ES_MFUN(typeObject,Texture,"getHeight",0,0,
-				Number::create(thisObj->getHeight()))
-
-	//! thisEObj Texture.download(RenderingContext)
-	ES_MFUN(typeObject,Texture,"download",1,1,
-				(thisObj->downloadGLTexture(parameter[0].to<RenderingContext&>(rt)),thisEObj))
-
 	//! thisEObj Texture.allocateLocalData()
-	ES_MFUN(typeObject,Texture,"allocateLocalData",0,0,
-				(thisObj->allocateLocalData(),thisEObj))
+	ES_MFUN(typeObject,Texture,"allocateLocalData",0,0,	(thisObj->allocateLocalData(),thisEObj))
 
-	//! thisEObj Texture.createMipMaps(RenderingContext)
-	ES_MFUN(typeObject,Texture,"createMipMaps",1,1,
-				(thisObj->createMipMaps(parameter[0].to<RenderingContext&>(rt)),thisEObj))
+	//! thisEObj Texture.createMipmaps(RenderingContext)
+	ES_MFUN(typeObject,Texture,"createMipmaps",1,1, (thisObj->createMipmaps(parameter[0].to<RenderingContext&>(rt)),thisEObj))
 
 	//! thisEObj Texture.dataChanged()
-	ES_MFUN(typeObject,Texture,"dataChanged",0,0,
-				(thisObj->dataChanged(),thisEObj))
+	ES_MFUN(typeObject,Texture,"dataChanged",0,0, (thisObj->dataChanged(),thisEObj))
+
+	//! thisEObj Texture.download(RenderingContext)
+	ES_MFUN(typeObject,Texture,"download",1,1, (thisObj->downloadGLTexture(parameter[0].to<RenderingContext&>(rt)),thisEObj))
+
+	//! [ESMF] FileName Texture.getHasMipmaps()
+	ES_MFUN(typeObject,const Texture,"getHasMipmaps",0,0, thisObj->getHasMipmaps())
 
 	//! [ESMF] FileName Texture.getFileName()
-	ES_MFUN(typeObject,Texture,"getFileName",0,0,
-				new E_Util::E_FileName(thisObj->getFileName()))
+	ES_MFUN(typeObject,const Texture,"getFileName",0,0,	thisObj->getFileName())
+
+	//! Number Texture.getDataSize()
+	ES_MFUN(typeObject,const Texture,"getDataSize",0,0,thisObj->getDataSize())
+
+	//! Number Texture.getHeight()
+	ES_MFUN(typeObject,const Texture,"getHeight",0,0, thisObj->getHeight())
+
+	//! Number Texture.getNumLayers()
+	ES_MFUN(typeObject,const Texture,"getNumLayers",0,0, thisObj->getNumLayers())
+	
+	//! Number Texture.getTextureType()
+	ES_MFUN(typeObject,const Texture,"getTextureType",0,0, static_cast<uint32_t>(thisObj->getTextureType()))
+	
+	//! Number Texture.getWidth()
+	ES_MFUN(typeObject,const Texture,"getWidth",0,0, thisObj->getWidth())
+	
+	//! Bool Texture.getUseLinearMinFilter()
+	ES_MFUN(typeObject,const Texture,"getUseLinearMinFilter",0,0, thisObj->getUseLinearMinFilter())
+	
+	//! Bool Texture.getUseLinearMagFilter()
+	ES_MFUN(typeObject,const Texture,"getUseLinearMagFilter",0,0, thisObj->getUseLinearMagFilter())
+	
+	//! self Texture.planMipmapCreation()
+	ES_MFUN(typeObject,Texture,"planMipmapCreation",0,0, (thisObj->planMipmapCreation(),thisEObj))
 
 	//! [ESMF] thisEObj FileName.setFileName([[FileName, String] name])
 	ES_MFUNCTION(typeObject,Texture,"setFileName",0,1,{
@@ -83,6 +93,14 @@ void E_Texture::init(EScript::Namespace & lib) {
 				}
 				return thisEObj;
 	})
+	
+	EScript::declareConstant( typeObject, "TEXTURE_1D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_1D) );
+	EScript::declareConstant( typeObject, "TEXTURE_1D_ARRAY",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_1D_ARRAY) );
+	EScript::declareConstant( typeObject, "TEXTURE_2D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D) );
+	EScript::declareConstant( typeObject, "TEXTURE_2D_ARRAY",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D_ARRAY) );
+	EScript::declareConstant( typeObject, "TEXTURE_3D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_3D) );
+	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_CUBE_MAP) );
+	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP_ARRAY",	static_cast<uint32_t>(Texture::TextureType::TEXTURE_CUBE_MAP_ARRAY) );
 
 }
 
