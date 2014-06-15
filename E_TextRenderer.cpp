@@ -10,6 +10,7 @@
 #include "E_RenderingContext.h"
 #include <EScript/Basics.h>
 #include <E_Geometry/E_Vec2.h>
+#include <E_Geometry/E_Rect.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <Util/Graphics/Bitmap.h>
 #include <Util/Graphics/FontRenderer.h>
@@ -45,6 +46,11 @@ void E_TextRenderer::init(EScript::Namespace & lib) {
 					  parameter[3].to<Util::Color4f>(rt)),
 		thisEObj
 	))
+
+	//! [ESMF] Rect TextRenderer.getTextSize(String)
+	ES_MFUN(typeObject, Rendering::TextRenderer, "getTextSize", 1, 1,
+		new E_Geometry::E_Rect(thisObj->getTextSize(Util::StringUtils::utf8_to_utf32(parameter[0].toString())))
+	)
 }
 
 }
