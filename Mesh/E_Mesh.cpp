@@ -131,10 +131,12 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	//! [ESMF] thisEObj Mesh.swap(Mesh)
 	ES_MFUN(typeObject,Mesh,"swap",0,0,(thisObj->swap(*parameter[0].to<Mesh*>(rt)),thisEObj))
 
-	//! [ESMF] thisEObj Mesh._markAsChanged() (wrapper for VertexData and IndexData.markAsChanged(), as these have no wrapper objects)
+	//! [ESMF] thisEObj Mesh._markAsChanged() (wrapper for VertexData and IndexData.markAsChanged(), updateBB, and updateIndexRange , as these have no wrapper objects)
 	ES_MFUNCTION(typeObject,Mesh,"_markAsChanged",0,0,{
 		thisObj->openVertexData().markAsChanged();
+		thisObj->openVertexData().updateBoundingBox();
 		thisObj->openIndexData().markAsChanged();
+		thisObj->openIndexData().updateIndexRange();
 		return thisEObj;
 	})
 
