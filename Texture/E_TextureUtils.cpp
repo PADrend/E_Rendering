@@ -3,9 +3,9 @@
 	Copyright (C) 2009-2012 Benjamin Eikel <benjamin@eikel.org>
 	Copyright (C) 2009-2012 Claudius Jähn <claudius@uni-paderborn.de>
 	Copyright (C) 2009-2012 Ralf Petring <ralf@petring.net>
-	
+
 	This library is subject to the terms of the Mozilla Public License, v. 2.0.
-	You should have received a copy of the MPL along with this library; see the 
+	You should have received a copy of the MPL along with this library; see the
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_TextureUtils.h"
@@ -14,6 +14,7 @@
 #include "../E_RenderingContext.h"
 
 #include <Rendering/Texture/TextureUtils.h>
+#include <Rendering/Texture/Texture.h>
 #include <Rendering/Serialization/Serialization.h>
 
 #include <E_Geometry/E_Rect.h>
@@ -102,8 +103,10 @@ void initTextureUtils(EScript::Namespace * lib) {
 			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toFloat(1.0)))
 
 
-	//! [ESF] Texture createTextureFromFile(String fileName)
-	ES_FUN(lib, "createTextureFromFile", 1, 1, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString())))
+	//! [ESF] Texture createTextureFromFile(String fileName, [Texture::TextureTyp, int layerNum])
+	ES_FUN(lib, "createTextureFromFile", 1, 3, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString()),
+                                                                                  static_cast<Texture::TextureType>(parameter[1].toUInt(static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D))),
+                                                                                  parameter[2].toUInt(static_cast<uint32_t>(1))))
 
 	//! [ESF] Texture createTextureFromScreen( Rect screenRect,bool alpha=true] |  [bool alpha=true])
 	ES_FUNCTION(lib,"createTextureFromScreen",0,2,{
