@@ -94,19 +94,19 @@ void E_Texture::init(EScript::Namespace & lib) {
 				return thisEObj;
 	})
 	
-	EScript::declareConstant( typeObject, "TEXTURE_1D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_1D) );
-	EScript::declareConstant( typeObject, "TEXTURE_1D_ARRAY",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_1D_ARRAY) );
-	EScript::declareConstant( typeObject, "TEXTURE_2D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D) );
-	EScript::declareConstant( typeObject, "TEXTURE_2D_ARRAY",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D_ARRAY) );
-	EScript::declareConstant( typeObject, "TEXTURE_3D",				static_cast<uint32_t>(Texture::TextureType::TEXTURE_3D) );
-	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP",		static_cast<uint32_t>(Texture::TextureType::TEXTURE_CUBE_MAP) );
-	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP_ARRAY",	static_cast<uint32_t>(Texture::TextureType::TEXTURE_CUBE_MAP_ARRAY) );
+	EScript::declareConstant( typeObject, "TEXTURE_1D",				static_cast<uint32_t>(TextureType::TEXTURE_1D) );
+	EScript::declareConstant( typeObject, "TEXTURE_1D_ARRAY",		static_cast<uint32_t>(TextureType::TEXTURE_1D_ARRAY) );
+	EScript::declareConstant( typeObject, "TEXTURE_2D",				static_cast<uint32_t>(TextureType::TEXTURE_2D) );
+	EScript::declareConstant( typeObject, "TEXTURE_2D_ARRAY",		static_cast<uint32_t>(TextureType::TEXTURE_2D_ARRAY) );
+	EScript::declareConstant( typeObject, "TEXTURE_3D",				static_cast<uint32_t>(TextureType::TEXTURE_3D) );
+	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP",		static_cast<uint32_t>(TextureType::TEXTURE_CUBE_MAP) );
+	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP_ARRAY",	static_cast<uint32_t>(TextureType::TEXTURE_CUBE_MAP_ARRAY) );
 
 }
 
-//! (ctor)
-E_Texture::E_Texture(Rendering::Texture * t):ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){
-}
+E_Texture::E_Texture(Rendering::Texture * t) : ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){}
+E_Texture::E_Texture(const Util::Reference<Rendering::Texture> & t) : ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){}
+E_Texture::E_Texture(Util::Reference<Rendering::Texture> && t) : ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){}
 
 std::string E_Texture::toString() const {
 	std::stringstream ss;

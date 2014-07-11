@@ -29,11 +29,13 @@ class E_Texture : public EScript::ReferenceObject<Util::Reference<Rendering::Tex
 		static EScript::Type* getTypeObject();
 
 		E_Texture(Rendering::Texture * t);
+		E_Texture(const Util::Reference<Rendering::Texture> & t);
+		E_Texture(Util::Reference<Rendering::Texture> && t);
+		
 		Rendering::Texture * get()const{
 			return ref().isNull()?nullptr:ref().get();
 		}
 
-//		E_Texture * clone() const override;
 		std::string toString() const override;
 };
 
@@ -41,5 +43,6 @@ class E_Texture : public EScript::ReferenceObject<Util::Reference<Rendering::Tex
 
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_Texture,	Rendering::Texture*,	(**eObj).get())
 ES_CONV_OBJ_TO_EOBJ(Rendering::Texture*, 	E_Rendering::E_Texture,	obj ? new E_Rendering::E_Texture(obj) : nullptr)
+ES_CONV_OBJ_TO_EOBJ(Util::Reference<Rendering::Texture>, 	E_Rendering::E_Texture,	obj ? new E_Rendering::E_Texture(obj) : nullptr)
 
 #endif // E_TEXTURE_H

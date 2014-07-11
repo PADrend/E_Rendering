@@ -86,17 +86,25 @@ void initTextureUtils(EScript::Namespace * lib) {
 	//! [ESF] Texture createDepthTexture(Number width, Number height)
 	ES_FUN(lib, "createDepthTexture", 2, 2, TextureUtils::createDepthTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
+	//! [ESF] Texture createHDRCubeTexture(Number size,alpha)
+	ES_FUN(lib,"createHDRCubeTexture",2,2, TextureUtils::createHDRCubeTexture(parameter[0].to<uint32_t>(rt), parameter[1].toBool()))
+
 	//! [ESF] Texture createHDRTexture(width,height,alpha)
 	ES_FUN(lib,"createHDRTexture",3,3, TextureUtils::createHDRTexture(
 			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool()))
+
+	//! [ESF] Texture createStdCubeTexture(Number size,alpha)
+	ES_FUN(lib,"createStdCubeTexture",2,2, TextureUtils::createStdCubeTexture(parameter[0].to<uint32_t>(rt), parameter[1].toBool()))
 
 	//! [ESF] Texture createStdTexture(width,height,alpha)
 	ES_FUN(lib,"createStdTexture",3,3, TextureUtils::createStdTexture(
 			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool()))
 
 	//! [ESF] Texture createTextureFromBitmap(Util.Bitmap[,bool clampToEdges=false]])
-	ES_FUN(lib,"createTextureFromBitmap",1,23, TextureUtils::createTextureFromBitmap(
-			parameter[0].to<Util::Bitmap &>(rt),parameter[1].toBool(false)))
+	ES_FUN(lib,"createTextureFromBitmap",1,4, TextureUtils::createTextureFromBitmap(
+			parameter[0].to<Util::Bitmap &>(rt), 
+			static_cast<TextureType>( parameter[1].toUInt( static_cast<uint32_t>(TextureType::TEXTURE_2D) )), 
+			parameter[2].toUInt(1), parameter[3].toBool(false)))
 
 	//! [ESF] Texture createNoiseTexture(width,height,alpha[,scaling=1.0])
 	ES_FUN(lib,"createNoiseTexture",3,4, TextureUtils::createNoiseTexture(
@@ -105,8 +113,8 @@ void initTextureUtils(EScript::Namespace * lib) {
 
 	//! [ESF] Texture createTextureFromFile(String fileName, [Texture::TextureTyp, int layerNum])
 	ES_FUN(lib, "createTextureFromFile", 1, 3, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString()),
-                                                                                  static_cast<Texture::TextureType>(parameter[1].toUInt(static_cast<uint32_t>(Texture::TextureType::TEXTURE_2D))),
-                                                                                  parameter[2].toUInt(static_cast<uint32_t>(1))))
+                                                                                  static_cast<TextureType>(parameter[1].toUInt(static_cast<uint32_t>(TextureType::TEXTURE_2D))),
+                                                                                  parameter[2].toUInt(static_cast<uint32_t>(1))) )
 
 	//! [ESF] Texture createTextureFromScreen( Rect screenRect,bool alpha=true] |  [bool alpha=true])
 	ES_FUNCTION(lib,"createTextureFromScreen",0,2,{
