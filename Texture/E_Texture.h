@@ -42,6 +42,7 @@ class E_Texture : public EScript::ReferenceObject<Util::Reference<Rendering::Tex
 }
 
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_Texture,	Rendering::Texture*,	(**eObj).get())
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_Texture,	Rendering::Texture&,	*(**eObj).get())
 ES_CONV_OBJ_TO_EOBJ(Rendering::Texture*, 	E_Rendering::E_Texture,	obj ? new E_Rendering::E_Texture(obj) : nullptr)
 ES_CONV_OBJ_TO_EOBJ(Util::Reference<Rendering::Texture>, 	E_Rendering::E_Texture,	obj ? new E_Rendering::E_Texture(obj) : nullptr)
 

@@ -38,7 +38,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 
 		Array * textureArray=parameter[2].toType<Array>();
 		if(textureArray==nullptr){
-			Texture * t= parameter[2].to<Rendering::Texture*>(rt);
+			Texture & t= parameter[2].to<Rendering::Texture&>(rt);
 			const Geometry::Rect_f & textureRect = parameter[3].toType<E_Geometry::E_Rect>()->ref();
 			TextureUtils::drawTextureToScreen(parameter[0].to<RenderingContext&>(rt), screenRect, t, textureRect);
 		}else{
@@ -76,7 +76,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUNCTION(lib,"createBitmapFromTexture",2,2,{
 		return EScript::create(Rendering::TextureUtils::createBitmapFromTexture(
 																parameter[0].to<RenderingContext&>(rt),
-																parameter[1].to<Rendering::Texture*>(rt)));
+																*parameter[1].to<Rendering::Texture*>(rt)));
 	})
 
 	//! [ESF] Texture createChessTexture(width,height,fieldSize_powOfTwo)
@@ -132,7 +132,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUNCTION(lib, "createColorPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createColorPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
-			parameter[1].to<Rendering::Texture*>(rt));
+			parameter[1].to<Rendering::Texture&>(rt));
 		if(acc != nullptr) {
 			return EScript::create(acc);
 		} else {
@@ -144,7 +144,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUNCTION(lib, "createDepthPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createDepthPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
-			parameter[1].to<Rendering::Texture*>(rt));
+			parameter[1].to<Rendering::Texture&>(rt));
 		if(acc != nullptr) {
 			return EScript::create(acc);
 		} else {
@@ -156,7 +156,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUNCTION(lib, "createStencilPixelAccessor", 2, 2, {
 		Util::Reference<Util::PixelAccessor> acc = TextureUtils::createStencilPixelAccessor(
 			parameter[0].to<RenderingContext&>(rt),
-			parameter[1].to<Rendering::Texture*>(rt));
+			parameter[1].to<Rendering::Texture&>(rt));
 		if(acc != nullptr) {
 			return EScript::create(acc);
 		} else {
@@ -167,8 +167,8 @@ void initTextureUtils(EScript::Namespace * lib) {
 	//! [ESF] Number minDepthDistance(RenderingContext, Texture, Texture);
 	ES_FUN(lib, "minDepthDistance", 3, 3,
 		TextureUtils::minDepthDistance(parameter[0].to<RenderingContext&>(rt),
-															parameter[1].to<Rendering::Texture*>(rt),
-															parameter[2].to<Rendering::Texture*>(rt)))
+															parameter[1].to<Rendering::Texture&>(rt),
+															parameter[2].to<Rendering::Texture&>(rt)))
 
 	//! [ESF] Bool saveTexture(RenderingContext,Texture tex, String fileName)
 	ES_FUN(lib, "saveTexture", 3, 3,
@@ -179,7 +179,7 @@ void initTextureUtils(EScript::Namespace * lib) {
 
 	//! [ESF] void updateTextureFromScreen( RenderingContext,[Texture,textureRect,screenX=0,screenY=0] )
 	ES_FUNCTION(lib,"updateTextureFromScreen",2,5,{
-		Texture * t= parameter[1].to<Rendering::Texture*>(rt);
+		Texture & t= parameter[1].to<Rendering::Texture&>(rt);
 		if(parameter.count()==1){
 			TextureUtils::updateTextureFromScreen(parameter[0].to<RenderingContext&>(rt),t);
 		}else{
