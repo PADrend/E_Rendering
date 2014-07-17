@@ -401,9 +401,7 @@ void init(EScript::Namespace & lib) {
 		declareConstant(&lib, "TexUnitUsageParameter", ns);
 		declareConstant(ns, "DISABLED", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::DISABLED));
 		declareConstant(ns, "GENERAL_PURPOSE", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::GENERAL_PURPOSE));
-		declareConstant(ns, "TEXTURE_MAPPING_1D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_1D));
-		declareConstant(ns, "TEXTURE_MAPPING_2D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_2D));
-		declareConstant(ns, "TEXTURE_MAPPING_3D", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING_3D));
+		declareConstant(ns, "TEXTURE_MAPPING", static_cast<uint32_t>(Rendering::TexUnitUsageParameter::TEXTURE_MAPPING));
 	}
 }
 

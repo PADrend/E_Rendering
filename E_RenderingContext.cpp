@@ -309,14 +309,14 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUNCTION(typeObject,RenderingContext, "setTexture",2,3,{
 		Texture * t = parameter[1].toBool() ? parameter[1].to<Rendering::Texture*>(rt) : nullptr;
 
-		thisObj->setTexture(parameter[0].to<uint32_t>(rt),t,static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING_2D))));
+		thisObj->setTexture(parameter[0].to<uint32_t>(rt),t,static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING))));
 		return thisEObj;
 	})
 
 	//!	[ESMF] thisEObj RenderingContext.pushAndSetTexture( unit, Texture|Void, [usage] )
 		ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetTexture",2,3,{
 			Texture * t = parameter[1].toBool() ? parameter[1].to<Rendering::Texture*>(rt) : nullptr;
-			thisObj->pushAndSetTexture(parameter[0].to<uint32_t>(rt),t, static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING_2D))));
+			thisObj->pushAndSetTexture(parameter[0].to<uint32_t>(rt),t, static_cast<TexUnitUsageParameter>(parameter[2].toInt(static_cast<int>(TexUnitUsageParameter::TEXTURE_MAPPING))));
 			return thisEObj;
 		})
 
