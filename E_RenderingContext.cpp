@@ -15,6 +15,7 @@
 #include "E_FBO.h"
 #include "Texture/E_Texture.h"
 #include "Mesh/E_Mesh.h"
+#include <Rendering/Texture/Texture.h>
 #include "E_ParameterStructs.h"
 
 #include <E_Geometry/E_Matrix4x4.h>
@@ -264,10 +265,33 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	})
 	// global uniform
 
-		//! [ESMF] thisEObj Shader.setUniform( Uniform )
+		//! [ESMF] thisEObj RenderingContext.setUniform( Uniform )
 	ES_MFUN(typeObject,RenderingContext,"setGlobalUniform",1,1,
 		(thisObj->setGlobalUniform(	parameter[0].to<const Rendering::Uniform&>(rt) ),thisEObj))
+		
+		
+		
+	// image binding
+	//! [ESF] Bool RenderingContext.isImageBindingSupported( )
+	ES_FUN(typeObject,"isImageBindingSupported",0,0, RenderingContext::isImageBindingSupported())
 
+	//! [ESMF] ImageBindParameters RenderingContext.getBoundImage( Number )
+	ES_MFUN(typeObject,RenderingContext,"getBoundImage",1,1,thisObj->getBoundImage(	parameter[0].to<uint32_t>(rt) ))
+
+	//! [ESMF] self RenderingContext.pushBoundImage( Number )
+	ES_MFUN(typeObject,RenderingContext,"pushBoundImage",1,1,(thisObj->pushBoundImage(	parameter[0].to<uint32_t>(rt) ),thisEObj))
+
+	//! [ESMF] self RenderingContext.popBoundImage( Number )
+	ES_MFUN(typeObject,RenderingContext,"popBoundImage",1,1,(thisObj->popBoundImage(	parameter[0].to<uint32_t>(rt) ),thisEObj))
+	
+	//! [ESMF] self RenderingContext.setBoundImage( Number,ImageBindParameters )
+	ES_MFUN(typeObject,RenderingContext,"setBoundImage",2,2,
+				(thisObj->setBoundImage(parameter[0].to<uint32_t>(rt),parameter[1].to<const ImageBindParameters&>(rt)),thisEObj))
+	
+	//! [ESMF] self RenderingContext.pushAndSetBoundImage( Number,ImageBindParameters )
+	ES_MFUN(typeObject,RenderingContext,"pushAndSetBoundImage",2,2,
+				(thisObj->pushAndSetBoundImage(parameter[0].to<uint32_t>(rt),parameter[1].to<const ImageBindParameters&>(rt)),thisEObj))
+	
 	// Material
 	//! [ESMF] thisEObj pushAndSetColorMaterial( [color] )
 	ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetColorMaterial", 0, 1,{

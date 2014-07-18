@@ -60,6 +60,19 @@ class E_CullFaceParameters : public EScript::ReferenceObject<Rendering::CullFace
 		E_CullFaceParameters * clone() const override      {   return new E_CullFaceParameters(ref());  }
 };
 
+/*! EScript wrapper for Rendering::ImageBindParameters.
+	[E_ImageBindParameters] ---|> [ReferenceObject] ---|> [Object]  */
+class E_ImageBindParameters : public EScript::ReferenceObject<Rendering::ImageBindParameters> {
+		ES_PROVIDES_TYPE_NAME(ImageBindParameters)
+	public:
+		static EScript::Type* getTypeObject();
+		E_ImageBindParameters(const Rendering::ImageBindParameters & p);
+		virtual ~E_ImageBindParameters();
+
+		//! ---|> Object
+		E_ImageBindParameters * clone() const override      {   return new E_ImageBindParameters(ref());  }
+};
+
 /*! EScript wrapper for Rendering::LightingParameters.
 	[E_LightingParameters] ---|> [ReferenceObject] ---|> [Object]  */
 class E_LightingParameters : public EScript::ReferenceObject<Rendering::LightingParameters> {
@@ -140,6 +153,10 @@ ES_CONV_OBJ_TO_EOBJ(const Rendering::BlendingParameters&, 						E_Rendering::E_P
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_CullFaceParameters,		Rendering::CullFaceParameters*,								&**eObj)
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_CullFaceParameters,		Rendering::CullFaceParameters&,								**eObj)
 ES_CONV_OBJ_TO_EOBJ(const Rendering::CullFaceParameters&, 						E_Rendering::E_ParameterStructs::E_CullFaceParameters,		new E_Rendering::E_ParameterStructs::E_CullFaceParameters(obj))
+
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_ImageBindParameters,		Rendering::ImageBindParameters*,							&**eObj)
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_ImageBindParameters,		Rendering::ImageBindParameters&,							**eObj)
+ES_CONV_OBJ_TO_EOBJ(const Rendering::ImageBindParameters&, 						E_Rendering::E_ParameterStructs::E_ImageBindParameters,		new E_Rendering::E_ParameterStructs::E_ImageBindParameters(obj))
 
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_LightingParameters,		Rendering::LightingParameters*,								&**eObj)
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_LightingParameters,		Rendering::LightingParameters&,								**eObj)

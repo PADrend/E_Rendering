@@ -12,6 +12,7 @@
 
 #include "Texture/E_Texture.h"
 
+#include <Rendering/Texture/Texture.h>
 #include <E_Geometry/E_Rect.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <EScript/Basics.h>
@@ -77,6 +78,16 @@ EScript::Type * E_CullFaceParameters::getTypeObject() {
 	static EScript::ERef<EScript::Type> typeObject = new EScript::Type(EScript::Object::getTypeObject());
 	return typeObject.get();
 }
+
+//! (static)
+EScript::Type * E_ImageBindParameters::getTypeObject() {
+	// E_ImageBindParameters ---|> Object
+	static EScript::ERef<EScript::Type> typeObject = new EScript::Type(EScript::Object::getTypeObject());
+	return typeObject.get();
+}
+E_ImageBindParameters::E_ImageBindParameters(const Rendering::ImageBindParameters & p) : EScript::ReferenceObject<Rendering::ImageBindParameters>(p, getTypeObject()) {
+}
+E_ImageBindParameters::~E_ImageBindParameters(){}
 
 //! initMembers
 void init(EScript::Namespace & lib) {
@@ -270,6 +281,37 @@ void init(EScript::Namespace & lib) {
 
 		ES_MFUN(typeObject,CullFaceParameters, "setMode", 1, 1,
 			(thisObj->setMode(static_cast<Rendering::CullFaceParameters::cullFaceMode_t>(parameter[0].to<uint32_t>(rt))),thisEObj))
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------
+	// ImageBindParameters
+
+	{
+		//E_ImageBindParameters
+		Type * typeObject = E_ImageBindParameters::getTypeObject();
+		declareConstant(&lib, E_ImageBindParameters::getClassName(), typeObject);
+
+		//! new ImageBindParameters( [Texture] )
+		ES_CONSTRUCTOR(typeObject, 0, 1, {
+			if(parameter.count() > 0) {
+				return EScript::create(Rendering::ImageBindParameters(parameter[0].to<Texture*>(rt)));
+			}
+			return EScript::create(Rendering::ImageBindParameters());
+		})
+
+		ES_MFUN(typeObject,const ImageBindParameters, "getLayer", 0, 0,				thisObj->getLayer())
+		ES_MFUN(typeObject,const ImageBindParameters, "getLevel", 0, 0,				thisObj->getLevel())
+		ES_MFUN(typeObject,const ImageBindParameters, "getMultiLayer", 0, 0,		thisObj->getMultiLayer())
+		ES_MFUN(typeObject,const ImageBindParameters, "getReadOperations", 0, 0,	thisObj->getReadOperations())
+		ES_MFUN(typeObject,const ImageBindParameters, "getTexture", 0, 0,			thisObj->getTexture())
+		ES_MFUN(typeObject,const ImageBindParameters, "getWriteOperations", 0, 0,	thisObj->getWriteOperations())
+
+		ES_MFUN(typeObject,ImageBindParameters, "setLayer", 1, 1,			(thisObj->setLayer( parameter[0].to<uint32_t>(rt) ),thisEObj))
+		ES_MFUN(typeObject,ImageBindParameters, "setLevel", 1, 1,			(thisObj->setLevel( parameter[0].to<uint32_t>(rt) ),thisEObj))
+		ES_MFUN(typeObject,ImageBindParameters, "setMultiLayer", 1, 1,		(thisObj->setMultiLayer( parameter[0].toBool()) ,thisEObj))
+		ES_MFUN(typeObject,ImageBindParameters, "setReadOperations", 1, 1,	(thisObj->setReadOperations( parameter[0].toBool()) ,thisEObj))
+		ES_MFUN(typeObject,ImageBindParameters, "setWriteOperations", 1, 1,	(thisObj->setWriteOperations( parameter[0].toBool()) ,thisEObj))
+		ES_MFUN(typeObject,ImageBindParameters, "setTexture", 1, 1,			(thisObj->setTexture( parameter[0].to<Texture*>(rt) ),thisEObj))
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------
