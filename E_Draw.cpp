@@ -31,38 +31,38 @@ namespace E_Rendering {
 void E_Draw::init(EScript::Namespace & lib) {
 
 	//!	[ESF] Void Rendering.drawCoordSys(RenderingContext, [Number scale])
-    ES_FUN(&lib, "drawCoordSys", 1, 2, (Rendering::drawCoordSys(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].toFloat(1.0f)), EScript::create(nullptr)))
+	ES_FUN(&lib, "drawCoordSys", 1, 2, (Rendering::drawCoordSys(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].toFloat(1.0f)), EScript::create(nullptr)))
 
 	//!	[ESF] void Rendering.drawFullScreenRect(RenderingContext)
-    ES_FUN(&lib, "drawFullScreenRect", 1, 1, (Rendering::drawFullScreenRect(parameter[0].to<Rendering::RenderingContext&>(rt)),EScript::create(nullptr)))
+	ES_FUN(&lib, "drawFullScreenRect", 1, 1, (Rendering::drawFullScreenRect(parameter[0].to<Rendering::RenderingContext&>(rt)),EScript::create(nullptr)))
 
 	//!	[ESF] void Rendering.drawGrid(RenderingContext, [scale])
-    ES_FUN(&lib, "drawGrid", 1, 2, (Rendering::drawGrid(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].toFloat(1.0f)), EScript::create(nullptr)))
+	ES_FUN(&lib, "drawGrid", 1, 2, (Rendering::drawGrid(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].toFloat(1.0f)), EScript::create(nullptr)))
 
-    //!	[ESF] void Rendering.drawQuad(RenderingContext, lower left, lower right, upper right, upper left, [color])
-    ES_FUNCTION(&lib, "drawQuad", 5, 6, {
-                     if(parameter.count()==5) Rendering::drawQuad(
-                            parameter[0].to<Rendering::RenderingContext&>(rt),
-                            parameter[1].to<Geometry::Vec3f&>(rt),
-                            parameter[2].to<Geometry::Vec3f&>(rt),
-                            parameter[3].to<Geometry::Vec3f&>(rt),
-                            parameter[4].to<Geometry::Vec3f&>(rt));
-                     else Rendering::drawQuad(
-                            parameter[0].to<Rendering::RenderingContext&>(rt),
-                            parameter[1].to<Geometry::Vec3f&>(rt),
-                            parameter[2].to<Geometry::Vec3f&>(rt),
-                            parameter[3].to<Geometry::Vec3f&>(rt),
-                            parameter[4].to<Geometry::Vec3f&>(rt),
-                            parameter[5].to<Util::Color4f>(rt));
-                     return EScript::create(nullptr);
-                 })
+	//!	[ESF] void Rendering.drawQuad(RenderingContext, lower left, lower right, upper right, upper left, [color])
+	ES_FUNCTION(&lib, "drawQuad", 5, 6, {
+					 if(parameter.count()==5) Rendering::drawQuad(
+							parameter[0].to<Rendering::RenderingContext&>(rt),
+							parameter[1].to<Geometry::Vec3f&>(rt),
+							parameter[2].to<Geometry::Vec3f&>(rt),
+							parameter[3].to<Geometry::Vec3f&>(rt),
+							parameter[4].to<Geometry::Vec3f&>(rt));
+					 else Rendering::drawQuad(
+							parameter[0].to<Rendering::RenderingContext&>(rt),
+							parameter[1].to<Geometry::Vec3f&>(rt),
+							parameter[2].to<Geometry::Vec3f&>(rt),
+							parameter[3].to<Geometry::Vec3f&>(rt),
+							parameter[4].to<Geometry::Vec3f&>(rt),
+							parameter[5].to<Util::Color4f>(rt));
+					 return EScript::create(nullptr);
+				 })
 
 	//! [ESF] void Rendering.drawBox(RenderingContext, Box, [Color])
 	ES_FUNCTION(&lib, "drawBox", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 		} else {
-            Rendering::drawBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
+			Rendering::drawBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);
 	})
@@ -72,17 +72,17 @@ void E_Draw::init(EScript::Namespace & lib) {
 			if(parameter.count() == 2) {
 				Rendering::drawAbsBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 			} else {
-                Rendering::drawAbsBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
+				Rendering::drawAbsBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
 			}
 			return EScript::create(nullptr);
 		})
 
-    //![[ESF] void Rendering.drawRect(RenderingContext, Rec, [Color])
-    ES_FUNCTION(&lib,"drawRect", 2, 3, {
+	//![[ESF] void Rendering.drawRect(RenderingContext, Rec, [Color])
+	ES_FUNCTION(&lib,"drawRect", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt));
 		} else {
-            Rendering::drawRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt), parameter[2].to<Util::Color4f>(rt));
+			Rendering::drawRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt), parameter[2].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);
 	})
@@ -92,17 +92,17 @@ void E_Draw::init(EScript::Namespace & lib) {
 		if(parameter.count() == 2) {
 			Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 		} else {
-            Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
+			Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);
 	})
 
 	//![[ESF] void Rendering.drawWireframeRect(RenderingContext, Rec, [Color])
-    ES_FUNCTION(&lib,"drawWireframeRect", 2, 3, {
+	ES_FUNCTION(&lib,"drawWireframeRect", 2, 3, {
 		if(parameter.count() == 2) {
 			Rendering::drawWireframeRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt));
 		} else {
-            Rendering::drawWireframeRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt), parameter[2].to<Util::Color4f>(rt));
+			Rendering::drawWireframeRect(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Rect&>(rt), parameter[2].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);
 	})
@@ -110,7 +110,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 	//! [ESF] void Rendering.drawVector(RenderingContext, Vec3 from, Vec3 to, [Color])
 	ES_FUNCTION(&lib,"drawVector", 3, 4, {
 		if(parameter.count() == 3) {
-            Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<Geometry::Vec3>(rt), parameter[2].to<Geometry::Vec3>(rt));
+			Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<Geometry::Vec3>(rt), parameter[2].to<Geometry::Vec3>(rt));
 		} else {
 			Rendering::drawVector(parameter[0].to<Rendering::RenderingContext&>(rt),
 							  parameter[1].to<Geometry::Vec3>(rt),
@@ -120,11 +120,17 @@ void E_Draw::init(EScript::Namespace & lib) {
 		return EScript::create(nullptr);
 	})
 
-	//! [ESF] Void Rendering.enable2DMode(RenderingContext)
-    ES_FUN(&lib, "enable2DMode", 1, 1, (Rendering::enable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
+	//! [ESF] Void Rendering.enable2DMode(RenderingContext [Geometry.Rect screenRect])
+	ES_FUNCTION(&lib, "enable2DMode", 1, 2, {
+		if(parameter.count() == 2)
+			Rendering::enable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt),Geometry::Rect_i(parameter[1].to<Geometry::Rect>(rt)));
+		else
+			Rendering::enable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt));
+		return EScript::create(nullptr);
+	})
 
 	//! [ESF] Void Rendering.disable2DMode(RenderingContext)
-    ES_FUN(&lib, "disable2DMode", 1, 1, (Rendering::disable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
+	ES_FUN(&lib, "disable2DMode", 1, 1, (Rendering::disable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
 }
 
 }
