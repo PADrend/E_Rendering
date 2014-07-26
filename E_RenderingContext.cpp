@@ -84,6 +84,48 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.flush()
 	ES_MFUN(typeObject,RenderingContext, "flush", 0, 0, (thisObj->flush(),thisEObj))
 
+	
+	// Atomic counter buffers
+	//! [ESF] Bool RenderingContext.isAtomicCountersSupported( )
+	ES_FUN(typeObject,"isAtomicCountersSupported",0,0, RenderingContext::isAtomicCountersSupported())
+
+	//! [ESF] Number RenderingContext.getMaxAtomicCounterBuffers( )
+	ES_FUN(typeObject,"getMaxAtomicCounterBuffers",0,0, RenderingContext::getMaxAtomicCounterBuffers())
+
+	//! [ESF] Number RenderingContext.getMaxAtomicCounterBufferSize( )
+	ES_FUN(typeObject,"getMaxAtomicCounterBufferSize",0,0, RenderingContext::getMaxAtomicCounterBufferSize())
+
+	//!	[ESMF] Texture|void RenderingContext.getAtomicCounterTextureBuffer( unit )
+	ES_MFUN(typeObject,RenderingContext, "getAtomicCounterTextureBuffer",1,1,
+			thisObj->getAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt)))
+
+	//!	[ESMF] thisEObj RenderingContext.popAtomicCounterTextureBuffer( unit )
+	ES_MFUN(typeObject,RenderingContext, "popAtomicCounterTextureBuffer",1,1,
+			(thisObj->popAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt)),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetAtomicCounterTextureBuffer( unit, Texture|void )
+	ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetAtomicCounterTextureBuffer", 2,2,{
+		if(parameter[1].toBool())
+			thisObj->pushAndSetAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt),parameter[1].to<Texture*>(rt));
+		else
+			thisObj->pushAndSetAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt),nullptr);
+		return thisEObj;
+	})
+
+	//!	[ESMF] thisEObj RenderingContext.pushTexture( unit )
+	ES_MFUN(typeObject,RenderingContext, "pushAtomicCounterTextureBuffer", 1,1,
+			(thisObj->pushAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt)),thisEObj))
+
+
+	//!	[ESMF] thisEObj RenderingContext.setAtomicCounterTextureBuffer( unit, Texture|void )
+	ES_MFUNCTION(typeObject,RenderingContext, "setAtomicCounterTextureBuffer", 2,2,{
+		if(parameter[1].toBool())
+			thisObj->setAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt),parameter[1].to<Texture*>(rt));
+		else
+			thisObj->setAtomicCounterTextureBuffer(parameter[0].to<uint32_t>(rt),nullptr);
+		return thisEObj;
+	})
+	
 	// Blending
 	//!	[ESMF] BlendingParameters RenderingContext.getBlendingParameters()
 	ES_MFUN(typeObject,RenderingContext, "getBlendingParameters", 0, 0,
