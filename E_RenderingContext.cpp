@@ -387,8 +387,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		})
 
 	// Camera Matrix
-	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getCameraMatrix())
-	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getInverseCameraMatrix())
+	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getMatrix_worldToCamera()) //! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_worldToCamera", 0,0, thisObj->getMatrix_worldToCamera())
+	
+	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())  //! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToWorld", 0,0, thisObj->getMatrix_cameraToWorld())
 	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getProjectionMatrix())
 
 	// Shader
