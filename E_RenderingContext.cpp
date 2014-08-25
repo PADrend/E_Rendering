@@ -47,6 +47,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	// Genreal
 	ES_MFUN(typeObject,RenderingContext, "applyChanges", 0,1, (thisObj->applyChanges(parameter[0].toBool(false)),thisEObj))
+	ES_MFUN(typeObject,const RenderingContext, "getImmediateMode", 0, 0, thisObj->getImmediateMode())
 	ES_MFUN(typeObject,RenderingContext, "setImmediateMode", 1, 1, (thisObj->setImmediateMode(parameter[0].toBool()),thisEObj))
 
 	// GL Helper
@@ -349,13 +350,29 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "popMaterial", 0,0, (thisObj->popMaterial(),thisEObj))
 
 	// Matrix
-	ES_MFUN(typeObject,RenderingContext, "multMatrix", 1, 1, (thisObj->multMatrix(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "pushMatrix", 0,0, (thisObj->pushMatrix(),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "popMatrix", 0,0, (thisObj->popMatrix(),thisEObj))
+	ES_MFUN(typeObject,RenderingContext, "multMatrix", 1, 1, (thisObj->multMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj)) //! \deprecated alias.
+	ES_MFUN(typeObject,RenderingContext, "multMatrix_modelToCamera", 1, 1, (thisObj->multMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetMatrix_modelToCamera", 1, 1, (thisObj->pushAndSetMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
+	ES_MFUN(typeObject,RenderingContext, "pushMatrix", 0,0, (thisObj->pushMatrix_modelToCamera(),thisEObj))		//! \deprecated alias.
+	ES_MFUN(typeObject,RenderingContext, "pushMatrix_modelToCamera", 0,0, (thisObj->pushMatrix_modelToCamera(),thisEObj))
+	ES_MFUN(typeObject,RenderingContext, "popMatrix", 0,0, (thisObj->popMatrix_modelToCamera(),thisEObj))		//! \deprecated alias.
+	ES_MFUN(typeObject,RenderingContext, "popMatrix_modelToCamera", 0,0, (thisObj->popMatrix_modelToCamera(),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "resetMatrix", 0,0, (thisObj->resetMatrix(),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "getMatrix", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix()))
-	ES_MFUN(typeObject,RenderingContext, "setMatrix", 1, 1, (thisObj->setMatrix(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
+	ES_MFUN(typeObject,RenderingContext, "getMatrix", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix_modelToCamera()))	//! \deprecated alias.
+	ES_MFUN(typeObject,RenderingContext, "getMatrix_modelToCamera", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix_modelToCamera()))
+	
+	ES_MFUN(typeObject,RenderingContext, "setMatrix", 1, 1, (thisObj->setMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj)) //! \deprecated alias.
+	ES_MFUN(typeObject,RenderingContext, "setMatrix_modelToCamera", 1, 1, (thisObj->setMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
 
+	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getMatrix_worldToCamera()) //! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_worldToCamera", 0,0, thisObj->getMatrix_worldToCamera())
+	
+	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())  //! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToWorld", 0,0, thisObj->getMatrix_cameraToWorld())
+	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getMatrix_cameraToClip())	//! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToClip", 0,0, thisObj->getMatrix_cameraToClip())	//! \deprecated alias.
+
+	
 	// Textures
 	//!	[ESMF] Texture|void RenderingContext.getTexture( unit )
 	ES_MFUNCTION(typeObject,RenderingContext, "getTexture",1,1,{
@@ -386,13 +403,6 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 			return thisEObj;
 		})
 
-	// Camera Matrix
-	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getMatrix_worldToCamera()) //! \deprecated alias.
-	ES_MFUN(typeObject,const RenderingContext, "getMatrix_worldToCamera", 0,0, thisObj->getMatrix_worldToCamera())
-	
-	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())  //! \deprecated alias.
-	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToWorld", 0,0, thisObj->getMatrix_cameraToWorld())
-	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getProjectionMatrix())
 
 	// Shader
 	//!	[ESMF] thisEObj RenderingContext.pushShader()
