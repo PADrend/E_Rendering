@@ -370,7 +370,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())  //! \deprecated alias.
 	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToWorld", 0,0, thisObj->getMatrix_cameraToWorld())
 	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getMatrix_cameraToClipping())	//! \deprecated alias.
-	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToClip", 0,0, thisObj->getMatrix_cameraToClipping())	//! \deprecated alias.
+	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToClipping", 0,0, thisObj->getMatrix_cameraToClipping())
 
 	
 	// Textures
