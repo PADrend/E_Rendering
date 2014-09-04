@@ -60,16 +60,16 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 	//! VertexDescription new VertexDescription()
 	ES_CTOR(typeObject,0, 0, Rendering::VertexDescription())
 
-	//! Attribute VertexDescription.appendAttribute(String name, Number numValues, Number type)
+	//! Attribute VertexDescription.appendAttribute(String name, Number numValues, Number type, Bool normalize)
 	//! \note only string constants can be used.
-	ES_MFUN(typeObject,VertexDescription, "appendAttribute", 3, 3,
-				new E_VertexAttribute(thisObj->appendAttribute(parameter[0].toString(), parameter[1].to<uint32_t>(rt), parameter[2].to<uint32_t>(rt))))
+	ES_MFUN(typeObject,VertexDescription, "appendAttribute", 4, 4,
+				new E_VertexAttribute(thisObj->appendAttribute(parameter[0].toString(), parameter[1].to<uint32_t>(rt), parameter[2].to<uint32_t>(rt), parameter[3].toBool())))
 
 	//! Number VertexDescription.getVertexSize()
-	ES_MFUN(typeObject,VertexDescription, "getVertexSize", 0, 0, EScript::Number::create(thisObj->getVertexSize()))
+	ES_MFUN(typeObject,const VertexDescription, "getVertexSize", 0, 0, EScript::Number::create(thisObj->getVertexSize()))
 
 	//! Number VertexDescription.getNumAttributes()
-	ES_MFUN(typeObject,VertexDescription, "getNumAttributes", 0, 0, EScript::Number::create(thisObj->getNumAttributes()))
+	ES_MFUN(typeObject,const VertexDescription, "getNumAttributes", 0, 0, EScript::Number::create(thisObj->getNumAttributes()))
 
 	//! Attribute | Void VertexDescription.getAttribute(String name)
 	//! \note only string constants can be used.

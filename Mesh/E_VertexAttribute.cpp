@@ -29,6 +29,9 @@ void E_VertexAttribute::init(EScript::Namespace & lib) {
 	//! Bool VertexAttribute.empty()
 	ES_MFUN(typeObject,const VertexAttribute, "empty", 0, 0, thisObj->empty())
 
+	//! Bool VertexAttribute.getNormalize()
+	ES_MFUN(typeObject,const VertexAttribute, "getNormalize", 0, 0, thisObj->getNormalize())
+
 	//! Number VertexAttribute.getOffset()
 	ES_MFUN(typeObject,const VertexAttribute, "getOffset", 0, 0, EScript::Number::create(thisObj->getOffset()))
 
