@@ -3,9 +3,9 @@
 	Copyright (C) 2009-2012 Benjamin Eikel <benjamin@eikel.org>
 	Copyright (C) 2009-2012 Claudius Jähn <claudius@uni-paderborn.de>
 	Copyright (C) 2009-2012 Ralf Petring <ralf@petring.net>
-	
+
 	This library is subject to the terms of the Mozilla Public License, v. 2.0.
-	You should have received a copy of the MPL along with this library; see the 
+	You should have received a copy of the MPL along with this library; see the
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_MeshUtils.h"
@@ -313,6 +313,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 					parameter[0].to<Util::PixelAccessor&>(rt),
 					parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt))))
 
+
+	//! [EMSF] float Rendering.getLongestSideLength(Mesh)
+	ES_FUN(lib,"getLongestSideLength",1,1,(Rendering::MeshUtils::getLongestSideLength(
+				parameter[0].to<Rendering::Mesh*>(rt) )))
 
 	//! [ESF] void Rendering.splitLargeTriangles(Mesh,size)
 	ES_FUN(lib,"splitLargeTriangles",2,2,(Rendering::MeshUtils::splitLargeTriangles(
