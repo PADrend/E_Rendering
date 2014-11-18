@@ -18,6 +18,7 @@
 #include <E_Geometry/E_Vec3.h>
 #include <E_Geometry/E_Matrix4x4.h>
 #include <E_Geometry/E_SRT.h>
+#include <E_Geometry/E_Sphere.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_Bitmap.h>
 #include <Rendering/Mesh/VertexAttributeIds.h>
@@ -154,7 +155,11 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj MeshBuilder.addQuad( idx,idx,idx,idx )
 	ES_MFUN(typeObject,MeshBuilder,"addQuad",4,4,
 				(thisObj->addQuad( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt)),thisEObj))
-
+				
+	//!	[ESMF] thisEObj MeshBuilder.addSphere( Sphere,inclinationSegments,azimuthSegments )
+	ES_MFUN(typeObject,MeshBuilder,"addSphere",3,3,
+				(MeshBuilder::addSphere(*thisObj,parameter[0].to<Geometry::Sphere_f>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
+				
 	//!	[ESMF] thisEObj MeshBuilder.addTriangle( idx,idx,idx )
 	ES_MFUN(typeObject,MeshBuilder,"addTriangle",3,3,
 				(thisObj->addTriangle( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
