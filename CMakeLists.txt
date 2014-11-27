@@ -27,6 +27,19 @@ add_library(E_Rendering
 	E_ParameterStructs.cpp
 	E_RenderingContext.cpp
 	E_TextRenderer.cpp
+	CL/ELibCL.cpp
+	CL/E_Event.cpp
+	CL/E_CommandQueue.cpp
+	CL/E_Context.cpp
+	CL/E_Device.cpp
+	CL/E_Kernel.cpp
+	CL/E_Platform.cpp
+	CL/E_Program.cpp
+	CL/E_UserEvent.cpp
+	CL/E_Buffer.cpp
+	CL/E_Image.cpp
+	CL/E_Memory.cpp
+	CL/E_Sampler.cpp
 	Mesh/E_Mesh.cpp
 	Mesh/E_VertexAttribute.cpp
 	Mesh/E_VertexAttributeAccessors.cpp

@@ -28,12 +28,23 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 	
 	using namespace Rendering;
 
+	//! [ESMF] BufferObject new BufferObject()
+	ES_CTOR(typeObject,0,0,new CountedBufferObject(BufferObject()));
+
 	//! [ESMF] Bool BufferObject.isValid()
 	ES_MFUN(typeObject,BufferObject,"isValid",0,0,thisObj->isValid())
-	
+
 	//! [ESMF] thisEObj BufferObject.swap(E_BufferObject)
 	ES_MFUN(typeObject,BufferObject,"swap",0,0,(thisObj->swap(*parameter[1].to<BufferObject*>(rt)),thisEObj))
 
+	//! [ESMF] thisEObj BufferObject.prepare()
+	ES_MFUN(typeObject,BufferObject,"prepare",0,0,(thisObj->prepare(), thisEObj))
+
+	//! [ESMF] thisEObj BufferObject.destroy()
+	ES_MFUN(typeObject,BufferObject,"destroy",0,0,(thisObj->destroy(), thisEObj))
+
+	//! [ESMF] thisEObj BufferObject.allocateData(bufferTarget, numBytes, usageHint)
+	ES_MFUN(typeObject,BufferObject,"allocateData",3,3,(thisObj->allocateData<uint8_t>(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt()), thisEObj))
 
 }
 

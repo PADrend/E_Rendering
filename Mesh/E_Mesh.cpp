@@ -11,6 +11,10 @@
 #include "E_Mesh.h"
 #include "E_VertexDescription.h"
 #include "../E_RenderingContext.h"
+#include "../E_BufferObject.h"
+
+#include <Rendering/Mesh/MeshVertexData.h>
+#include <Rendering/Mesh/MeshIndexData.h>
 
 #include <E_Geometry/E_Box.h>
 #include <E_Util/E_FileName.h>
@@ -140,6 +144,15 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 
+
+	//! [ESMF] thisEObj Mesh._swapVertexBuffer(BufferObject)
+	ES_MFUN(typeObject,Mesh,"_swapVertexBuffer",1,1,(thisObj->_getVertexData()._swapBufferObject(parameter[0].to<CountedBufferObject*>(rt)->get()),thisEObj))
+
+	//! [ESMF] thisEObj Mesh._swapIndexBuffer(BufferObject)
+	ES_MFUN(typeObject,Mesh,"_swapIndexBuffer",1,1,(thisObj->_getIndexData()._swapBufferObject(parameter[0].to<CountedBufferObject*>(rt)->get()),thisEObj))
+
+	//! [ESMF] thisEObj Mesh._upload([usageHint])
+	ES_MFUN(typeObject,Mesh,"_upload",0,1,(parameter.size() > 0 ? thisObj->_getVertexData().upload(parameter[0].toUInt()) : thisObj->_getVertexData().upload(),thisEObj))
 
 	E_Util::E_Utils::registerConverter(new E_Util::E_Utils::CountedRefAttrConverter<Rendering::Mesh,E_Mesh>);
 }
