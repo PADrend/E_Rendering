@@ -23,6 +23,7 @@
 #include "E_Image.h"
 #include "E_Memory.h"
 #include "E_Sampler.h"
+#include "E_BufferAccessor.h"
 
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
@@ -49,6 +50,7 @@ void init(EScript::Namespace * ns) {
 	E_Image::init(*lib);
 	E_Memory::init(*lib);
 	E_Sampler::init(*lib);
+	E_BufferAccessor::init(*lib);
 }
 
 } /* namespace E_CL */

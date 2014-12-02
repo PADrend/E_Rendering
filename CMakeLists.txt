@@ -40,6 +40,7 @@ add_library(E_Rendering
 	CL/E_Image.cpp
 	CL/E_Memory.cpp
 	CL/E_Sampler.cpp
+	CL/E_BufferAccessor.cpp
 	Mesh/E_Mesh.cpp
 	Mesh/E_VertexAttribute.cpp
 	Mesh/E_VertexAttributeAccessors.cpp

@@ -4,6 +4,7 @@
 #include "E_Context.h"
 #include <E_Rendering/E_BufferObject.h>
 
+#include <E_Geometry/E_Vec2.h>
 #include <E_Geometry/E_Vec3.h>
 #include <E_Geometry/E_Vec4.h>
 
@@ -47,10 +48,14 @@ void E_Buffer::init(EScript::Namespace & lib) {
 		auto arr = parameter[2].toType<EScript::Array>();
 		if(arr) {
 			std::vector<float> values;
-			for(uint32_t i=0; i<arr->size(); ++i) {
-				E_Vec3* v3 = arr->at(i).toType<E_Vec3>();
-				E_Vec4* v4 = arr->at(i).toType<E_Vec4>();
-				if(v3) {
+			for(auto val : *arr) {
+				E_Vec2* v2 = val.toType<E_Vec2>();
+				E_Vec3* v3 = val.toType<E_Vec3>();
+				E_Vec4* v4 = val.toType<E_Vec4>();
+				if(v2) {
+					values.push_back((**v2).getX());
+					values.push_back((**v2).getY());
+				} else if(v3) {
 					values.push_back((**v3).getX());
 					values.push_back((**v3).getY());
 					values.push_back((**v3).getZ());
@@ -60,13 +65,13 @@ void E_Buffer::init(EScript::Namespace & lib) {
 					values.push_back((**v4).getZ());
 					values.push_back((**v4).getW());
 				} else {
-					values.push_back(arr->at(i).toFloat());
+					values.push_back(val.toFloat());
 				}
 			}
 
 			return new E_Buffer(new Buffer(context, values.size() * sizeof(float), static_cast<ReadWrite_t>(parameter[1].to<uint32_t>(rt)), HostPtr_t::AllocAndCopy, values.data()));
 		}
-		return new E_Buffer(new Buffer(context, static_cast<ReadWrite_t>(parameter[2].to<size_t>(rt)), parameter[1].to<uint32_t>(rt)));
+		return new E_Buffer(new Buffer(context, parameter[2].to<size_t>(rt), static_cast<ReadWrite_t>(parameter[1].to<uint32_t>(rt))));
 	});
 
 	// Buffer* createSubBuffer(ReadWrite_t readWrite, size_t origin, size_t size)
