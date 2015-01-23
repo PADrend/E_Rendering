@@ -2,7 +2,7 @@
 
 #include "E_Buffer.h"
 #include "E_Context.h"
-#include <E_Rendering/E_BufferObject.h>
+#include "../E_BufferObject.h"
 
 #include <E_Geometry/E_Vec2.h>
 #include <E_Geometry/E_Vec3.h>

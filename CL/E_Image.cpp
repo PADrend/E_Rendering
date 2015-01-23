@@ -3,7 +3,7 @@
 #include "E_Image.h"
 #include "E_Context.h"
 
-#include <E_Rendering/Texture/E_Texture.h>
+#include "../Texture/E_Texture.h"
 #include <E_Util/Graphics/E_Bitmap.h>
 
 #include <EScript/Basics.h>
