@@ -1,5 +1,5 @@
 /*
- This file is part of the Rendering library.
+ This file is part of the E_Rendering library.
  Copyright (C) 2014 Sascha Brandt <myeti@mail.upb.de>
 
  This library is subject to the terms of the Mozilla Public License, v. 2.0.
