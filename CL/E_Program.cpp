@@ -4,6 +4,8 @@
 #include "E_Context.h"
 #include "E_Device.h"
 
+#include <E_Util/E_FileName.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -26,7 +28,7 @@ void E_Program::init(EScript::Namespace & lib) {
 	using namespace Rendering::CL;
 	
 	//!	[ESMF] Program new Program()
-	ES_CTOR(typeObject,2,2,new E_Program(new Program(parameter[0].to<Context*>(rt), {parameter[1].toString()})))
+	ES_CTOR(typeObject,1,2,new E_Program(new Program(parameter[0].to<Context*>(rt), {parameter[1].toString()})))
 
 	// bool build(const std::vector<DeviceRef>& devices, const std::string& options = "")
 	//! [ESMF] RESULT Program.build(p0[,p1])
@@ -93,6 +95,20 @@ void E_Program::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const Program,"getSource",0,0,
 				EScript::create(thisObj->getSource()))
 
+	// bool attachSource(FileName)
+	//! [ESMF] RESULT Program.attachFile(FileName)
+	ES_MFUNCTION(typeObject,Program,"attachFile",1,1, {
+		const Util::FileName file(parameter[0].toString());
+		thisObj->attachSource(file);
+		return thisEObj;
+	})
+
+	// bool attachSource(string)
+	//! [ESMF] RESULT Program.attachSource(string)
+	ES_MFUNCTION(typeObject,Program,"attachSource",1,1, {
+		thisObj->attachSource(parameter[0].toString());
+		return thisEObj;
+	})
 }
 }
 

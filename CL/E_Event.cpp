@@ -26,24 +26,44 @@ void E_Event::init(EScript::Namespace & lib) {
 	ES_CTOR(typeObject,0,0,new E_Event(new Event()))
 
 	// uint64_t getProfilingCommandEnd() const
-	//! [ESMF] RESULT Event.getProfilingCommandEnd()
+	//! [ESMF] Number Event.getProfilingCommandEnd()
 	ES_MFUN(typeObject,const Event,"getProfilingCommandEnd",0,0,
 			EScript::Number::create(thisObj->getProfilingCommandEnd()))
 
 	// uint64_t getProfilingCommandQueued() const
-	//! [ESMF] RESULT Event.getProfilingCommandQueued()
+	//! [ESMF] Number Event.getProfilingCommandQueued()
 	ES_MFUN(typeObject,const Event,"getProfilingCommandQueued",0,0,
 			EScript::Number::create(thisObj->getProfilingCommandQueued()))
 
 	// uint64_t getProfilingCommandStart() const
-	//! [ESMF] RESULT Event.getProfilingCommandStart()
+	//! [ESMF] Number Event.getProfilingCommandStart()
 	ES_MFUN(typeObject,const Event,"getProfilingCommandStart",0,0,
 			EScript::Number::create(thisObj->getProfilingCommandStart()))
 
 	// uint64_t getProfilingCommandSubmit() const
-	//! [ESMF] RESULT Event.getProfilingCommandSubmit()
+	//! [ESMF] Number Event.getProfilingCommandSubmit()
 	ES_MFUN(typeObject,const Event,"getProfilingCommandSubmit",0,0,
 			EScript::Number::create(thisObj->getProfilingCommandSubmit()))
+
+	// uint64_t getProfilingNanoseconds() const
+	//! [ESMF] Number Event.getProfilingNanoseconds()
+	ES_MFUN(typeObject,const Event,"getProfilingNanoseconds",0,0,
+			EScript::Number::create(thisObj->getProfilingNanoseconds()))
+
+	// double getProfilingMicroseconds() const
+	//! [ESMF] Number Event.getProfilingMicroseconds()
+	ES_MFUN(typeObject,const Event,"getProfilingMicroseconds",0,0,
+			EScript::Number::create(thisObj->getProfilingMicroseconds()))
+
+	// double getProfilingNanoseconds() const
+	//! [ESMF] Number Event.getProfilingMilliseconds()
+	ES_MFUN(typeObject,const Event,"getProfilingMilliseconds",0,0,
+			EScript::Number::create(thisObj->getProfilingMilliseconds()))
+
+	// double getProfilingSeconds() const
+	//! [ESMF] Number Event.getProfilingSeconds()
+	ES_MFUN(typeObject,const Event,"getProfilingSeconds",0,0,
+			EScript::Number::create(thisObj->getProfilingSeconds()))
 
 	// void setCallback(CallbackFn_t fun)
 	//! [ESMF] self Event.setCallback(p0)

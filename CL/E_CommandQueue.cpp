@@ -58,7 +58,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 	using namespace E_Geometry;
 	using namespace Geometry;
 	
-	//!	[ESMF] CommandQueue new CommandQueue()
+	//!	[ESMF] CommandQueue new CommandQueue(Context, Device, [outOfOrder, [profiling]])
 	ES_CTOR(typeObject,2,4,new E_CommandQueue(new CommandQueue(parameter[0].to<Context*>(rt), parameter[1].to<Device*>(rt), parameter[2].toBool(false), parameter[3].toBool(false))))
 
 	// bool acquireGLObjects(const std::vector<Memory*>& buffers, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)

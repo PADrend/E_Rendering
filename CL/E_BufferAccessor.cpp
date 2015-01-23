@@ -14,10 +14,8 @@
 #include <EScript/StdObjects.h>
 
 namespace EScript {
-
 template<> inline int8_t convertTo<int8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<int8_t>(convertTo<double>(rt,src));	}
 template<> inline uint8_t convertTo<uint8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<uint8_t>(convertTo<double>(rt,src));	}
-
 }
 
 namespace E_Rendering{
@@ -312,23 +310,23 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[1].toUInt(static_cast<uint32_t>(Util::TypeConstant::FLOAT)));
 		switch(type) {
 		case Util::TypeConstant::UINT8:
-			writeEObj<uint8_t>(thisObj, rt, parameter[0]);
+			writeEObj<uint8_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::INT8:
-			writeEObj<int8_t>(thisObj, rt, parameter[0]);
+			writeEObj<int8_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::UINT16:
-			writeEObj<uint16_t>(thisObj, rt, parameter[0]);
+			writeEObj<uint16_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::INT16:
-			writeEObj<int16_t>(thisObj, rt, parameter[0]);
+			writeEObj<int16_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::UINT32:
-			writeEObj<uint32_t>(thisObj, rt, parameter[0]);
+			writeEObj<uint32_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::INT32:
-			writeEObj<int32_t>(thisObj, rt, parameter[0]);
+			writeEObj<int32_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::UINT64:
-			writeEObj<uint64_t>(thisObj, rt, parameter[0]);
+			writeEObj<uint64_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::INT64:
-			writeEObj<int64_t>(thisObj, rt, parameter[0]);
+			writeEObj<int64_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::DOUBLE:
-			writeEObj<double>(thisObj, rt, parameter[0]);
+			writeEObj<double>(thisObj, rt, parameter[0]); break;
 		default:
 			writeEObj<float>(thisObj, rt, parameter[0]);
 		}

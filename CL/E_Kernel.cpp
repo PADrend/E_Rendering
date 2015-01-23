@@ -5,8 +5,17 @@
 #include "E_Memory.h"
 #include "E_Device.h"
 
+#include <E_Geometry/E_Vec3.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
+
+#include <Util/TypeConstant.h>
+
+namespace EScript {
+template<> inline int8_t convertTo<int8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<int8_t>(convertTo<double>(rt,src));	}
+template<> inline uint8_t convertTo<uint8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<uint8_t>(convertTo<double>(rt,src));	}
+}
 
 namespace E_Rendering{
 namespace E_CL{
@@ -31,12 +40,48 @@ void E_Kernel::init(EScript::Namespace & lib) {
 
 	// bool setArg(index, value)
 	//! [ESMF] RESULT Kernel.setArg(p0,p1)
-	ES_MFUNCTION(typeObject,Kernel,"setArg",2,2, {
+	ES_MFUNCTION(typeObject,Kernel,"setArg",2,3, {
 		E_Memory* mem = parameter[1].toType<E_Memory>();
 		if(mem)
 			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),**mem));
-		return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].toFloat()));
+
+		E_Geometry::E_Vec3* vec3 = parameter[1].toType<E_Geometry::E_Vec3>();
+		if(vec3) {
+			std::vector<float> values({
+				(**vec3).x(), (**vec3).y(), (**vec3).z(), 1
+			});
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),values.size()*sizeof(float),values.data()));
+		}
+
+		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[2].toUInt(static_cast<uint32_t>(Util::TypeConstant::FLOAT)));
+		switch(type) {
+		case Util::TypeConstant::UINT8:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<uint8_t>(rt)));
+		case Util::TypeConstant::INT8:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<int8_t>(rt)));
+		case Util::TypeConstant::UINT16:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<uint16_t>(rt)));
+		case Util::TypeConstant::INT16:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<int16_t>(rt)));
+		case Util::TypeConstant::UINT32:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)));
+		case Util::TypeConstant::INT32:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<int32_t>(rt)));
+		case Util::TypeConstant::UINT64:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<uint64_t>(rt)));
+		case Util::TypeConstant::INT64:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<int64_t>(rt)));
+		case Util::TypeConstant::DOUBLE:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<double>(rt)));
+		default:
+			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].toFloat()));
+		}
 	})
+
+	// bool setArg(index, size, nullptr)
+	//! [ESMF] RESULT Kernel.setArgSize(index, size)
+	ES_MFUN(typeObject,Kernel,"setArgSize",2,2,
+				EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt), nullptr)))
 
 	// bool setArgs(Array)
 	//! [ESMF] RESULT Kernel.setArg(p0,p1)

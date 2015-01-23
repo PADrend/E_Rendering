@@ -37,7 +37,11 @@ void E_Context::init(EScript::Namespace & lib) {
 	
 	//!	[ESMF] Context new Context()
 	ES_CONSTRUCTOR(typeObject,2,3,{
-		Platform* platform = parameter[0].to<Platform*>(rt);
+		E_Platform* pf = parameter[0].toType<E_Platform>();
+		if(!pf) {
+			return new E_Context(new Context(parameter[0].to<uint32_t>(rt), parameter[1].toBool()));
+		}
+		Platform* platform = (**pf).get();
 		EScript::Array* arr = parameter[1].toType<EScript::Array>();
 		std::vector<DeviceRef> devices;
 		if(arr) {

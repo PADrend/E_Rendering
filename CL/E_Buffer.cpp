@@ -11,6 +11,8 @@
 #include <Rendering/CL/Context.h>
 #include <Rendering/Mesh/MeshDataStrategy.h>
 
+#include <Util/TypeConstant.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -36,8 +38,11 @@ void E_Buffer::init(EScript::Namespace & lib) {
 	using namespace E_Geometry;
 	using namespace Geometry;
 	
-	//!	[ESMF] Buffer new Buffer(Context, ReadWrite_t, (BufferObject | size | Array))
-	ES_CONSTRUCTOR(typeObject,3,3,{
+	//!	[ESMF] Buffer new Buffer(Context, ReadWrite_t, (BufferObject | size | Array), [TypeConstant])
+	ES_CONSTRUCTOR(typeObject,3,4,{
+		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[3].toUInt(static_cast<uint32_t>(Util::TypeConstant::UINT8)));
+
+
 		Context* context = parameter[0].to<Context*>(rt);
 		auto ebo = parameter[2].toType<E_BufferObject>();
 		if(ebo) {
@@ -71,7 +76,7 @@ void E_Buffer::init(EScript::Namespace & lib) {
 
 			return new E_Buffer(new Buffer(context, values.size() * sizeof(float), static_cast<ReadWrite_t>(parameter[1].to<uint32_t>(rt)), HostPtr_t::AllocAndCopy, values.data()));
 		}
-		return new E_Buffer(new Buffer(context, parameter[2].to<size_t>(rt), static_cast<ReadWrite_t>(parameter[1].to<uint32_t>(rt))));
+		return new E_Buffer(new Buffer(context, parameter[2].to<size_t>(rt) * Util::getNumBytes(type), static_cast<ReadWrite_t>(parameter[1].to<uint32_t>(rt))));
 	});
 
 	// Buffer* createSubBuffer(ReadWrite_t readWrite, size_t origin, size_t size)
