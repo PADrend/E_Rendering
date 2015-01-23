@@ -1,3 +1,4 @@
+#ifdef RENDERING_HAS_LIB_OPENCL
 
 #include "E_Context.h"
 #include "E_Device.h"
@@ -7,8 +8,6 @@
 #include <Rendering/CL/CLUtils.h>
 #include <Rendering/CL/Platform.h>
 #include <Rendering/CL/Device.h>
-
-#ifdef RENDERING_HAS_LIB_OPENCL
 
 #include "E_Context.h"
 #include "E_Device.h"
