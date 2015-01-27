@@ -117,6 +117,21 @@ void E_Program::init(EScript::Namespace & lib) {
 		thisObj->attachSource(parameter[0].toString());
 		return thisEObj;
 	})
+
+	// bool addInclude(FileName)
+	//! [ESMF] RESULT Program.addInclude(FileName)
+	ES_MFUNCTION(typeObject,Program,"addInclude",1,1, {
+		const Util::FileName file(parameter[0].toString());
+		thisObj->addInclude(file);
+		return thisEObj;
+	})
+
+	// bool addDefine(string, string)
+	//! [ESMF] RESULT Program.addDefine(string, [string])
+	ES_MFUNCTION(typeObject,Program,"addDefine",1,2, {
+		thisObj->addDefine(parameter[0].toString(), parameter[1]->isA(EScript::String::getTypeObject()) ? "\"" + parameter[1].toString() + "\"" : parameter[1].toString(""));
+		return thisEObj;
+	})
 }
 }
 
