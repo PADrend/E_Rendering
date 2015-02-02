@@ -36,7 +36,7 @@ void E_Program::init(EScript::Namespace & lib) {
 	using namespace Rendering::CL;
 	
 	//!	[ESMF] Program new Program()
-	ES_CTOR(typeObject,1,2,new E_Program(new Program(parameter[0].to<Context*>(rt), {parameter[1].toString()})))
+	ES_CTOR(typeObject,1,2,new E_Program(parameter[1].isNull() ? new Program(parameter[0].to<Context*>(rt)) : new Program(parameter[0].to<Context*>(rt), {parameter[1].toString()})))
 
 	// bool build(const std::vector<DeviceRef>& devices, const std::string& options = "")
 	//! [ESMF] RESULT Program.build(p0[,p1])

@@ -114,7 +114,8 @@ EScript::Object* readVec2(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 		}
 		return arr;
 	}
-	return EScript::create(Vec2(accessor->read<T>(), accessor->read<T>()));
+	auto vec = accessor->readArray<T>(2);
+	return EScript::create(Vec2(vec[0], vec[1]));
 }
 
 
@@ -130,7 +131,8 @@ EScript::Object* readVec3(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 		}
 		return arr;
 	}
-	return EScript::create(Vec3(accessor->read<T>(), accessor->read<T>(), accessor->read<T>()));
+	auto vec = accessor->readArray<T>(3);
+	return EScript::create(Vec3(vec[0], vec[1], vec[2]));
 }
 
 
@@ -146,7 +148,8 @@ EScript::Object* readVec4(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 		}
 		return arr;
 	}
-	return EScript::create(Vec4(accessor->read<T>(), accessor->read<T>(), accessor->read<T>(), accessor->read<T>()));
+	auto vec = accessor->readArray<T>(4);
+	return EScript::create(Vec4(vec[0], vec[1], vec[2], vec[3]));
 }
 
 

@@ -43,7 +43,7 @@ void E_Context::init(EScript::Namespace & lib) {
 	using namespace Rendering::CL;
 	
 	//!	[ESMF] Context new Context()
-	ES_CONSTRUCTOR(typeObject,2,3,{
+	ES_CONSTRUCTOR(typeObject,1,3,{
 		E_Platform* pf = parameter[0].toType<E_Platform>();
 		if(!pf) {
 			return new E_Context(new Context(parameter[0].to<uint32_t>(rt), parameter[1].toBool()));
