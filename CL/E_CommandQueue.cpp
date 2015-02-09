@@ -87,7 +87,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 
 	// bool copyBuffer(Buffer* src, Buffer* dst, size_t srcOffset, size_t dstOffset, size_t size, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)
 	//! [ESMF] RESULT CommandQueue.copyBuffer(p0,p1,p2,p3,p4[,p5])
-	ES_MFUNCTION(typeObject,CommandQueue,"copyBuffer",5,6, {
+	ES_MFUNCTION(typeObject,CommandQueue,"copyBuffer",5,7, {
 		std::vector<Event*> events;
 		if(parameter.size() > 5) {
 			const EScript::Array * a = parameter[5].to<EScript::Array*>(rt);
@@ -106,7 +106,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 
 	// bool copyBufferRect(Buffer* src, Buffer* dst, const RangeND_t& srcOrigin, const RangeND_t& dstOrigin, const RangeND_t& region, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr, size_t bufferRowPitch = 0, size_t bufferSlicePitch = 0, size_t hostRowPitch = 0, size_t hostSlicePitch = 0)
 	//! [ESMF] RESULT CommandQueue.copyBufferRect(p0,p1,p2,p3,p4[,p5])
-	ES_MFUNCTION(typeObject,CommandQueue,"copyBufferRect",5,6, {
+	ES_MFUNCTION(typeObject,CommandQueue,"copyBufferRect",5,7, {
 		std::vector<Event*> events = parameter.size() > 5 ? toEventVector(rt, parameter[5]) : std::vector<Event*>();
 		return thisObj->copyBufferRect(
 				parameter[0].to<Buffer*>(rt),
@@ -120,7 +120,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 
 	// bool copyBufferToImage(Buffer* src, Image* dst, size_t srcOffset, const RangeND_t& dstOrigin, const RangeND_t& region, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)
 	//! [ESMF] RESULT CommandQueue.copyBufferToImage(p0,p1,p2,p3,p4[,p5])
-	ES_MFUNCTION(typeObject,CommandQueue,"copyBufferToImage",5,6, {
+	ES_MFUNCTION(typeObject,CommandQueue,"copyBufferToImage",5,7, {
 		std::vector<Event*> events = parameter.size() > 5 ? toEventVector(rt, parameter[5]) : std::vector<Event*>();
 		return thisObj->copyBufferToImage(
 				parameter[0].to<Buffer*>(rt),
@@ -134,7 +134,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 
 	// bool copyImage(Image* src, Image* dst, const RangeND_t& srcOrigin, const RangeND_t& dstOrigin, const RangeND_t& region, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)
 	//! [ESMF] RESULT CommandQueue.copyImage(p0,p1,p2,p3,p4[,p5])
-	ES_MFUNCTION(typeObject,CommandQueue,"copyImage",5,6, {
+	ES_MFUNCTION(typeObject,CommandQueue,"copyImage",5,7, {
 		std::vector<Event*> events = parameter.size() > 5 ? toEventVector(rt, parameter[5]) : std::vector<Event*>();
 		return thisObj->copyImage(
 				parameter[0].to<Image*>(rt),
@@ -148,7 +148,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 
 	// bool copyImageToBuffer(Image* src, Buffer* dst, const RangeND_t& srcOrigin, const RangeND_t& region, size_t dstOffset, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)
 	//! [ESMF] RESULT CommandQueue.copyImageToBuffer(p0,p1,p2,p3,p4[,p5])
-	ES_MFUNCTION(typeObject,CommandQueue,"copyImageToBuffer",5,6, {
+	ES_MFUNCTION(typeObject,CommandQueue,"copyImageToBuffer",5,7, {
 		std::vector<Event*> events = parameter.size() > 5 ? toEventVector(rt, parameter[5]) : std::vector<Event*>();
 		return thisObj->copyImageToBuffer(
 				parameter[0].to<Image*>(rt),
