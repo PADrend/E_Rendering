@@ -339,5 +339,25 @@ void initMeshUtils(EScript::Namespace * lib) {
 		return EScript::create(nullptr);
 	})
 
+	//! [ESF] void Rendering.cutMesh(Mesh, Vec3, Vec3)
+	ES_FUNCTION(lib, "cutMesh", 3, 3, {
+		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
+		const Geometry::Vec3f & position = parameter[1].to<Geometry::Vec3>(rt);
+		const Geometry::Vec3f & normal = parameter[2].to<Geometry::Vec3>(rt);
+		Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal));
+		return EScript::create(nullptr);
+	})
+
+	//! [ESF] void Rendering.extrudeTriangles(Mesh, Vec3, Array)
+	ES_FUNCTION(lib, "extrudeTriangles", 3, 3, {
+		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
+		const Geometry::Vec3f & dir = parameter[1].to<Geometry::Vec3>(rt);
+		EScript::Array* arr = parameter[2].to<EScript::Array*>(rt);
+		std::vector<uint32_t> indices;
+		for(auto val : *arr)
+			indices.push_back(val.toUInt());
+		Rendering::MeshUtils::extrudeTriangles(mesh, dir, indices);
+		return EScript::create(nullptr);
+	})
 }
 }
