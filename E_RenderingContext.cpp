@@ -249,6 +249,18 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "setPointParameters", 1, 1,
 				(thisObj->setPointParameters(parameter[0].to<const PointParameters&>(rt)),thisEObj))
 
+	// PolygonMode
+	//!	[ESMF] thisEObj RenderingContext.popPolygonMode()
+	ES_MFUN(typeObject,RenderingContext, "popPolygonMode", 0, 0,
+				(thisObj->popPolygonMode(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushPolygonMode()
+	ES_MFUN(typeObject,RenderingContext, "pushPolygonMode", 0, 0,
+				(thisObj->pushPolygonMode(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetPolygonMode(Number)
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetPolygonMode", 1, 1,
+				(thisObj->pushAndSetPolygonMode(Rendering::PolygonModeParameters(static_cast<Rendering::PolygonModeParameters::polygonModeMode_t>(parameter[0].toUInt()))),thisEObj))
 
 	// PolygonOffset
 	//!	[ESMF] thisEObj RenderingContext.popPolygonOffset()
