@@ -30,6 +30,7 @@
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 #include <memory>
+#include <set>
 
 namespace E_Rendering{
 
@@ -353,10 +354,12 @@ void initMeshUtils(EScript::Namespace * lib) {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		const Geometry::Vec3f & dir = parameter[1].to<Geometry::Vec3>(rt);
 		EScript::Array* arr = parameter[2].to<EScript::Array*>(rt);
-		std::vector<uint32_t> indices;
+		std::set<uint32_t> uniqueIndices;
+		uint32_t count = mesh->getPrimitiveCount();
 		for(auto val : *arr)
-			indices.push_back(val.toUInt());
-		Rendering::MeshUtils::extrudeTriangles(mesh, dir, indices);
+			if(val.toUInt() < count)
+				uniqueIndices.insert(val.toUInt());
+		Rendering::MeshUtils::extrudeTriangles(mesh, dir, uniqueIndices);
 		return EScript::create(nullptr);
 	})
 }
