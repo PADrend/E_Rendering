@@ -341,19 +341,20 @@ void initMeshUtils(EScript::Namespace * lib) {
 		return EScript::create(nullptr);
 	})
 
-	//! [ESF] void Rendering.cutMesh(Mesh, Vec3, Vec3, [Array])
-	ES_FUNCTION(lib, "cutMesh", 3, 4, {
+	//! [ESF] void Rendering.cutMesh(Mesh, Vec3, Vec3, [Array], [Number])
+	ES_FUNCTION(lib, "cutMesh", 3, 5, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		const Geometry::Vec3f & position = parameter[1].to<Geometry::Vec3>(rt);
 		const Geometry::Vec3f & normal = parameter[2].to<Geometry::Vec3>(rt);
-		if(parameter.count() > 3) {
-			EScript::Array* arr = parameter[3].to<EScript::Array*>(rt);
+
+		EScript::Array* arr = parameter[3].toType<EScript::Array>();
+		if(arr) {
 			std::set<uint32_t> uniqueIndices;
 			for(auto val : *arr)
 				uniqueIndices.insert(val.toUInt());
-			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), uniqueIndices);
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), uniqueIndices, parameter[4].toFloat(0.00001));
 		} else {
-			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal));
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), {}, parameter[3].toFloat(0.00001));
 		}
 		return EScript::create(nullptr);
 	})
@@ -377,9 +378,9 @@ void initMeshUtils(EScript::Namespace * lib) {
 				parameter[0].to<Rendering::Mesh*>(rt), parameter[1].to<Geometry::Ray3>(rt) )))
 
 
-	//! [ESF] void Rendering.eliminateDuplicateVertices(Mesh)
-	ES_FUN(lib,"mergeCloseVertices",1,1,(
-		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt)),
+	//! [ESF] void Rendering.eliminateDuplicateVertices(Mesh,[Number])
+	ES_FUN(lib,"mergeCloseVertices",1,2,(
+		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001)),
 		EScript::create(nullptr)
 	))
 }

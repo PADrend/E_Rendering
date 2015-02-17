@@ -103,6 +103,12 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		thisObj->openIndexData();
 		return thisEObj;
 	})
+
+	//! [ESMF] thisEObj Mesh.setDrawMode(Number)
+	ES_MFUN(typeObject,Mesh,"setDrawMode",1,1,(thisObj->setDrawMode(static_cast<Rendering::Mesh::draw_mode_t>(parameter[0].toUInt())),thisEObj))
+
+	//! [ESMF] Number Mesh.getDrawMode()
+	ES_MFUN(typeObject,const Mesh,"getDrawMode",0,0, static_cast<uint32_t>(thisObj->getDrawMode()))
 	
 	//! [ESMF] thisEObj Mesh.setDrawLines()
 	ES_MFUN(typeObject,Mesh,"setDrawLines",0,0,(thisObj->setDrawMode(Rendering::Mesh::DRAW_LINES),thisEObj))
