@@ -59,6 +59,13 @@ EScript::Type * E_ScissorParameters::getTypeObject() {
 }
 
 //! (static)
+EScript::Type * E_StencilParameters::getTypeObject() {
+	// E_StencilParameters ---|> Object
+	static EScript::ERef<EScript::Type> typeObject = new EScript::Type(EScript::Object::getTypeObject());
+	return typeObject.get();
+}
+
+//! (static)
 EScript::Type * E_LightingParameters::getTypeObject() {
 	// E_LightingParameters ---|> Object
 	static EScript::ERef<EScript::Type> typeObject = new EScript::Type(EScript::Object::getTypeObject());
@@ -437,6 +444,90 @@ void init(EScript::Namespace & lib) {
 				return new E_ScissorParameters(Rendering::ScissorParameters());
 		})
 	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------
+	{ //E_StencilParameters
+		Type * typeObject = E_StencilParameters::getTypeObject();
+
+		declareConstant(&lib,E_StencilParameters::getClassName(),typeObject);
+
+		//! new StencilParameters()
+		ES_CONSTRUCTOR(typeObject,0,0,{
+				Rendering::StencilParameters para;
+				para.enable();
+				return new E_StencilParameters(para);
+		})
+
+		//! thisEObj StencilParameters.enable()
+		ES_MFUN(typeObject,StencilParameters,"enable",0,0,
+					(thisObj->enable(),thisEObj))
+
+		//! thisEObj StencilParameters.disable()
+		ES_MFUN(typeObject,StencilParameters,"disable",0,0,
+					(thisObj->disable(),thisEObj))
+
+		//! Number PolygonModeParameters.getFunction()
+		ES_MFUN(typeObject,StencilParameters,"getFunction",0,0,
+					static_cast<uint32_t>(thisObj->getFunction()))
+
+		//! thisEObj PolygonModeParameters.setFunction(Number)
+		ES_MFUN(typeObject,StencilParameters,"setFunction",1,1,
+					(thisObj->setFunction(static_cast<Rendering::Comparison::function_t>(parameter[0].to<uint32_t>(rt))),thisEObj))
+
+		//! Number PolygonModeParameters.getFunction()
+		ES_MFUN(typeObject,StencilParameters,"getReferenceValue",0,0,
+					static_cast<int32_t>(thisObj->getReferenceValue()))
+
+		//! thisEObj PolygonModeParameters.setFunction(Number)
+		ES_MFUN(typeObject,StencilParameters,"setReferenceValue",1,1,
+					(thisObj->setReferenceValue(parameter[0].to<int32_t>(rt)),thisEObj))
+
+		//! Number PolygonModeParameters.getBitMask()
+		ES_MFUN(typeObject,StencilParameters,"getBitMask",0,0,
+					thisObj->getBitMask().to_string())
+
+		//! thisEObj PolygonModeParameters.setBitMask(String)
+		ES_MFUNCTION(typeObject,StencilParameters,"setBitMask",1,1, {
+			std::bitset<32> mask(parameter[0].toString());
+			thisObj->setBitMask(mask);
+			return thisEObj;
+		})
+
+		//! Number PolygonModeParameters.getFailAction()
+		ES_MFUN(typeObject,StencilParameters,"getFailAction",0,0,
+					static_cast<uint32_t>(thisObj->getFailAction()))
+
+		//! thisEObj PolygonModeParameters.setFailAction(Number)
+		ES_MFUN(typeObject,StencilParameters,"setFailAction",1,1,
+					(thisObj->setFailAction(static_cast<Rendering::StencilParameters::action_t>(parameter[0].to<uint32_t>(rt))),thisEObj))
+
+		//! Number PolygonModeParameters.getDepthTestFailAction()
+		ES_MFUN(typeObject,StencilParameters,"getDepthTestFailAction",0,0,
+					static_cast<uint32_t>(thisObj->getDepthTestFailAction()))
+
+		//! thisEObj PolygonModeParameters.setDepthTestFailAction(Number)
+		ES_MFUN(typeObject,StencilParameters,"setDepthTestFailAction",1,1,
+					(thisObj->setDepthTestFailAction(static_cast<Rendering::StencilParameters::action_t>(parameter[0].to<uint32_t>(rt))),thisEObj))
+
+		//! Number PolygonModeParameters.getDepthTestPassAction()
+		ES_MFUN(typeObject,StencilParameters,"getDepthTestPassAction",0,0,
+					static_cast<uint32_t>(thisObj->getDepthTestPassAction()))
+
+		//! thisEObj PolygonModeParameters.setDepthTestPassAction(Number)
+		ES_MFUN(typeObject,StencilParameters,"setDepthTestPassAction",1,1,
+					(thisObj->setDepthTestPassAction(static_cast<Rendering::StencilParameters::action_t>(parameter[0].to<uint32_t>(rt))),thisEObj))
+
+
+		declareConstant(typeObject,"KEEP",static_cast<uint32_t>(Rendering::StencilParameters::KEEP));
+		declareConstant(typeObject,"ZERO",static_cast<uint32_t>(Rendering::StencilParameters::ZERO));
+		declareConstant(typeObject,"REPLACE",static_cast<uint32_t>(Rendering::StencilParameters::REPLACE));
+		declareConstant(typeObject,"INCR",static_cast<uint32_t>(Rendering::StencilParameters::INCR));
+		declareConstant(typeObject,"INCR_WRAP",static_cast<uint32_t>(Rendering::StencilParameters::INCR_WRAP));
+		declareConstant(typeObject,"DECR",static_cast<uint32_t>(Rendering::StencilParameters::DECR));
+		declareConstant(typeObject,"DECR_WRAP",static_cast<uint32_t>(Rendering::StencilParameters::DECR_WRAP));
+		declareConstant(typeObject,"INVERT",static_cast<uint32_t>(Rendering::StencilParameters::INVERT));
+	}
+
 	// ------------------------------------------------------------------------------------------------------------------------------------
 	{ // E_TexUnitUsageParameter
 		EScript::Namespace * ns = new EScript::Namespace;

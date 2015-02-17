@@ -24,6 +24,7 @@
 #include <Util/IO/FileName.h>
 #include <E_Geometry/E_Matrix4x4.h>
 #include <E_Geometry/E_Vec3.h>
+#include <E_Geometry/E_Ray3.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_PixelAccessor.h>
 
@@ -340,12 +341,20 @@ void initMeshUtils(EScript::Namespace * lib) {
 		return EScript::create(nullptr);
 	})
 
-	//! [ESF] void Rendering.cutMesh(Mesh, Vec3, Vec3)
-	ES_FUNCTION(lib, "cutMesh", 3, 3, {
+	//! [ESF] void Rendering.cutMesh(Mesh, Vec3, Vec3, [Array])
+	ES_FUNCTION(lib, "cutMesh", 3, 4, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
 		const Geometry::Vec3f & position = parameter[1].to<Geometry::Vec3>(rt);
 		const Geometry::Vec3f & normal = parameter[2].to<Geometry::Vec3>(rt);
-		Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal));
+		if(parameter.count() > 3) {
+			EScript::Array* arr = parameter[3].to<EScript::Array*>(rt);
+			std::set<uint32_t> uniqueIndices;
+			for(auto val : *arr)
+				uniqueIndices.insert(val.toUInt());
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), uniqueIndices);
+		} else {
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal));
+		}
 		return EScript::create(nullptr);
 	})
 
@@ -362,5 +371,16 @@ void initMeshUtils(EScript::Namespace * lib) {
 		Rendering::MeshUtils::extrudeTriangles(mesh, dir, uniqueIndices);
 		return EScript::create(nullptr);
 	})
+
+	//! [ESF] Number Rendering.getFirstTriangleIntersectingRay(Mesh, Ray)
+	ES_FUN(lib,"getFirstTriangleIntersectingRay",2,2,(Rendering::MeshUtils::getFirstTriangleIntersectingRay(
+				parameter[0].to<Rendering::Mesh*>(rt), parameter[1].to<Geometry::Ray3>(rt) )))
+
+
+	//! [ESF] void Rendering.eliminateDuplicateVertices(Mesh)
+	ES_FUN(lib,"mergeCloseVertices",1,1,(
+		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt)),
+		EScript::create(nullptr)
+	))
 }
 }

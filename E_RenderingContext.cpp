@@ -289,6 +289,25 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "setScissor", 1, 1,
 				(thisObj->setScissor(parameter[0].to<const ScissorParameters&>(rt)),thisEObj))
 
+	// Scissor
+	//!	[ESMF] StencilParameters RenderingContext.getStencilParamters()
+	ES_MFUN(typeObject,RenderingContext, "getStencilParamters", 0, 0, new E_StencilParameters(thisObj->getStencilParamters()))
+
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetStencil(StencilParameters)
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetStencil", 1, 1,
+				(thisObj->pushAndSetStencil(parameter[0].to<const StencilParameters&>(rt)),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushStencil()
+	ES_MFUN(typeObject,RenderingContext, "pushStencil", 0, 0, (thisObj->pushStencil(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.popStencil()
+	ES_MFUN(typeObject,RenderingContext, "popStencil", 0, 0, (thisObj->popStencil(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.setStencil(ScissorParameters)
+	ES_MFUN(typeObject,RenderingContext, "setStencil", 1, 1,
+				(thisObj->setStencil(parameter[0].to<const StencilParameters&>(rt)),thisEObj))
+
+
 	// FBO
 	//!	[ESMF] thisEObj void RenderingContext.pushFBO( [FBO|void] )
 	ES_MFUNCTION(typeObject,RenderingContext, "pushFBO",0,0,{

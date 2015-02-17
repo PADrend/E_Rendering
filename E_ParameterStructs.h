@@ -125,6 +125,19 @@ class E_PolygonModeParameters : public EScript::ReferenceObject<Rendering::Polyg
 		E_PolygonModeParameters * clone() const override		{	return new E_PolygonModeParameters(ref());	}
 };
 
+/*! EScript wrapper for Rendering::StencilParameters.
+	[E_StencilParameters] ---|> [ReferenceObject] ---|> [Object]  */
+class E_StencilParameters : public EScript::ReferenceObject<Rendering::StencilParameters> {
+		ES_PROVIDES_TYPE_NAME(StencilParameters)
+	public:
+		static EScript::Type* getTypeObject();
+		E_StencilParameters(const Rendering::StencilParameters & p) : EScript::ReferenceObject<Rendering::StencilParameters>(p,getTypeObject()){
+		}
+
+		//! ---|> Object
+		E_StencilParameters * clone() const override		{	return new E_StencilParameters(ref());	}
+};
+
 /*! EScript wrapper for Rendering::ScissorParameters.
 	[E_ScissorParameters] ---|> [ReferenceObject] ---|> [Object]  */
 class E_ScissorParameters : public EScript::ReferenceObject<Rendering::ScissorParameters> {
@@ -177,5 +190,9 @@ ES_CONV_OBJ_TO_EOBJ(const Rendering::PolygonModeParameters&, 					E_Rendering::E
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_ScissorParameters,		Rendering::ScissorParameters*,								&**eObj)
 ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_ScissorParameters,		Rendering::ScissorParameters&,								**eObj)
 ES_CONV_OBJ_TO_EOBJ(const Rendering::ScissorParameters&, 						E_Rendering::E_ParameterStructs::E_ScissorParameters,		new E_Rendering::E_ParameterStructs::E_ScissorParameters(obj))
+
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_StencilParameters,		Rendering::StencilParameters*,								&**eObj)
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_ParameterStructs::E_StencilParameters,		Rendering::StencilParameters&,								**eObj)
+ES_CONV_OBJ_TO_EOBJ(const Rendering::StencilParameters&, 						E_Rendering::E_ParameterStructs::E_StencilParameters,		new E_Rendering::E_ParameterStructs::E_StencilParameters(obj))
 
 #endif // E_ParameterStructs_H

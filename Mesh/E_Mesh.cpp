@@ -40,6 +40,19 @@ void E_Mesh::init(EScript::Namespace & lib) {
 
 	using namespace Rendering;
 	
+	//!	[ESMF] new Rendering.Mesh( Mesh )
+	ES_CONSTRUCTOR(typeObject,1,1, {
+		Mesh* source = parameter[0].to<Mesh*>(rt);
+		MeshIndexData indexData(source->openIndexData());
+		MeshVertexData vertexData(source->openVertexData());
+		Mesh* mesh = new Mesh(indexData, vertexData);
+		mesh->setDataStrategy(source->getDataStrategy());
+		mesh->setDrawMode(source->getDrawMode());
+		mesh->setFileName(source->getFileName());
+		mesh->setUseIndexData(mesh->isUsingIndexData());
+		return EScript::create(mesh);
+	})
+
 	//! [ESMF] VertexDescription Mesh.getVertexDescription()
 	ES_MFUN(typeObject,const Mesh,"getVertexDescription",0,0,thisObj->getVertexDescription())
 
@@ -133,7 +146,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,Mesh,"setUseIndexData",1,1,(thisObj->setUseIndexData(parameter[0].toBool()),thisEObj))
 
 	//! [ESMF] thisEObj Mesh.swap(Mesh)
-	ES_MFUN(typeObject,Mesh,"swap",0,0,(thisObj->swap(*parameter[0].to<Mesh*>(rt)),thisEObj))
+	ES_MFUN(typeObject,Mesh,"swap",1,1,(thisObj->swap(*parameter[0].to<Mesh*>(rt)),thisEObj))
 
 	//! [ESMF] thisEObj Mesh._markAsChanged() (wrapper for VertexData and IndexData.markAsChanged(), updateBB, and updateIndexRange , as these have no wrapper objects)
 	ES_MFUNCTION(typeObject,Mesh,"_markAsChanged",0,0,{
