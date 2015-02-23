@@ -25,6 +25,8 @@
 #include "MeshUtils/E_MeshBuilder.h"
 #include "MeshUtils/E_MeshUtils.h"
 #include "MeshUtils/E_PlatonicSolids.h"
+#include "MeshUtils/E_TriangleAccessor.h"
+#include "MeshUtils/E_ConnectivityAccessor.h"
 #include "Shader/E_Shader.h"
 #include "Shader/E_Uniform.h"
 #include "Texture/E_Texture.h"
@@ -85,6 +87,8 @@ void init(EScript::Namespace * globals) {
 	E_VertexAttributeAccessor::init(*lib);
 	E_VertexAttribute::init(*lib);
 	E_VertexDescription::init(*lib);
+	E_TriangleAccessor::init(*lib);
+	E_ConnectivityAccessor::init(*lib);
 #ifdef RENDERING_HAS_LIB_OPENCL
 	E_CL::init(lib);
 #endif

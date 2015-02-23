@@ -48,6 +48,8 @@ add_library(E_Rendering
 	MeshUtils/E_MeshBuilder.cpp
 	MeshUtils/E_MeshUtils.cpp
 	MeshUtils/E_PlatonicSolids.cpp
+	MeshUtils/E_TriangleAccessor.cpp
+	MeshUtils/E_ConnectivityAccessor.cpp
 	Shader/E_Shader.cpp
 	Shader/E_Uniform.cpp
 	Texture/E_Texture.cpp
