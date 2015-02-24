@@ -379,9 +379,8 @@ void initMeshUtils(EScript::Namespace * lib) {
 
 
 	//! [ESF] void Rendering.eliminateDuplicateVertices(Mesh,[Number])
-	ES_FUN(lib,"mergeCloseVertices",1,2,(
-		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001)),
-		EScript::create(nullptr)
-	))
+	ES_FUN(lib,"mergeCloseVertices",1,2,
+		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001))
+	)
 }
 }

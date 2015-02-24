@@ -74,6 +74,32 @@ void E_ConnectivityAccessor::init(EScript::Namespace & lib) {
 	//! [ESMF] Number ConnectivityAccessor.getNextTriangleCorner(cIndex)
 	ES_MFUN(typeObject,const ConnectivityAccessor,"getNextTriangleCorner",1,1,
 				thisObj->getNextTriangleCorner(parameter[0].to<uint32_t>(rt)))
+
+	//! [ESMF] Array ConnectivityAccessor.getVertexAdjacentTriangles(vIndex)
+	ES_MFUNCTION(typeObject,const ConnectivityAccessor,"getVertexAdjacentTriangles",1,1, {
+		auto tri = thisObj->getVertexAdjacentTriangles(parameter[0].to<uint32_t>(rt));
+		auto arr = EScript::Array::create();
+		for(auto t : tri)
+			arr->pushBack(EScript::create(t));
+		return arr;
+	})
+
+	//! [ESMF] Array ConnectivityAccessor.getAdjacentTriangles(tIndex)
+	ES_MFUNCTION(typeObject,const ConnectivityAccessor,"getAdjacentTriangles",1,1, {
+		auto tri = thisObj->getAdjacentTriangles(parameter[0].to<uint32_t>(rt));
+		auto arr = EScript::Array::create();
+		for(auto t : tri)
+			arr->pushBack(EScript::create(t));
+		return arr;
+	})
+
+	//! [ESMF] Number ConnectivityAccessor.isBorderEdge(vIndex1, vIndex2)
+	ES_MFUN(typeObject,const ConnectivityAccessor,"isBorderEdge",2,2,
+				thisObj->isBorderEdge(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
+
+	//! [ESMF] Number ConnectivityAccessor.isBorderTriangle(tIndex)
+	ES_MFUN(typeObject,const ConnectivityAccessor,"isBorderTriangle",2,2,
+				thisObj->isBorderTriangle(parameter[0].to<uint32_t>(rt)))
 }
 
 }
