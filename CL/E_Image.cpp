@@ -88,6 +88,7 @@ void E_Image::init(EScript::Namespace & lib) {
 		auto arr = EScript::Array::create();
 		arr->pushBack(EScript::Number::create(static_cast<uint8_t>(format.channelOrder)));
 		arr->pushBack(EScript::Number::create(static_cast<uint8_t>(format.channelType)));
+		return arr;
 	})
 
 	// size_t getRowPitch() const
