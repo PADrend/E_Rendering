@@ -89,7 +89,7 @@ void writeEObj(Rendering::CL::BufferAccessor* accessor, EScript::Runtime& rt, ES
 }
 
 template<typename T>
-EScript::Object* readEObj(Rendering::CL::BufferAccessor* accessor, EScript::Runtime& rt, size_t numValues) {
+EScript::Object* readEObj(Rendering::CL::BufferAccessor* accessor, size_t numValues) {
 	if(numValues > 0) {
 		EScript::Array* arr = EScript::Array::create();
 		arr->reserve(numValues);
@@ -103,7 +103,7 @@ EScript::Object* readEObj(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 
 
 template<typename T>
-EScript::Object* readVec2(Rendering::CL::BufferAccessor* accessor, EScript::Runtime& rt, size_t numValues) {
+EScript::Object* readVec2(Rendering::CL::BufferAccessor* accessor, size_t numValues) {
 	using namespace Geometry;
 	if(numValues > 0) {
 		EScript::Array* arr = EScript::Array::create();
@@ -120,7 +120,7 @@ EScript::Object* readVec2(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 
 
 template<typename T>
-EScript::Object* readVec3(Rendering::CL::BufferAccessor* accessor, EScript::Runtime& rt, size_t numValues) {
+EScript::Object* readVec3(Rendering::CL::BufferAccessor* accessor, size_t numValues) {
 	using namespace Geometry;
 	if(numValues > 0) {
 		EScript::Array* arr = EScript::Array::create();
@@ -137,7 +137,7 @@ EScript::Object* readVec3(Rendering::CL::BufferAccessor* accessor, EScript::Runt
 
 
 template<typename T>
-EScript::Object* readVec4(Rendering::CL::BufferAccessor* accessor, EScript::Runtime& rt, size_t numValues) {
+EScript::Object* readVec4(Rendering::CL::BufferAccessor* accessor, size_t numValues) {
 	using namespace Geometry;
 	if(numValues > 0) {
 		EScript::Array* arr = EScript::Array::create();
@@ -209,25 +209,26 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 		uint32_t size = parameter[1].toUInt(0);
 		switch(type) {
 		case Util::TypeConstant::UINT8:
-			return readEObj<uint8_t>(thisObj, rt, size);
+			return readEObj<uint8_t>(thisObj, size);
 		case Util::TypeConstant::INT8:
-			return readEObj<int8_t>(thisObj, rt, size);
+			return readEObj<int8_t>(thisObj, size);
 		case Util::TypeConstant::UINT16:
-			return readEObj<uint16_t>(thisObj, rt, size);
+			return readEObj<uint16_t>(thisObj, size);
 		case Util::TypeConstant::INT16:
-			return readEObj<int16_t>(thisObj, rt, size);
+			return readEObj<int16_t>(thisObj, size);
 		case Util::TypeConstant::UINT32:
-			return readEObj<uint32_t>(thisObj, rt, size);
+			return readEObj<uint32_t>(thisObj, size);
 		case Util::TypeConstant::INT32:
-			return readEObj<int32_t>(thisObj, rt, size);
+			return readEObj<int32_t>(thisObj, size);
 		case Util::TypeConstant::UINT64:
-			return readEObj<uint64_t>(thisObj, rt, size);
+			return readEObj<uint64_t>(thisObj, size);
 		case Util::TypeConstant::INT64:
-			return readEObj<int64_t>(thisObj, rt, size);
+			return readEObj<int64_t>(thisObj, size);
 		case Util::TypeConstant::DOUBLE:
-			return readEObj<double>(thisObj, rt, size);
+			return readEObj<double>(thisObj, size);
+		case Util::TypeConstant::FLOAT:
 		default:
-			return readEObj<float>(thisObj, rt, size);
+			return readEObj<float>(thisObj, size);
 		}
 	})
 
@@ -237,25 +238,26 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 		uint32_t size = parameter[1].toUInt(0);
 		switch(type) {
 		case Util::TypeConstant::UINT8:
-			return readVec2<uint8_t>(thisObj, rt, size);
+			return readVec2<uint8_t>(thisObj, size);
 		case Util::TypeConstant::INT8:
-			return readVec2<int8_t>(thisObj, rt, size);
+			return readVec2<int8_t>(thisObj, size);
 		case Util::TypeConstant::UINT16:
-			return readVec2<uint16_t>(thisObj, rt, size);
+			return readVec2<uint16_t>(thisObj, size);
 		case Util::TypeConstant::INT16:
-			return readVec2<int16_t>(thisObj, rt, size);
+			return readVec2<int16_t>(thisObj, size);
 		case Util::TypeConstant::UINT32:
-			return readVec2<uint32_t>(thisObj, rt, size);
+			return readVec2<uint32_t>(thisObj, size);
 		case Util::TypeConstant::INT32:
-			return readVec2<int32_t>(thisObj, rt, size);
+			return readVec2<int32_t>(thisObj, size);
 		case Util::TypeConstant::UINT64:
-			return readVec2<uint64_t>(thisObj, rt, size);
+			return readVec2<uint64_t>(thisObj, size);
 		case Util::TypeConstant::INT64:
-			return readVec2<int64_t>(thisObj, rt, size);
+			return readVec2<int64_t>(thisObj, size);
 		case Util::TypeConstant::DOUBLE:
-			return readVec2<double>(thisObj, rt, size);
+			return readVec2<double>(thisObj, size);
+		case Util::TypeConstant::FLOAT:
 		default:
-			return readVec2<float>(thisObj, rt, size);
+			return readVec2<float>(thisObj, size);
 		}
 	})
 
@@ -265,25 +267,26 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 		uint32_t size = parameter[1].toUInt(0);
 		switch(type) {
 		case Util::TypeConstant::UINT8:
-			return readVec3<uint8_t>(thisObj, rt, size);
+			return readVec3<uint8_t>(thisObj, size);
 		case Util::TypeConstant::INT8:
-			return readVec3<int8_t>(thisObj, rt, size);
+			return readVec3<int8_t>(thisObj, size);
 		case Util::TypeConstant::UINT16:
-			return readVec3<uint16_t>(thisObj, rt, size);
+			return readVec3<uint16_t>(thisObj, size);
 		case Util::TypeConstant::INT16:
-			return readVec3<int16_t>(thisObj, rt, size);
+			return readVec3<int16_t>(thisObj, size);
 		case Util::TypeConstant::UINT32:
-			return readVec3<uint32_t>(thisObj, rt, size);
+			return readVec3<uint32_t>(thisObj, size);
 		case Util::TypeConstant::INT32:
-			return readVec3<int32_t>(thisObj, rt, size);
+			return readVec3<int32_t>(thisObj, size);
 		case Util::TypeConstant::UINT64:
-			return readVec3<uint64_t>(thisObj, rt, size);
+			return readVec3<uint64_t>(thisObj, size);
 		case Util::TypeConstant::INT64:
-			return readVec3<int64_t>(thisObj, rt, size);
+			return readVec3<int64_t>(thisObj, size);
 		case Util::TypeConstant::DOUBLE:
-			return readVec3<double>(thisObj, rt, size);
+			return readVec3<double>(thisObj, size);
+		case Util::TypeConstant::FLOAT:
 		default:
-			return readVec3<float>(thisObj, rt, size);
+			return readVec3<float>(thisObj, size);
 		}
 	})
 
@@ -293,25 +296,26 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 		uint32_t size = parameter[1].toUInt(0);
 		switch(type) {
 		case Util::TypeConstant::UINT8:
-			return readVec4<uint8_t>(thisObj, rt, size);
+			return readVec4<uint8_t>(thisObj, size);
 		case Util::TypeConstant::INT8:
-			return readVec4<int8_t>(thisObj, rt, size);
+			return readVec4<int8_t>(thisObj, size);
 		case Util::TypeConstant::UINT16:
-			return readVec4<uint16_t>(thisObj, rt, size);
+			return readVec4<uint16_t>(thisObj, size);
 		case Util::TypeConstant::INT16:
-			return readVec4<int16_t>(thisObj, rt, size);
+			return readVec4<int16_t>(thisObj, size);
 		case Util::TypeConstant::UINT32:
-			return readVec4<uint32_t>(thisObj, rt, size);
+			return readVec4<uint32_t>(thisObj, size);
 		case Util::TypeConstant::INT32:
-			return readVec4<int32_t>(thisObj, rt, size);
+			return readVec4<int32_t>(thisObj, size);
 		case Util::TypeConstant::UINT64:
-			return readVec4<uint64_t>(thisObj, rt, size);
+			return readVec4<uint64_t>(thisObj, size);
 		case Util::TypeConstant::INT64:
-			return readVec4<int64_t>(thisObj, rt, size);
+			return readVec4<int64_t>(thisObj, size);
 		case Util::TypeConstant::DOUBLE:
-			return readVec4<double>(thisObj, rt, size);
+			return readVec4<double>(thisObj, size);
+		case Util::TypeConstant::FLOAT:
 		default:
-			return readVec4<float>(thisObj, rt, size);
+			return readVec4<float>(thisObj, size);
 		}
 	})
 
@@ -338,6 +342,7 @@ void E_BufferAccessor::init(EScript::Namespace & lib) {
 			writeEObj<int64_t>(thisObj, rt, parameter[0]); break;
 		case Util::TypeConstant::DOUBLE:
 			writeEObj<double>(thisObj, rt, parameter[0]); break;
+		case Util::TypeConstant::FLOAT:
 		default:
 			writeEObj<float>(thisObj, rt, parameter[0]);
 		}

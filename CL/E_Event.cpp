@@ -91,6 +91,7 @@ void E_Event::init(EScript::Namespace & lib) {
 		for(auto e : *a)
 			events.push_back(e.to<Event*>(rt));
 		Event::waitForEvents(events);
+		return thisEObj;
 	})
 }
 }

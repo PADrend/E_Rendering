@@ -81,6 +81,7 @@ void E_Kernel::init(EScript::Namespace & lib) {
 			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<int64_t>(rt)));
 		case Util::TypeConstant::DOUBLE:
 			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].to<double>(rt)));
+		case Util::TypeConstant::FLOAT:
 		default:
 			return EScript::create(thisObj->setArg(parameter[0].to<uint32_t>(rt),parameter[1].toFloat()));
 		}
@@ -128,6 +129,7 @@ void E_Kernel::init(EScript::Namespace & lib) {
 		auto arr = EScript::Array::create();
 		for(auto s : sizes)
 			arr->pushBack(EScript::Number::create(s));
+		return thisEObj;
 	})
 
 	// std::string getFunctionName() const

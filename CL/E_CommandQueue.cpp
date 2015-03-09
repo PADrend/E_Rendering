@@ -28,6 +28,7 @@
 namespace E_Rendering{
 namespace E_CL{
 
+inline
 Rendering::CL::RangeND_t toNDRange(EScript::Runtime& rt, EScript::ObjPtr obj) {
 	using namespace Rendering::CL;
 	const EScript::Array * a = obj.to<EScript::Array*>(rt);
@@ -40,6 +41,7 @@ Rendering::CL::RangeND_t toNDRange(EScript::Runtime& rt, EScript::ObjPtr obj) {
 	return range_nd;
 }
 
+inline
 std::vector<Rendering::CL::Event*> toEventVector(EScript::Runtime& rt, EScript::ObjPtr obj) {
 	using namespace Rendering::CL;
 	std::vector<Event*> events;
@@ -244,6 +246,7 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 	ES_MFUNCTION(typeObject,CommandQueue,"waitForEvents",1,1, {
 		std::vector<Event*> events = toEventVector(rt, parameter[0]);
 		thisObj->waitForEvents(events);
+		return thisEObj;
 	})
 
 	// bool writeBuffer(Buffer* buffer, bool blocking, size_t offset, size_t size, void* ptr, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr)
