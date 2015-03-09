@@ -84,6 +84,15 @@ void E_ConnectivityAccessor::init(EScript::Namespace & lib) {
 		return arr;
 	})
 
+	//! [ESMF] Array ConnectivityAccessor.getVertexAdjacentVertices(vIndex)
+	ES_MFUNCTION(typeObject,const ConnectivityAccessor,"getVertexAdjacentVertices",1,1, {
+		auto verts = thisObj->getVertexAdjacentVertices(parameter[0].to<uint32_t>(rt));
+		auto arr = EScript::Array::create();
+		for(auto v : verts)
+			arr->pushBack(EScript::create(v));
+		return arr;
+	})
+
 	//! [ESMF] Array ConnectivityAccessor.getAdjacentTriangles(tIndex)
 	ES_MFUNCTION(typeObject,const ConnectivityAccessor,"getAdjacentTriangles",1,1, {
 		auto tri = thisObj->getAdjacentTriangles(parameter[0].to<uint32_t>(rt));
@@ -98,7 +107,7 @@ void E_ConnectivityAccessor::init(EScript::Namespace & lib) {
 				thisObj->isBorderEdge(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
 	//! [ESMF] Number ConnectivityAccessor.isBorderTriangle(tIndex)
-	ES_MFUN(typeObject,const ConnectivityAccessor,"isBorderTriangle",2,2,
+	ES_MFUN(typeObject,const ConnectivityAccessor,"isBorderTriangle",1,1,
 				thisObj->isBorderTriangle(parameter[0].to<uint32_t>(rt)))
 }
 
