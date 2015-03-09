@@ -19,6 +19,7 @@
 #include <E_Geometry/E_Matrix4x4.h>
 #include <E_Geometry/E_SRT.h>
 #include <E_Geometry/E_Sphere.h>
+#include <E_Geometry/E_Box.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_Bitmap.h>
 #include <Rendering/Mesh/VertexAttributeIds.h>
@@ -110,6 +111,16 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		return EScript::create(MeshBuilder::createSphere(vertexDescription, parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)));
 	})
 
+	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createBox(Box)
+	ES_FUNCTION(typeObject, "createBox", 1, 1, {
+		Rendering::VertexDescription vertexDescription;
+		vertexDescription.appendPosition3D();
+		vertexDescription.appendNormalFloat();
+		vertexDescription.appendColorRGBFloat();
+		vertexDescription.appendTexCoord();
+		return EScript::create(MeshBuilder::createBox(vertexDescription, parameter[0].to<Geometry::Box>(rt)));
+	})
+
 	// EXPERIMENTAL!!!!!!!!!!!!!!
 	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap depth[, Util.Bitmap color[, Util.Bitmap normals]])
 	ES_FUNCTION(typeObject,"createMeshFromBitmaps",1,3,{
@@ -159,7 +170,12 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj MeshBuilder.addSphere( Sphere,inclinationSegments,azimuthSegments )
 	ES_MFUN(typeObject,MeshBuilder,"addSphere",3,3,
 				(MeshBuilder::addSphere(*thisObj,parameter[0].to<Geometry::Sphere_f>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
-				
+
+	//!	[ESMF] thisEObj MeshBuilder.addBox( Box )
+	ES_MFUN(typeObject,MeshBuilder,"addBox",1,1,
+				(MeshBuilder::addBox(*thisObj,parameter[0].to<Geometry::Box>(rt)),thisEObj))
+
+
 	//!	[ESMF] thisEObj MeshBuilder.addTriangle( idx,idx,idx )
 	ES_MFUN(typeObject,MeshBuilder,"addTriangle",3,3,
 				(thisObj->addTriangle( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
