@@ -73,6 +73,11 @@ void E_Event::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const Event,"getProfilingSeconds",0,0,
 			EScript::Number::create(thisObj->getProfilingSeconds()))
 
+	// uint32_t getStatus() const
+	//! [ESMF] Number Event.getStatus()
+	ES_MFUN(typeObject,const Event,"getStatus",0,0,
+			EScript::Number::create(thisObj->getStatus()))
+
 	// void setCallback(CallbackFn_t fun)
 	//! [ESMF] self Event.setCallback(p0)
 //	ES_MFUN(typeObject,Event,"setCallback",1,1,
