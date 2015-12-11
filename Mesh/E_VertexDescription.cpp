@@ -115,7 +115,7 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,VertexDescription, "appendPosition4D", 0, 0, (thisObj->appendPosition4D(),thisEObj))
 
 	//! thisEObj VertexDescription.appendTexCoord()
-	ES_MFUN(typeObject,VertexDescription, "appendTexCoord", 0, 0, (thisObj->appendTexCoord(),thisEObj))
+	ES_MFUN(typeObject,VertexDescription, "appendTexCoord", 0, 1, (thisObj->appendTexCoord(parameter[0].toUInt(0)),thisEObj))
 }
 
 }
