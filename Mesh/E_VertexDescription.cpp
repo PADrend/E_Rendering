@@ -89,6 +89,17 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 	//! Bool VertexDescription.hasAttribute(String name)
 	ES_MFUN(typeObject,VertexDescription, "hasAttribute", 1, 1, EScript::Bool::create(
 					thisObj->hasAttribute(parameter[0].toString())))
+					
+
+	//! Attribute VertexDescription.appendFloatAttribute(String name, Number numValues)
+	//! \note only string constants can be used.
+	ES_MFUN(typeObject,VertexDescription, "appendFloatAttribute", 1, 2,
+				(thisObj->appendFloatAttribute(parameter[0].toString(), parameter[1].toUInt(1)),thisEObj))
+
+	//! Attribute VertexDescription.appendUnsignedIntAttribute(String name, Number numValues)
+	//! \note only string constants can be used.
+	ES_MFUN(typeObject,VertexDescription, "appendUnsignedIntAttribute", 1, 2,
+				(thisObj->appendUnsignedIntAttribute(parameter[0].toString(), parameter[1].toUInt(1)),thisEObj))
 
 	//! thisEObj VertexDescription.appendColorRGBAByte()
 	ES_MFUN(typeObject,VertexDescription, "appendColorRGBAByte", 0, 0, (thisObj->appendColorRGBAByte(),thisEObj))
