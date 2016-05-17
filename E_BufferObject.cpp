@@ -9,8 +9,12 @@
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_BufferObject.h"
+#include "E_Geometry/E_Vec3.h"
+#include "E_Geometry/E_Vec4.h"
+#include "E_Geometry/E_Matrix4x4.h"
 
 #include <EScript/Basics.h>
+#include <EScript/StdObjects.h>
 
 namespace E_Rendering {
 
@@ -45,7 +49,49 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisEObj BufferObject.allocateData(bufferTarget, numBytes, usageHint)
 	ES_MFUN(typeObject,BufferObject,"allocateData",3,3,(thisObj->allocateData<uint8_t>(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt()), thisEObj))
-
+	
+	//! [ESF] thisEObj BufferObject.uploadData(bufferTarget, Array of float/Vec3/Vec4/Matrix4x4, usageHint)
+	ES_MFUNCTION(typeObject,BufferObject,"uploadData", 3, 3, {
+		uint32_t bufferTarget = parameter[0].toUInt();
+		uint32_t usageHint = parameter[2].toUInt();
+		EScript::Array * a = parameter[1].to<EScript::Array*>(rt);
+		if(a->empty())
+			return thisEObj;
+			
+		const uint8_t* data;
+		size_t size = 0; 
+		
+		if(a->at(0).toType<E_Geometry::E_Matrix4x4>()) {
+			std::vector<Geometry::Matrix4x4> tmp;
+			for(auto value : *a)
+				tmp.push_back(value.to<Geometry::Matrix4x4>(rt).getTransposed());
+			data = reinterpret_cast<const uint8_t*>(tmp.data());
+			size = tmp.size() * sizeof(float) * 16;
+			thisObj->uploadData(bufferTarget, data, size, usageHint);
+		} else if(a->at(0).toType<E_Geometry::E_Vec3>()) {
+			std::vector<Geometry::Vec3> tmp;
+			for(auto value : *a)
+				tmp.push_back(value.to<Geometry::Vec3>(rt));
+			data = reinterpret_cast<const uint8_t*>(tmp.data());
+			size = tmp.size() * sizeof(float) * 3;
+			thisObj->uploadData(bufferTarget, data, size, usageHint);
+		} else if(a->at(0).toType<E_Geometry::E_Vec4>()) {
+			std::vector<Geometry::Vec4> tmp;
+			for(auto value : *a)
+				tmp.push_back(value.to<Geometry::Vec4>(rt));
+			data = reinterpret_cast<const uint8_t*>(tmp.data());
+			size = tmp.size() * sizeof(float) * 4;
+			thisObj->uploadData(bufferTarget, data, size, usageHint);
+		} else {
+			std::vector<float> tmp;
+			for(auto value : *a)
+				tmp.push_back(value.toFloat());
+			data = reinterpret_cast<const uint8_t*>(tmp.data());
+			size = tmp.size() * sizeof(float);
+			thisObj->uploadData(bufferTarget, data, size, usageHint);
+		}		
+		return thisEObj;
+	})
 }
 
 }

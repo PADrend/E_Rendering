@@ -12,10 +12,12 @@
 #include "Mesh/E_Mesh.h"
 
 #include "E_RenderingContext.h"
+#include "E_BufferObject.h"
 
 #include <E_Geometry/E_Box.h>
 #include <E_Geometry/E_Rect.h>
 #include <E_Geometry/E_Vec3.h>
+#include <E_Geometry/E_Matrix4x4.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <Rendering/Draw.h>
 #include <Rendering/DrawCompound.h>
@@ -131,6 +133,16 @@ void E_Draw::init(EScript::Namespace & lib) {
 
 	//! [ESF] Void Rendering.disable2DMode(RenderingContext)
 	ES_FUN(&lib, "disable2DMode", 1, 1, (Rendering::disable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
+
+	//! [ESF] void Rendering.drawInstances(RenderingContext, Mesh, BufferObject positions, elements, count)
+	ES_FUN(&lib, "drawInstances", 5, 5, (	Rendering::drawInstances(
+		parameter[0].to<Rendering::RenderingContext&>(rt),
+		parameter[1].to<Rendering::Mesh*>(rt),
+		parameter[2].to<Rendering::CountedBufferObject*>(rt)->get(),
+		parameter[3].toUInt(),
+		parameter[4].toUInt()
+	), EScript::create(nullptr)))
+		
 }
 
 }
