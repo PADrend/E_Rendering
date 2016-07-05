@@ -198,7 +198,7 @@ void E_FloatAttributeAccessor::init(EScript::Namespace & lib) {
 											
 	//! [ESMF] thisEObj FloatAttributeAccessor.setValue(Number, Number)
 	ES_MFUNCTION(typeObject,FloatAttributeAccessor,"setValues",2,2,{		
-			EScript::Array * a=parameter[0].toType<EScript::Array>();
+			EScript::Array * a=parameter[1].toType<EScript::Array>();
 			if(a) {
 				std::vector<float> values;
 				for(auto v : *a)
@@ -247,7 +247,7 @@ void E_UIntAttributeAccessor::init(EScript::Namespace & lib) {
 											
 	//! [ESMF] thisEObj FloatAttributeAccessor.setValue(Number, Number)
 	ES_MFUNCTION(typeObject,FloatAttributeAccessor,"setValues",2,2,{		
-		EScript::Array * a=parameter[0].toType<EScript::Array>();
+		EScript::Array * a=parameter[1].toType<EScript::Array>();
 		if(a) {
 			std::vector<float> values;
 			for(auto v : *a)
