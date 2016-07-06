@@ -171,8 +171,17 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,Mesh,"_swapIndexBuffer",1,1,(thisObj->_getIndexData()._swapBufferObject(parameter[0].to<CountedBufferObject*>(rt)->get()),thisEObj))
 
 	//! [ESMF] thisEObj Mesh._upload([usageHint])
-	ES_MFUN(typeObject,Mesh,"_upload",0,1,(parameter.size() > 0 ? thisObj->_getVertexData().upload(parameter[0].toUInt()) : thisObj->_getVertexData().upload(),thisEObj))
-
+	ES_MFUNCTION(typeObject,Mesh,"_upload",0,1,{
+		if(parameter.size() > 0) {
+			thisObj->_getVertexData().upload(parameter[0].toUInt());
+			if(thisObj->isUsingIndexData()) thisObj->_getIndexData().upload(parameter[0].toUInt());
+		} else {
+			thisObj->_getVertexData().upload();
+			if(thisObj->isUsingIndexData()) thisObj->_getIndexData().upload();
+		}
+		return thisEObj;
+	})
+	
 	E_Util::E_Utils::registerConverter(new E_Util::E_Utils::CountedRefAttrConverter<Rendering::Mesh,E_Mesh>);
 }
 
