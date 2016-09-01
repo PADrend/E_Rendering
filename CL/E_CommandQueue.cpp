@@ -20,13 +20,74 @@
 #include <E_Geometry/E_Vec3.h>
 #include <E_Geometry/E_Vec4.h>
 
+#include <Util/TypeConstant.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
 #include <iostream>
 
+namespace EScript {
+template<> inline int8_t convertTo<int8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<int8_t>(convertTo<double>(rt,src));	}
+template<> inline uint8_t convertTo<uint8_t>(Runtime& rt,ObjPtr src)	{	return static_cast<uint8_t>(convertTo<double>(rt,src));	}
+}
+
 namespace E_Rendering{
 namespace E_CL{
+	
+
+template<typename T>
+std::vector<T> arrayToVector(EScript::Runtime& rt, EScript::Array* arr) {
+	using namespace E_Geometry;
+	std::vector<T> out;
+	out.reserve(arr->size());
+	for(auto val : *arr) {
+		E_Vec2* v2 = val.toType<E_Vec2>();
+		E_Vec3* v3 = val.toType<E_Vec3>();
+		E_Vec4* v4 = val.toType<E_Vec4>();
+		if(v2 != nullptr) {
+			out.push_back(static_cast<T>((**v2).x()));
+			out.push_back(static_cast<T>((**v2).y()));
+		} else if(v3 != nullptr) {
+			out.push_back(static_cast<T>((**v3).x()));
+			out.push_back(static_cast<T>((**v3).y()));
+			out.push_back(static_cast<T>((**v3).z()));
+		} else if(v4 != nullptr) {
+			out.push_back(static_cast<T>((**v4).x()));
+			out.push_back(static_cast<T>((**v4).y()));
+			out.push_back(static_cast<T>((**v4).z()));
+			out.push_back(static_cast<T>((**v4).w()));
+		} else {
+			out.push_back(val.to<T>(rt));
+		}
+	}
+	return out;
+}
+
+template<typename T>
+bool fillBuffer(Rendering::CL::CommandQueue* queue, Rendering::CL::Buffer* buffer, size_t offset, size_t count, EScript::Runtime& rt, EScript::ObjPtr obj, const std::vector<Rendering::CL::Event*>& waitForEvents, Rendering::CL::Event* event) {
+	using namespace E_Geometry;
+	size_t typeSize = sizeof(T);
+	EScript::Array* arr = obj.toType<EScript::Array>();
+	if(arr != nullptr) {
+		auto vec = arrayToVector<T>(rt, arr);
+		return queue->fillBuffer(buffer, offset, vec.size()*typeSize*count, vec.data(), vec.size()*typeSize, waitForEvents, event);
+	}
+	E_Vec2* v2 = obj.toType<E_Vec2>();
+	if(v2 != nullptr) {	
+		return queue->fillBuffer(buffer, offset, 2*typeSize*count, (**v2).getVec(), 2*typeSize, waitForEvents, event);
+	}
+	E_Vec3* v3 = obj.toType<E_Vec3>();
+	if(v3 != nullptr) {
+		return queue->fillBuffer(buffer, offset, 3*typeSize*count, (**v3).getVec(), 3*typeSize, waitForEvents, event);
+	}
+	E_Vec4* v4 = obj.toType<E_Vec4>();
+	if(v4 != nullptr) {
+		return queue->fillBuffer(buffer, offset, 4*typeSize*count, (**v4).getVec(), 4*typeSize, waitForEvents, event);
+	}
+	T val = obj.to<T>(rt);
+	return queue->fillBuffer(buffer, offset, typeSize*count, &val, typeSize, waitForEvents, event);
+}
 
 inline
 Rendering::CL::RangeND_t toNDRange(EScript::Runtime& rt, EScript::ObjPtr obj) {
@@ -289,6 +350,44 @@ void E_CommandQueue::init(EScript::Namespace & lib) {
 				values.data(),
 				events,
 				parameter.size() > 4 ? parameter[4].to<Event*>(rt) : nullptr);
+	})
+	
+	
+	// bool fillBuffer(Buffer* buffer, size_t offset, size_t size, const void* pattern, size_t patternSize, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr);
+	//! [ESMF] RESULT CommandQueue.fillBuffer(Buffer, offset, Object, count, TypeConstant type [, waitForEvents [, event]])
+	ES_MFUNCTION(typeObject,CommandQueue,"fillBuffer",4,7, {
+		std::vector<Event*> events;
+		if(parameter.size() > 5) {
+			const EScript::Array * a = parameter[5].to<EScript::Array*>(rt);
+			for(auto e : *a)
+				events.push_back(e.to<Event*>(rt));
+		}
+		Event* event = parameter.size() > 6 ? parameter[6].to<Event*>(rt) : nullptr;
+		
+		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[4].toUInt(static_cast<uint32_t>(Util::TypeConstant::FLOAT)));		
+		switch(type) {
+		case Util::TypeConstant::UINT8:
+			return fillBuffer<uint8_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::INT8:
+			return fillBuffer<int8_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::UINT16:
+			return fillBuffer<uint16_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::INT16:
+			return fillBuffer<int16_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::UINT32:
+			return fillBuffer<uint32_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::INT32:
+			return fillBuffer<int32_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::UINT64:
+			return fillBuffer<uint64_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::INT64:
+			return fillBuffer<int64_t>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::DOUBLE:
+			return fillBuffer<double>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		case Util::TypeConstant::FLOAT:
+		default:
+			return fillBuffer<float>(thisObj, parameter[0].to<Buffer*>(rt), parameter[1].toUInt(), parameter[3].toUInt(), rt, parameter[2], events, event); break;
+		}
 	})
 
 	// bool writeBufferRect(Buffer* buffer, bool blocking, const RangeND_t& bufferOffset, const RangeND_t& hostOffset, const RangeND_t& region, void* ptr, const EventList_t& waitForEvents = EventList_t(), Event* event = nullptr, size_t bufferRowPitch = 0, size_t bufferSlicePitch = 0, size_t hostRowPitch = 0, size_t hostSlicePitch = 0)
