@@ -234,8 +234,8 @@ void E_UIntAttributeAccessor::init(EScript::Namespace & lib) {
 	//! [ESMF] Number UIntAttributeAccessor.getValue(index)
 	ES_MFUN(typeObject,const UIntAttributeAccessor,"getValue",1,1,thisObj->getValue(parameter[0].to<uint32_t>(rt)))
 	
-	//! [ESMF] Number FloatAttributeAccessor.getValues(index)
-	ES_MFUNCTION(typeObject,const FloatAttributeAccessor,"getValues",1,1,{
+	//! [ESMF] Number UIntAttributeAccessor.getValues(index)
+	ES_MFUNCTION(typeObject,const UIntAttributeAccessor,"getValues",1,1,{
 		const auto values = thisObj->getValues(parameter[0].to<uint32_t>(rt));
 		return EScript::Array::create(values); 
 	})
@@ -245,11 +245,11 @@ void E_UIntAttributeAccessor::init(EScript::Namespace & lib) {
 				thisObj->setValue(parameter[0].to<uint32_t>(rt),
 											parameter[1].to<uint32_t>(rt)),thisEObj))
 											
-	//! [ESMF] thisEObj FloatAttributeAccessor.setValue(Number, Number)
-	ES_MFUNCTION(typeObject,FloatAttributeAccessor,"setValues",2,2,{		
+	//! [ESMF] thisEObj UIntAttributeAccessor.setValue(Number, Number)
+	ES_MFUNCTION(typeObject,UIntAttributeAccessor,"setValues",2,2,{		
 		EScript::Array * a=parameter[1].toType<EScript::Array>();
 		if(a) {
-			std::vector<float> values;
+			std::vector<uint32_t> values;
 			for(auto v : *a)
 				values.push_back(v.toUInt());
 			thisObj->setValues(parameter[0].to<uint32_t>(rt), values);

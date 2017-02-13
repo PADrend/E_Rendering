@@ -98,8 +98,8 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 
 	//! Attribute VertexDescription.appendUnsignedIntAttribute(String name, Number numValues)
 	//! \note only string constants can be used.
-	ES_MFUN(typeObject,VertexDescription, "appendUnsignedIntAttribute", 1, 2,
-				(thisObj->appendUnsignedIntAttribute(parameter[0].toString(), parameter[1].toUInt(1)),thisEObj))
+	ES_MFUN(typeObject,VertexDescription, "appendUnsignedIntAttribute", 1, 3,
+				(thisObj->appendUnsignedIntAttribute(parameter[0].toString(), parameter[1].toUInt(1), parameter[2].toBool(true)),thisEObj))
 
 	//! thisEObj VertexDescription.appendColorRGBAByte()
 	ES_MFUN(typeObject,VertexDescription, "appendColorRGBAByte", 0, 0, (thisObj->appendColorRGBAByte(),thisEObj))
