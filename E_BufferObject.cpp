@@ -92,6 +92,12 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 		}		
 		return thisEObj;
 	})
+	
+	//! [ESMF] thisEObj BufferObject._bind(bufferTarget, [location])
+	ES_MFUN(typeObject,BufferObject,"_bind",1,2,(parameter.count() == 1 ? thisObj->bind(parameter[0].toUInt()) : thisObj->bind(parameter[0].toUInt(), parameter[1].toUInt()), thisEObj))
+	
+	//! [ESMF] thisEObj BufferObject._unbind(bufferTarget, [location])
+	ES_MFUN(typeObject,BufferObject,"_unbind",1,2,(parameter.count() == 1 ? thisObj->unbind(parameter[0].toUInt()) : thisObj->unbind(parameter[0].toUInt(), parameter[1].toUInt()), thisEObj))
 }
 
 }
