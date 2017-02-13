@@ -41,16 +41,21 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	using namespace Rendering;
 	
 	//!	[ESMF] new Rendering.Mesh( Mesh )
-	ES_CONSTRUCTOR(typeObject,1,1, {
-		Mesh* source = parameter[0].to<Mesh*>(rt);
-		MeshIndexData indexData(source->openIndexData());
-		MeshVertexData vertexData(source->openVertexData());
-		Mesh* mesh = new Mesh(indexData, vertexData);
-		mesh->setDataStrategy(source->getDataStrategy());
-		mesh->setDrawMode(source->getDrawMode());
-		mesh->setFileName(source->getFileName());
-		mesh->setUseIndexData(mesh->isUsingIndexData());
-		return EScript::create(mesh);
+	ES_CONSTRUCTOR(typeObject,1,3, {
+		if(parameter.count() == 3) {			
+			Mesh* mesh = new Mesh(parameter[0].to<const VertexDescription&>(rt),parameter[1].toUInt(),parameter[2].toUInt());
+			return EScript::create(mesh);
+		} else {
+			Mesh* source = parameter[0].to<Mesh*>(rt);
+			MeshIndexData indexData(source->openIndexData());
+			MeshVertexData vertexData(source->openVertexData());
+			Mesh* mesh = new Mesh(indexData, vertexData);
+			mesh->setDataStrategy(source->getDataStrategy());
+			mesh->setDrawMode(source->getDrawMode());
+			mesh->setFileName(source->getFileName());
+			mesh->setUseIndexData(mesh->isUsingIndexData());
+			return EScript::create(mesh);
+		}
 	})
 
 	//! [ESMF] VertexDescription Mesh.getVertexDescription()
