@@ -494,6 +494,30 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 				parameter.count() == 1 	? Geometry::Rect_i(parameter[0].to<const Geometry::Rect&>(rt))
 										: Geometry::Rect_i(parameter[0].to<int32_t>(rt), parameter[1].to<int32_t>(rt), parameter[2].to<int32_t>(rt), parameter[3].to<int32_t>(rt)))
 				,thisEObj))
+				
+	// Color Buffer
+	
+	//!	[ESMF] thisEObj RenderingContext.popColorBuffer()
+	ES_MFUN(typeObject,RenderingContext, "popColorBuffer", 0, 0,
+				(thisObj->popColorBuffer(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetColorBuffer( Bool, Bool, Bool, Bool )
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetColorBuffer", 4, 4,
+				(thisObj->pushAndSetColorBuffer(
+					ColorBufferParameters(parameter[0].toBool(), parameter[1].toBool(), parameter[2].toBool(), parameter[3].toBool())
+				),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushColorBuffer()
+	ES_MFUN(typeObject,RenderingContext, "pushColorBuffer", 0, 0,
+				(thisObj->pushColorBuffer(),thisEObj))
+				
+	//!	[ESMF] thisEObj RenderingContext.setColorBuffer( Bool, Bool, Bool, Bool )
+	ES_MFUN(typeObject,RenderingContext, "setColorBuffer", 4, 4,
+				(thisObj->setColorBuffer(
+					ColorBufferParameters(parameter[0].toBool(), parameter[1].toBool(), parameter[2].toBool(), parameter[3].toBool())
+				),thisEObj))
+
+
 
 }
 
