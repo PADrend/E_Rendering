@@ -83,11 +83,11 @@ void initTextureUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"createChessTexture",3,3,
 			TextureUtils::createChessTexture(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)))
 
-	//! [ESF] Texture createColorTexture(TextureType, Number width, Number height, Number numLayers, Util:TypeConstant, Number numComponents, Bool filtering)
-	ES_FUN(lib, "createColorTexture", 7, 7, TextureUtils::createColorTexture( static_cast<TextureType>(parameter[0].to<uint32_t>(rt)), 
+	//! [ESF] Texture createColorTexture(TextureType, Number width, Number height, Number numLayers, Util:TypeConstant, Number numComponents, Bool filtering, Bool clampToEdge)
+	ES_FUN(lib, "createColorTexture", 7, 8, TextureUtils::createColorTexture( static_cast<TextureType>(parameter[0].to<uint32_t>(rt)), 
 																			parameter[1].to<uint32_t>(rt), parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt), 
 																			static_cast<Util::TypeConstant>(parameter[4].to<uint32_t>(rt)), parameter[5].to<uint32_t>(rt),
-																			parameter[6].toBool()))
+																			parameter[6].toBool(),parameter[7].toBool(false)))
 
 	//! [ESF] Texture createDataTexture(TextureType, Number width, Number height, Number numLayers, Util:TypeConstant, Number numComponents)
 	ES_FUN(lib, "createDataTexture", 6, 6, TextureUtils::createDataTexture( static_cast<TextureType>(parameter[0].to<uint32_t>(rt)), 
