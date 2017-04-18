@@ -382,5 +382,16 @@ void initMeshUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"mergeCloseVertices",1,2,
 		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001))
 	)
+	
+
+	//! [ESF] [Array|Void] Rendering.splitIntoConnectedComponents(Mesh, [Number])
+	ES_FUNCTION(lib, "splitIntoConnectedComponents", 1, 2, {
+			auto result = Rendering::MeshUtils::splitIntoConnectedComponents(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.001));
+			Array * a = Array::create();
+			for(auto* mesh : result) {
+				a->pushBack(EScript::create(mesh));
+			}
+			return a;
+	})
 }
 }
