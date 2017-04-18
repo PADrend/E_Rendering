@@ -53,7 +53,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 			mesh->setDataStrategy(source->getDataStrategy());
 			mesh->setDrawMode(source->getDrawMode());
 			mesh->setFileName(source->getFileName());
-			mesh->setUseIndexData(mesh->isUsingIndexData());
+			mesh->setUseIndexData(source->isUsingIndexData());
 			return EScript::create(mesh);
 		}
 	})
