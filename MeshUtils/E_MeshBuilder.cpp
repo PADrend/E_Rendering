@@ -147,6 +147,10 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		else return nullptr;
 	})
 
+	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createHexGrid(VertexDescription, Number width, Number height, Number rows, Number columns)
+	ES_FUN(typeObject,"createHexGrid", 5, 5,(
+		MeshBuilder::createHexGrid(parameter[0].to<const VertexDescription&>(rt), parameter[1].toFloat(), parameter[2].toFloat(), parameter[3].toUInt(), parameter[4].toUInt())
+	))
 	// ----
 
 	// --------------------------------------------------
