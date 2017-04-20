@@ -27,6 +27,7 @@
 #include <E_Geometry/E_Ray3.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_PixelAccessor.h>
+#include <E_Util/Graphics/E_Bitmap.h>
 
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
@@ -393,5 +394,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 			}
 			return a;
 	})
+
+	//! [ESF] void Rendering.applyDisplacementMap(Mesh,PixelAccessor,Number scale,Bool clampToEdge)
+	ES_FUN(lib,"applyDisplacementMap",2,4, (
+		Rendering::MeshUtils::applyDisplacementMap(parameter[0].to<Rendering::Mesh*>(rt), 
+		parameter[1].to<Util::PixelAccessor*>(rt), parameter[2].toFloat(1), parameter[3].toBool(false)), EScript::create(nullptr)))
 }
 }
