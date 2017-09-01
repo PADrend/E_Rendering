@@ -22,6 +22,7 @@
 #include <E_Geometry/E_Box.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_Bitmap.h>
+#include <E_Util/Graphics/E_PixelAccessor.h>
 #include <Rendering/Mesh/VertexAttributeIds.h>
 #include <Rendering/MeshUtils/MeshUtils.h>
 
@@ -152,7 +153,13 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		MeshBuilder::createHexGrid(parameter[0].to<const VertexDescription&>(rt), parameter[1].toFloat(), parameter[2].toFloat(), parameter[3].toUInt(), parameter[4].toUInt())
 	))
 	// ----
-
+	
+	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createVoxelMesh(VertexDescription, Util.PixelAccessor voxelBitmap, Number depth)
+	ES_FUN(typeObject,"createVoxelMesh", 3, 3,(
+		MeshBuilder::createVoxelMesh(parameter[0].to<const VertexDescription&>(rt), parameter[1].to<Util::PixelAccessor&>(rt), parameter[2].toUInt())
+	))
+	// ----
+	
 	// --------------------------------------------------
 
 	//!	[ESMF] new Rendering.MeshBuilder( [VertexDescription] )
