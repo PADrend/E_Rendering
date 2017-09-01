@@ -13,6 +13,9 @@
 #include "E_Geometry/E_Vec4.h"
 #include "E_Geometry/E_Matrix4x4.h"
 
+#include <Util/TypeConstant.h>
+#include <Util/Macros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -23,6 +26,15 @@ EScript::Type * E_BufferObject::getTypeObject() {
 	// E_BufferObject ---|> Object
 	static EScript::ERef<EScript::Type> typeObject = new EScript::Type(EScript::Object::getTypeObject());
 	return typeObject.get();
+}
+
+template<typename T>
+EScript::Array * downloadToArray(Rendering::BufferObject& bo, uint32_t target, size_t count) {
+	EScript::Array * a = EScript::Array::create();
+	auto data = bo.downloadData<T>(target, count);
+	for(T& v : data)
+			a->pushBack(EScript::Number::create(v));
+	return a;
 }
 
 //! initMembers
@@ -91,6 +103,22 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 			thisObj->uploadData(bufferTarget, data, size, usageHint);
 		}		
 		return thisEObj;
+	})
+		
+	//! [ESF] Array BufferObject.downloadData(bufferTarget, count, type)
+	ES_MFUNCTION(typeObject,BufferObject,"downloadData", 3, 3, {
+		uint32_t bufferTarget = parameter[0].toUInt();
+		uint32_t count = parameter[1].toUInt();
+		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[2].toUInt());
+		
+		EScript::Array * a = nullptr;
+		switch(type){
+			case Util::TypeConstant::UINT8:		a = downloadToArray<uint8_t>(*thisObj, bufferTarget, count);	break;
+			case Util::TypeConstant::UINT32:	a = downloadToArray<uint32_t>(*thisObj, bufferTarget, count);	break;
+			case Util::TypeConstant::FLOAT:		a = downloadToArray<float>(*thisObj, bufferTarget, count);		break;
+			default: WARN("downloadData: invalid data type constant. Supported are UINT8, UINT32, FLOAT");
+		}
+		return a;
 	})
 	
 	//! [ESMF] thisEObj BufferObject._bind(bufferTarget, [location])
