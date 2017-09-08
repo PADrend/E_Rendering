@@ -358,6 +358,9 @@ void init(EScript::Namespace & lib) {
 		//! Util.Color4f MaterialParameters.getSpecular()
 		ES_MFUN(typeObject,const MaterialParameters, "getSpecular", 0, 0, thisObj->getSpecular())
 
+		//! Util.Color4f MaterialParameters.getEmission()
+		ES_MFUN(typeObject,const MaterialParameters, "getEmission", 0, 0, thisObj->getEmission())
+
 		//! Number MaterialParameters.getShininess()
 		ES_MFUN(typeObject,const MaterialParameters, "getShininess", 0, 0, thisObj->getShininess())
 
@@ -372,6 +375,10 @@ void init(EScript::Namespace & lib) {
 		//! thisEObj MaterialParameters.setSpecular(Util.Color4f)
 		ES_MFUN(typeObject,MaterialParameters, "setSpecular", 1, 1,
 					 (thisObj->setSpecular(parameter[0].to<Util::Color4f>(rt)),thisEObj))
+
+		//! thisEObj MaterialParameters.setEmission(Util.Color4f)
+		ES_MFUN(typeObject,MaterialParameters, "setEmission", 1, 1,
+					 (thisObj->setEmission(parameter[0].to<Util::Color4f>(rt)),thisEObj))
 
 		//! thisEObj MaterialParameters.setShininess(Float)
 		ES_MFUN(typeObject,MaterialParameters, "setShininess", 1, 1,
