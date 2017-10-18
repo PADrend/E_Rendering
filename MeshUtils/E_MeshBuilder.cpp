@@ -159,7 +159,17 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		MeshBuilder::createVoxelMesh(parameter[0].to<const VertexDescription&>(rt), parameter[1].to<Util::PixelAccessor&>(rt), parameter[2].toUInt())
 	))
 	// ----
-	
+
+	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createTorus(Number, Number, Number, Number)
+	ES_FUNCTION(typeObject, "createTorus", 4, 4, {
+		Rendering::VertexDescription vertexDescription;
+		vertexDescription.appendPosition3D();
+		vertexDescription.appendNormalFloat();
+		vertexDescription.appendColorRGBFloat();
+		vertexDescription.appendTexCoord();
+		return EScript::create(MeshBuilder::createTorus(vertexDescription, parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].toUInt(), parameter[3].toUInt()));
+	})
+		
 	// --------------------------------------------------
 
 	//!	[ESMF] new Rendering.MeshBuilder( [VertexDescription] )
