@@ -69,6 +69,13 @@ void initTextureUtils(EScript::Namespace * lib) {
 		return Bool::create(TextureUtils::compareTextures(t1,t2));
 	})
 
+	//! [ESF] Bool haveSameFormat(Texture, Texture)
+	ES_FUNCTION(lib,"haveSameFormat",2,2,{
+		auto f1 = parameter[0].to<Rendering::Texture*>(rt)->getFormat();
+		auto f2 = parameter[1].to<Rendering::Texture*>(rt)->getFormat();
+		return Bool::create(f1 == f2);
+	})
+
 	//! [ESF] Texture createRedTexture(width,height)
 	ES_FUN(lib,"createRedTexture",2,2, TextureUtils::createRedTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
