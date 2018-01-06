@@ -52,8 +52,8 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	// GL Helper
 	//! [ESMF] thisEObj RenderingContext.initGLState()
-	ES_MFUN(typeObject,RenderingContext,"initGLState",0,0,
-				(thisObj->initGLState(),thisEObj))
+	ES_FUN(typeObject,"initGLState",0,0,
+				(RenderingContext::initGLState(), EScript::create(nullptr)))
 
 	//!	[ESMF] thisEObj RenderingContext.clearScreen(Util.Color4)
 	ES_MFUN(typeObject,RenderingContext,"clearScreen", 1, 1,
