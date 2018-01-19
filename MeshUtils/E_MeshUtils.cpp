@@ -399,5 +399,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"applyDisplacementMap",2,4, (
 		Rendering::MeshUtils::applyDisplacementMap(parameter[0].to<Rendering::Mesh*>(rt), 
 		parameter[1].to<Util::PixelAccessor*>(rt), parameter[2].toFloat(1), parameter[3].toBool(false)), EScript::create(nullptr)))
+		
+	//! [ESF] void Rendering.flattenMesh(Mesh,Vec3 pos,Number radius,Number falloff)
+	ES_FUN(lib,"flattenMesh",4,4, (
+		Rendering::MeshUtils::flattenMesh(parameter[0].to<Rendering::Mesh*>(rt), 
+		parameter[1].to<Geometry::Vec3>(rt), parameter[2].toFloat(), parameter[3].toFloat()), EScript::create(nullptr)))
 }
 }
