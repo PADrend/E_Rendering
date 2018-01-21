@@ -404,5 +404,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 	ES_FUN(lib,"flattenMesh",4,4, (
 		Rendering::MeshUtils::flattenMesh(parameter[0].to<Rendering::Mesh*>(rt), 
 		parameter[1].to<Geometry::Vec3>(rt), parameter[2].toFloat(), parameter[3].toFloat()), EScript::create(nullptr)))
+	
+
+	//! [ESF] Number Rendering.computeSurfaceArea(Mesh)
+	ES_FUN(lib,"computeSurfaceArea",1,1,(Rendering::MeshUtils::computeSurfaceArea(
+				parameter[0].to<Rendering::Mesh*>(rt))))
 }
 }
