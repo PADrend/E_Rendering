@@ -64,29 +64,83 @@ void E_Shader::init(EScript::Namespace & lib) {
 	})
 
 	// -------------
-	//! [ESF] thisEObj Shader.attachFS(string code)
-	ES_MFUN(typeObject,Shader,"attachFS",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::createFragment(parameter[0].toString())),thisEObj))
+	//! [ESF] thisEObj Shader.attachFS(string code[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachFS",1,2, {
+		auto info = Rendering::ShaderObjectInfo::createFragment(parameter[0].toString());
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
-	//! [ESF] thisEObj Shader.attachFSFile(string file)
-	ES_MFUN(typeObject,Shader,"attachFSFile",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::loadFragment(Util::FileName(parameter[0].toString()))),thisEObj))
+	//! [ESF] thisEObj Shader.attachFSFile(string file[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachFSFile",1,2, {
+		auto info = Rendering::ShaderObjectInfo::loadFragment(Util::FileName(parameter[0].toString()));
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
-	//! [ESF] thisEObj Shader.attachGS(string code)
-	ES_MFUN(typeObject,Shader,"attachGS",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::createGeometry(parameter[0].toString())),thisEObj))
+	//! [ESF] thisEObj Shader.attachGS(string code[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachGS",1,2, {
+		auto info = Rendering::ShaderObjectInfo::createGeometry(parameter[0].toString());
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
-	//! [ESF] thisEObj Shader.attachGSFile(string file)
-	ES_MFUN(typeObject,Shader,"attachGSFile",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::loadGeometry(Util::FileName(parameter[0].toString()))),thisEObj))
+	//! [ESF] thisEObj Shader.attachGSFile(string file[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachGSFile",1,2, {
+		auto info = Rendering::ShaderObjectInfo::loadGeometry(Util::FileName(parameter[0].toString()));
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
-	//! [ESF] thisEObj Shader.attachVS(string code)
-	ES_MFUN(typeObject,Shader,"attachVS",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::createVertex(parameter[0].toString())),thisEObj))
+	//! [ESF] thisEObj Shader.attachVS(string code[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachVS",1,2, {
+		auto info = Rendering::ShaderObjectInfo::createVertex(parameter[0].toString());
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
-	//! [ESF] thisEObj Shader.attachVSFile(string file)
-	ES_MFUN(typeObject,Shader,"attachVSFile",1,1,
-		(thisObj->attachShaderObject(Rendering::ShaderObjectInfo::loadVertex(Util::FileName(parameter[0].toString()))),thisEObj))
+	//! [ESF] thisEObj Shader.attachVSFile(string file[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachVSFile",1,2, {
+		auto info = Rendering::ShaderObjectInfo::loadVertex(Util::FileName(parameter[0].toString()));
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
 
 	//! [ESMF] thisEObj Shader.defineVertexAttribute(name,index)
 	ES_MFUN(typeObject,Shader,"defineVertexAttribute",2,2,
