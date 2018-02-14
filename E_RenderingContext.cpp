@@ -479,16 +479,26 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "popViewport", 0, 0, (thisObj->popViewport(),thisEObj))
 
 
-	//!	[ESMF] thisEObj RenderingContext.setViewport(Number, Number, Number, Number)
+	//!	[ESMF] thisEObj RenderingContext.setViewport(Number, Number, Number, Number | Geometry.Rect)
 	ES_MFUN(typeObject,RenderingContext, "setViewport", 4, 4, (thisObj->setViewport(
-		Geometry::Rect_i(
+		parameter.size() == 4 ? Geometry::Rect_i(
 			parameter[0].to<int32_t>(rt),
 			parameter[1].to<int32_t>(rt),
 			parameter[2].to<int32_t>(rt),
 			parameter[3].to<int32_t>(rt)
-		)
+		) : Geometry::Rect_i(parameter[0].to<const Geometry::Rect&>(rt))
 	),thisEObj))
-
+	
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetViewport(Number, Number, Number, Number | Geometry.Rect)
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetViewport", 4, 4, (thisObj->pushAndSetViewport(
+		parameter.size() == 4 ? Geometry::Rect_i(
+			parameter[0].to<int32_t>(rt),
+			parameter[1].to<int32_t>(rt),
+			parameter[2].to<int32_t>(rt),
+			parameter[3].to<int32_t>(rt)
+		) : Geometry::Rect_i(parameter[0].to<const Geometry::Rect&>(rt))
+	),thisEObj))
+	
 	//!	[ESMF] thisEObj RenderingContext.setWindowClientArea(Vec2 | width,height)
 	ES_MFUN(typeObject,RenderingContext, "setWindowClientArea", 1, 4, (thisObj->setWindowClientArea(
 				parameter.count() == 1 	? Geometry::Rect_i(parameter[0].to<const Geometry::Rect&>(rt))
