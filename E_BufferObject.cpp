@@ -21,6 +21,7 @@
 
 namespace EScript {
 template<> inline uint8_t convertTo<uint8_t>(Runtime& rt,ObjPtr src) { return static_cast<uint8_t>(convertTo<double>(rt,src)); }
+template<> inline int8_t convertTo<int8_t>(Runtime& rt,ObjPtr src) { return static_cast<uint8_t>(convertTo<double>(rt,src)); }
 } 
 
 namespace E_Rendering {
@@ -59,6 +60,26 @@ void uploadArray<Geometry::Matrix4x4>(EScript::Runtime& rt, Rendering::BufferObj
 	auto data = reinterpret_cast<const uint8_t*>(tmp.data());
 	auto size = tmp.size() * sizeof(Geometry::Matrix4x4);
 	bo.uploadData(target, data, size, hint);
+}
+
+template<typename T>
+void uploadSubArray(EScript::Runtime& rt, Rendering::BufferObject& bo, EScript::Array* a, uint32_t target, size_t offset) {
+	std::vector<T> tmp;
+	for(auto value : *a)
+		tmp.push_back(value.to<T>(rt));
+	auto data = reinterpret_cast<const uint8_t*>(tmp.data());
+	auto size = tmp.size() * sizeof(T);
+	bo.uploadSubData(target, data, size, offset);
+}
+
+template<>
+void uploadSubArray<Geometry::Matrix4x4>(EScript::Runtime& rt, Rendering::BufferObject& bo, EScript::Array* a, uint32_t target, size_t offset) {
+	std::vector<Geometry::Matrix4x4> tmp;
+	for(auto value : *a)
+		tmp.push_back(value.to<Geometry::Matrix4x4>(rt).getTransposed());
+	auto data = reinterpret_cast<const uint8_t*>(tmp.data());
+	auto size = tmp.size() * sizeof(Geometry::Matrix4x4);
+	bo.uploadSubData(target, data, size, offset);
 }
 
 //! initMembers
@@ -129,23 +150,55 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 			uploadArray<Geometry::Vec4>(rt, *thisObj, a, bufferTarget, usageHint);
 		} else {
 			switch(type){
-				//case Util::TypeConstant::DOUBLE:	uploadArray<double>(rt, *thisObj, a, bufferTarget, usageHint);		break;
+				case Util::TypeConstant::DOUBLE:	uploadArray<double>(rt, *thisObj, a, bufferTarget, usageHint);		break;
 				case Util::TypeConstant::FLOAT: 	uploadArray<float>(rt, *thisObj, a, bufferTarget, usageHint);			break;
-				//case Util::TypeConstant::INT16: 	uploadArray<int16_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
-				//case Util::TypeConstant::INT32: 	uploadArray<int32_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
-				//case Util::TypeConstant::INT64: 	uploadArray<int64_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
-				//case Util::TypeConstant::INT8: 		uploadArray<int8_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
-				//case Util::TypeConstant::UINT16: 	uploadArray<uint16_t>(rt, *thisObj, a, bufferTarget, usageHint);	break;
+				case Util::TypeConstant::INT16: 	uploadArray<int16_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
+				case Util::TypeConstant::INT32: 	uploadArray<int32_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
+				case Util::TypeConstant::INT64: 	uploadArray<int64_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
+				case Util::TypeConstant::INT8: 		uploadArray<int8_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
+				case Util::TypeConstant::UINT16: 	uploadArray<uint16_t>(rt, *thisObj, a, bufferTarget, usageHint);	break;
 				case Util::TypeConstant::UINT32: 	uploadArray<uint32_t>(rt, *thisObj, a, bufferTarget, usageHint);	break;
-				//case Util::TypeConstant::UINT64: 	uploadArray<uint64_t>(rt, *thisObj, a, bufferTarget, usageHint);	break;
+				case Util::TypeConstant::UINT64: 	uploadArray<uint64_t>(rt, *thisObj, a, bufferTarget, usageHint);	break;
 				case Util::TypeConstant::UINT8:		uploadArray<uint8_t>(rt, *thisObj, a, bufferTarget, usageHint);		break;
-				default: WARN("BufferObject.uploadData: invalid data type constant. Supported are UINT8, UINT32, FLOAT");
 			}
 		}
 		
 		return thisEObj;
 	})
+	
+	//! [ESF] thisEObj BufferObject.uploadSubData(bufferTarget, Array of float/Vec3/Vec4/Matrix4x4, offset, [type])
+	ES_MFUNCTION(typeObject,BufferObject,"uploadSubData", 3, 4, {
+		uint32_t bufferTarget = parameter[0].toUInt();
+		size_t offset = parameter[2].toUInt();
+		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[3].toUInt(static_cast<uint32_t>(Util::TypeConstant::FLOAT)));
+		EScript::Array * a = parameter[1].to<EScript::Array*>(rt);
+		if(a->empty())
+			return thisEObj;
 		
+		if(a->at(0).toType<E_Geometry::E_Matrix4x4>()) {
+			uploadSubArray<Geometry::Matrix4x4>(rt, *thisObj, a, bufferTarget, offset);
+		} else if(a->at(0).toType<E_Geometry::E_Vec3>()) {
+			uploadSubArray<Geometry::Vec3>(rt, *thisObj, a, bufferTarget, offset);
+		} else if(a->at(0).toType<E_Geometry::E_Vec4>()) {
+			uploadSubArray<Geometry::Vec4>(rt, *thisObj, a, bufferTarget, offset);
+		} else {
+			switch(type){
+				case Util::TypeConstant::DOUBLE:	uploadSubArray<double>(rt, *thisObj, a, bufferTarget, offset);		break;
+				case Util::TypeConstant::FLOAT: 	uploadSubArray<float>(rt, *thisObj, a, bufferTarget, offset);			break;
+				case Util::TypeConstant::INT16: 	uploadSubArray<int16_t>(rt, *thisObj, a, bufferTarget, offset);		break;
+				case Util::TypeConstant::INT32: 	uploadSubArray<int32_t>(rt, *thisObj, a, bufferTarget, offset);		break;
+				case Util::TypeConstant::INT64: 	uploadSubArray<int64_t>(rt, *thisObj, a, bufferTarget, offset);		break;
+				case Util::TypeConstant::INT8: 		uploadSubArray<int8_t>(rt, *thisObj, a, bufferTarget, offset);		break;
+				case Util::TypeConstant::UINT16: 	uploadSubArray<uint16_t>(rt, *thisObj, a, bufferTarget, offset);	break;
+				case Util::TypeConstant::UINT32: 	uploadSubArray<uint32_t>(rt, *thisObj, a, bufferTarget, offset);	break;
+				case Util::TypeConstant::UINT64: 	uploadSubArray<uint64_t>(rt, *thisObj, a, bufferTarget, offset);	break;
+				case Util::TypeConstant::UINT8:		uploadSubArray<uint8_t>(rt, *thisObj, a, bufferTarget, offset);		break;
+			}
+		}
+		
+		return thisEObj;
+	})
+	
 	//! [ESF] Array BufferObject.downloadData(bufferTarget, count, type)
 	ES_MFUNCTION(typeObject,BufferObject,"downloadData", 3, 3, {
 		uint32_t bufferTarget = parameter[0].toUInt();
@@ -154,17 +207,16 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 		
 		EScript::Array * a = nullptr;
 		switch(type){
-			//case Util::TypeConstant::DOUBLE:	a = downloadToArray<double>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::DOUBLE:	a = downloadToArray<double>(rt, *thisObj, bufferTarget, count);		break;
 			case Util::TypeConstant::FLOAT: 	a = downloadToArray<float>(rt, *thisObj, bufferTarget, count);			break;
-			//case Util::TypeConstant::INT16: 	a = downloadToArray<int16_t>(rt, *thisObj, bufferTarget, count);		break;
-			//case Util::TypeConstant::INT32: 	a = downloadToArray<int32_t>(rt, *thisObj, bufferTarget, count);		break;
-			//case Util::TypeConstant::INT64: 	a = downloadToArray<int64_t>(rt, *thisObj, bufferTarget, count);		break;
-			//case Util::TypeConstant::INT8: 		a = downloadToArray<int8_t>(rt, *thisObj, bufferTarget, count);		break;
-			//case Util::TypeConstant::UINT16: 	a = downloadToArray<uint16_t>(rt, *thisObj, bufferTarget, count);	break;
+			case Util::TypeConstant::INT16: 	a = downloadToArray<int16_t>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::INT32: 	a = downloadToArray<int32_t>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::INT64: 	a = downloadToArray<int64_t>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::INT8: 		a = downloadToArray<int8_t>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::UINT16: 	a = downloadToArray<uint16_t>(rt, *thisObj, bufferTarget, count);	break;
 			case Util::TypeConstant::UINT32: 	a = downloadToArray<uint32_t>(rt, *thisObj, bufferTarget, count);	break;
-			//case Util::TypeConstant::UINT64: 	a = downloadToArray<uint64_t>(rt, *thisObj, bufferTarget, count);	break;
+			case Util::TypeConstant::UINT64: 	a = downloadToArray<uint64_t>(rt, *thisObj, bufferTarget, count);	break;
 			case Util::TypeConstant::UINT8:		a = downloadToArray<uint8_t>(rt, *thisObj, bufferTarget, count);		break;
-			default: WARN("BufferObject.downloadData: invalid data type constant. Supported are UINT8, UINT32, FLOAT");
 		}
 		return a;
 	})
