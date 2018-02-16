@@ -457,6 +457,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		thisObj->setShader(s);
 		return thisEObj;
 	})
+	
+	//!	[ESMF] thisEObj RenderingContext.dispatchCompute()
+	ES_MFUN(typeObject,RenderingContext, "dispatchCompute", 1, 3, (
+		thisObj->dispatchCompute(parameter[0].toUInt(), parameter[1].toUInt(1), parameter[2].toUInt(1))
+	,thisEObj))
 
 	// Viewport & Window's size
 

@@ -142,6 +142,32 @@ void E_Shader::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 
+	//! [ESF] thisEObj Shader.attachCS(string code[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachCS",1,2, {
+		auto info = Rendering::ShaderObjectInfo::createCompute(parameter[0].toString());
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
+
+	//! [ESF] thisEObj Shader.attachCSFile(string file[, Map defines])
+	ES_MFUNCTION(typeObject,Shader,"attachCSFile",1,2, {
+		auto info = Rendering::ShaderObjectInfo::loadCompute(Util::FileName(parameter[0].toString()));
+		if(parameter.size()>1){
+			auto* m = parameter[1].toType<EScript::Map>();
+			for(auto it=m->begin(); it != m->end(); ++it) {
+				info.addDefine(it->second.key.toString(), it->second.value.toString());
+			}
+		}
+		thisObj->attachShaderObject(std::move(info));
+		return thisEObj;
+	})
+
 	//! [ESMF] thisEObj Shader.defineVertexAttribute(name,index)
 	ES_MFUN(typeObject,Shader,"defineVertexAttribute",2,2,
 		(thisObj->defineVertexAttribute( parameter[0].toString() , parameter[1].to<uint32_t>(rt)),thisEObj))
