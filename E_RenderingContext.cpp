@@ -462,7 +462,17 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "dispatchCompute", 1, 3, (
 		thisObj->dispatchCompute(parameter[0].toUInt(), parameter[1].toUInt(1), parameter[2].toUInt(1))
 	,thisEObj))
-
+	
+	//!	[ESMF] thisEObj RenderingContext.loadUniformSubroutines( Number, Array )
+	ES_MFUNCTION(typeObject,RenderingContext, "loadUniformSubroutines", 2, 2,{
+		auto* values = parameter[1].to<EScript::Array*>(rt);
+		std::vector<uint32_t> indices;
+		for(const auto& value : *values) 
+			indices.emplace_back(value.toUInt());
+		thisObj->loadUniformSubroutines(parameter[0].toUInt(), indices);
+		return thisEObj;
+	})
+	
 	// Viewport & Window's size
 
 	//!	[ESMF] Vec2 RenderingContext.getWindowClientArea()

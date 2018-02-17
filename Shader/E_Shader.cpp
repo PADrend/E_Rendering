@@ -36,9 +36,14 @@ void E_Shader::init(EScript::Namespace & lib) {
 	declareConstant(&lib,getClassName(),typeObject);
 
 	declareConstant(typeObject, "USE_GL", Number::create(Shader::USE_GL));
-	declareConstant(typeObject, "USE_UNIFORMS", Number::create(Shader::USE_UNIFORMS));
+	declareConstant(typeObject, "USE_UNIFORMS", Number::create(Shader::USE_UNIFORMS));	
 
-
+	declareConstant(&lib, "SHADER_STAGE_VERTEX", Number::create(ShaderObjectInfo::SHADER_STAGE_VERTEX));
+	declareConstant(&lib, "SHADER_STAGE_FRAGMENT", Number::create(ShaderObjectInfo::SHADER_STAGE_FRAGMENT));
+	declareConstant(&lib, "SHADER_STAGE_GEOMETRY", Number::create(ShaderObjectInfo::SHADER_STAGE_GEOMETRY));
+	declareConstant(&lib, "SHADER_STAGE_TESS_CONTROL", Number::create(ShaderObjectInfo::SHADER_STAGE_TESS_CONTROL));
+	declareConstant(&lib, "SHADER_STAGE_TESS_EVALUATION", Number::create(ShaderObjectInfo::SHADER_STAGE_TESS_EVALUATION));
+	declareConstant(&lib, "SHADER_STAGE_COMPUTE", Number::create(ShaderObjectInfo::SHADER_STAGE_COMPUTE));
 
 	//! [ESF] (static) Shader Shader.loadShader(string vsFile, string fsFile, flag usage)
 	ES_FUNCTION(typeObject,"loadShader",2,3,{
