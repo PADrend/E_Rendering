@@ -85,6 +85,8 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.flush()
 	ES_MFUN(typeObject,RenderingContext, "flush", 0, 0, (thisObj->flush(),thisEObj))
 
+	//!	[ESMF] thisEObj RenderingContext.barrier()
+	ES_MFUN(typeObject,RenderingContext, "barrier", 0, 0, (thisObj->barrier(parameter[0].toUInt(0)),thisEObj))
 	
 	// Atomic counter buffers
 	//! [ESF] Bool RenderingContext.isAtomicCountersSupported( )

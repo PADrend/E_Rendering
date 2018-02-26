@@ -221,6 +221,9 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 		return a;
 	})
 	
+	//! [ESMF] thisEObj BufferObject.clear(bufferTarget, [internalFormat=GL_R8, format=GL_R8, type=GL_BYTE])
+	ES_MFUN(typeObject,BufferObject,"clear",1,4,(thisObj->clear(parameter[0].toUInt(), parameter[1].toUInt(0x8229), parameter[2].toUInt(0x8229), parameter[3].toUInt(0x1400)), thisEObj))
+		
 	//! [ESMF] thisEObj BufferObject._bind(bufferTarget, [location])
 	ES_MFUN(typeObject,BufferObject,"_bind",1,2,(parameter.count() == 1 ? thisObj->bind(parameter[0].toUInt()) : thisObj->bind(parameter[0].toUInt(), parameter[1].toUInt()), thisEObj))
 	
