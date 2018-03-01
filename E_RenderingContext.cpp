@@ -460,10 +460,16 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 	
-	//!	[ESMF] thisEObj RenderingContext.dispatchCompute()
+	//!	[ESMF] thisEObj RenderingContext.dispatchCompute(dimX, [dimY, [dimZ]])
 	ES_MFUN(typeObject,RenderingContext, "dispatchCompute", 1, 3, (
 		thisObj->dispatchCompute(parameter[0].toUInt(), parameter[1].toUInt(1), parameter[2].toUInt(1))
 	,thisEObj))
+	
+	//!	[ESMF] thisEObj RenderingContext.dispatchComputeIndirect([offset])
+	ES_MFUN(typeObject,RenderingContext, "dispatchComputeIndirect", 0, 1, (
+		thisObj->dispatchComputeIndirect(parameter[0].toUInt(0))
+	,thisEObj))
+	
 	
 	//!	[ESMF] thisEObj RenderingContext.loadUniformSubroutines( Number, Array )
 	ES_MFUNCTION(typeObject,RenderingContext, "loadUniformSubroutines", 2, 2,{
