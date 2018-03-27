@@ -474,9 +474,12 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.loadUniformSubroutines( Number, Array )
 	ES_MFUNCTION(typeObject,RenderingContext, "loadUniformSubroutines", 2, 2,{
 		auto* values = parameter[1].to<EScript::Array*>(rt);
+		auto shader = thisObj->getActiveShader();
+		if(!shader)
+			return thisEObj;
 		std::vector<uint32_t> indices;
 		for(const auto& value : *values) 
-			indices.emplace_back(value.toUInt());
+			indices.emplace_back(value->isA(EScript::Number::getTypeObject()) ? value.toUInt() : shader->getSubroutineIndex(parameter[0].toUInt(), value.toString()));
 		thisObj->loadUniformSubroutines(parameter[0].toUInt(), indices);
 		return thisEObj;
 	})

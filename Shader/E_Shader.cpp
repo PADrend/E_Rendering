@@ -204,7 +204,14 @@ void E_Shader::init(EScript::Namespace & lib) {
 		(thisObj->setUniform(parameter[0].to<RenderingContext&>(rt),
 											parameter[1].to<const Rendering::Uniform&>(rt),
 											parameter[2].toBool(true),parameter[3].toBool(false)),thisEObj))
-
+											
+	//! [ESMF] Number|false Shader.getSubroutineIndex( Number stage, String name )
+	ES_MFUNCTION(typeObject,Shader,"getSubroutineIndex",2,2,{
+		auto index = thisObj->getSubroutineIndex(parameter[0].toUInt(), parameter[1].toString());
+		if(index < 0)
+			return EScript::create(false);
+		return EScript::create(index);
+	})
 }
 
 }
