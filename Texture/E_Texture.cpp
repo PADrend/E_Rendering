@@ -105,6 +105,7 @@ void E_Texture::init(EScript::Namespace & lib) {
 	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP",		static_cast<uint32_t>(TextureType::TEXTURE_CUBE_MAP) );
 	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP_ARRAY",	static_cast<uint32_t>(TextureType::TEXTURE_CUBE_MAP_ARRAY) );
 	EScript::declareConstant( typeObject, "TEXTURE_BUFFER",			static_cast<uint32_t>(TextureType::TEXTURE_BUFFER) );
+	EScript::declareConstant( typeObject, "TEXTURE_2D_MULTISAMPLE",	static_cast<uint32_t>(TextureType::TEXTURE_2D_MULTISAMPLE) );
 
 }
 

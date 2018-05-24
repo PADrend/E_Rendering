@@ -104,6 +104,9 @@ void initTextureUtils(EScript::Namespace * lib) {
 	//! [ESF] Texture createDepthTexture(Number width, Number height)
 	ES_FUN(lib, "createDepthTexture", 2, 2, TextureUtils::createDepthTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
 
+	//! [ESF] Texture createMultisampleDepthTexture(Number width, Number height, [Number samples])
+	ES_FUN(lib, "createMultisampleDepthTexture", 2, 3, TextureUtils::createMultisampleDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(4)))
+
 	//! [ESF] Texture createHDRCubeTexture(Number size,alpha)
 	ES_FUN(lib,"createHDRCubeTexture",2,2, TextureUtils::createHDRCubeTexture(parameter[0].to<uint32_t>(rt), parameter[1].toBool()))
 
@@ -117,6 +120,10 @@ void initTextureUtils(EScript::Namespace * lib) {
 	//! [ESF] Texture createStdTexture(width,height,alpha)
 	ES_FUN(lib,"createStdTexture",3,3, TextureUtils::createStdTexture(
 			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool()))
+
+	//! [ESF] Texture createStdTexture(width,height,alpha,[Number samples])
+	ES_FUN(lib,"createMultisampleTexture",3,4, TextureUtils::createMultisampleTexture(
+			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(), parameter[3].toUInt(4)))
 
 	//! [ESF] Texture createTextureFromBitmap(Util.Bitmap[,bool clampToEdges=false]])
 	ES_FUN(lib,"createTextureFromBitmap",1,4, TextureUtils::createTextureFromBitmap(

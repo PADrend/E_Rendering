@@ -13,6 +13,9 @@
 #include "Texture/E_Texture.h"
 #include "E_RenderingContext.h"
 
+#include <E_Geometry/E_Rect.h>
+#include <Geometry/Rect.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 using namespace EScript;
@@ -84,6 +87,11 @@ void E_FBO::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisEObj FBO.setDrawBuffers(Number)
 	ES_MFUN(typeObject,FBO, "setDrawBuffers", 1, 1, (thisObj->setDrawBuffers(parameter[0].to<uint32_t>(rt)),thisEObj))
+	
+		//! [ESMF] thisEObj FBO.blitToScreen(RenderingContext,Rect,Rect)
+		ES_MFUN(typeObject,FBO,"blitToScreen",3,4,(thisObj->
+				blitToScreen(	parameter[0].to<RenderingContext&>(rt),
+							Geometry::Rect_i(parameter[1].to<Geometry::Rect&>(rt)), Geometry::Rect_i(parameter[2].to<Geometry::Rect&>(rt))),thisEObj))
 
 }
 
