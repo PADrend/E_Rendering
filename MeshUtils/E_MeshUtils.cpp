@@ -227,10 +227,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 		return EScript::create(nullptr);
 	})
 
-	//! [ESF] Void Rendering.shrinkMesh(Mesh)
-	ES_FUNCTION(lib, "shrinkMesh", 1, 1, {
+	//! [ESF] Void Rendering.shrinkMesh(Mesh, [bool])
+	ES_FUNCTION(lib, "shrinkMesh", 1, 2, {
 		Mesh * mesh = parameter[0].to<Rendering::Mesh*>(rt);
-		MeshUtils::shrinkMesh(mesh);
+		MeshUtils::shrinkMesh(mesh, parameter[1].toBool(false));
 		return EScript::create(nullptr);
 	})
 
