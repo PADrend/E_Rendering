@@ -101,8 +101,8 @@ void initTextureUtils(EScript::Namespace * lib) {
 																			parameter[1].to<uint32_t>(rt), parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt), 
 																			static_cast<Util::TypeConstant>(parameter[4].to<uint32_t>(rt)), parameter[5].to<uint32_t>(rt)))
 
-	//! [ESF] Texture createDepthTexture(Number width, Number height)
-	ES_FUN(lib, "createDepthTexture", 2, 2, TextureUtils::createDepthTexture(parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt)))
+	//! [ESF] Texture createDepthTexture(Number width, Number height, [Number layers])
+	ES_FUN(lib, "createDepthTexture", 2, 3, TextureUtils::createDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(0)))
 
 	//! [ESF] Texture createMultisampleDepthTexture(Number width, Number height, [Number samples])
 	ES_FUN(lib, "createMultisampleDepthTexture", 2, 3, TextureUtils::createMultisampleDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(4)))
