@@ -17,6 +17,7 @@
 #include "E_OcclusionQuery.h"
 #include "E_ParameterStructs.h"
 #include "E_RenderingContext.h"
+#include "E_StatisticsQuery.h"
 #include "E_TextRenderer.h"
 #include "Mesh/E_Mesh.h"
 #include "Mesh/E_VertexAccessor.h"
@@ -82,6 +83,7 @@ void init(EScript::Namespace * globals) {
 	E_PlatonicSolids::init(lib);
 	E_PrimitiveShapes::init(lib);
 	E_RenderingContext::init(*lib);
+	E_StatisticsQuery::init(*lib);
 	E_Shader::init(*lib);
 	E_TextRenderer::init(*lib);
 	E_Texture::init(*lib);

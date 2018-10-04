@@ -26,6 +26,7 @@ add_library(E_Rendering
 	E_OcclusionQuery.cpp
 	E_ParameterStructs.cpp
 	E_RenderingContext.cpp
+	E_StatisticsQuery.cpp
 	E_TextRenderer.cpp
 	Mesh/E_Mesh.cpp
 	Mesh/E_VertexAccessor.cpp
