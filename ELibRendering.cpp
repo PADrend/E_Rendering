@@ -31,7 +31,6 @@
 #include "Shader/E_Uniform.h"
 #include "Texture/E_Texture.h"
 #include "Texture/E_TextureUtils.h"
-#include "CL/ELibCL.h"
 
 #include <Rendering/Mesh/MeshDataStrategy.h>
 #include <Rendering/Helper.h>
@@ -89,9 +88,6 @@ void init(EScript::Namespace * globals) {
 	E_VertexDescription::init(*lib);
 	E_TriangleAccessor::init(*lib);
 	E_ConnectivityAccessor::init(*lib);
-#ifdef RENDERING_HAS_LIB_OPENCL
-	E_CL::init(lib);
-#endif
 
 	initMeshUtils(lib);
 	initTextureUtils(lib);
