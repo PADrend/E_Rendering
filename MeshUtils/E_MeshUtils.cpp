@@ -409,5 +409,9 @@ void initMeshUtils(EScript::Namespace * lib) {
 	//! [ESF] Number Rendering.computeSurfaceArea(Mesh)
 	ES_FUN(lib,"computeSurfaceArea",1,1,(Rendering::MeshUtils::computeSurfaceArea(
 				parameter[0].to<Rendering::Mesh*>(rt))))
+
+	//! [ESF] void Rendering.copyVertices(Mesh source, Mesh target, Number sourceOffset, Number targetOffset, Number count)
+	ES_FUN(lib,"copyVertices",5,5,(Rendering::MeshUtils::copyVertices(
+				parameter[0].to<Rendering::Mesh*>(rt), parameter[1].to<Rendering::Mesh*>(rt), parameter[2].toUInt(), parameter[3].toUInt(), parameter[4].toUInt()), EScript::create(nullptr)))
 }
 }
