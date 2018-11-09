@@ -189,12 +189,12 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 				(thisObj->addQuad( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt)),thisEObj))
 				
 	//!	[ESMF] thisEObj MeshBuilder.addSphere( Sphere,inclinationSegments,azimuthSegments )
-	ES_MFUN(typeObject,MeshBuilder,"addSphere",3,3,
-				(MeshBuilder::addSphere(*thisObj,parameter[0].to<Geometry::Sphere_f>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
+	//ES_MFUN(typeObject,MeshBuilder,"addSphere",3,3,
+	//			(MeshBuilder::addSphere(*thisObj,parameter[0].to<Geometry::Sphere_f>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt)),thisEObj))
 
 	//!	[ESMF] thisEObj MeshBuilder.addBox( Box )
-	ES_MFUN(typeObject,MeshBuilder,"addBox",1,1,
-				(MeshBuilder::addBox(*thisObj,parameter[0].to<Geometry::Box>(rt)),thisEObj))
+	//ES_MFUN(typeObject,MeshBuilder,"addBox",1,1,
+	//			(MeshBuilder::addBox(*thisObj,parameter[0].to<Geometry::Box>(rt)),thisEObj))
 
 
 	//!	[ESMF] thisEObj MeshBuilder.addTriangle( idx,idx,idx )
@@ -217,15 +217,13 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		}
 		return index;
 	})
+	
+	//!	[ESMF] thisEObj MeshBuilder.addMesh( Mesh )
+	ES_MFUN(typeObject,MeshBuilder,"addMesh",1,1,
+				(thisObj->addMesh(parameter[0].to<Rendering::Mesh*>(rt)),thisEObj))
 
 	//!	[ESMF] E_Mesh MeshBuilder.buildMesh()
 	ES_MFUN(typeObject,MeshBuilder, "buildMesh", 0, 0, thisObj->buildMesh())
-
-	//!	[ESMF] thisEObj MeshBuilder.color( Color4f | Color4ub )
-	ES_MFUNCTION(typeObject,MeshBuilder,"color",1,1,{
-		thisObj->color(parameter[0].to<Util::Color4f>(rt));
-		return thisEObj;
-	})
 
 	//! int MeshBuilder.getNextIndex()
 	ES_MFUN(typeObject,MeshBuilder,"getNextIndex",0,0,thisObj->getNextIndex())
@@ -235,22 +233,56 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 
 	//! bool MeshBuilder.isEmpty()
 	ES_MFUN(typeObject,MeshBuilder,"isEmpty",0,0,thisObj->isEmpty())
+	
+	//!	[ESMF] thisEObj MeshBuilder.position( Vec3, [String attribute] )
+	ES_MFUN(typeObject,MeshBuilder,"position",1,2,
+				( thisObj->position( parameter[0].to<Geometry::Vec3>(rt), parameter[1].toString(VertexAttributeIds::POSITION.toString())),thisEObj))
 
-	//!	[ESMF] thisEObj MeshBuilder.normal( Vec3 )
-	ES_MFUN(typeObject,MeshBuilder,"normal",1,1,
-				( thisObj->normal( parameter[0].to<Geometry::Vec3>(rt)),thisEObj))
+	//!	[ESMF] thisEObj MeshBuilder.position2D(Vec2, [String attribute])
+	ES_MFUN(typeObject,MeshBuilder, "position2D", 1, 2,
+				 (thisObj->position(parameter[0].to<Geometry::Vec2>(rt), parameter[1].toString(VertexAttributeIds::POSITION.toString())),thisEObj))
+				 
+ 	//!	[ESMF] thisEObj MeshBuilder.position4D(Vec4, [String attribute])
+ 	ES_MFUN(typeObject,MeshBuilder, "position4D", 1, 2,
+ 				 (thisObj->position(parameter[0].to<Geometry::Vec4>(rt), parameter[1].toString(VertexAttributeIds::POSITION.toString())),thisEObj))
 
-	//!	[ESMF] thisEObj MeshBuilder.position( Vec3 )
-	ES_MFUN(typeObject,MeshBuilder,"position",1,1,
-				( thisObj->position( parameter[0].to<Geometry::Vec3>(rt)),thisEObj))
+ 	//!	[ESMF] thisEObj MeshBuilder.normal( Vec3, [String attribute] )
+ 	ES_MFUN(typeObject,MeshBuilder,"normal",1,2,
+ 				( thisObj->normal( parameter[0].to<Geometry::Vec3>(rt), parameter[1].toString(VertexAttributeIds::NORMAL.toString())),thisEObj))
 
-	//!	[ESMF] thisEObj MeshBuilder.position2D(Vec2)
-	ES_MFUN(typeObject,MeshBuilder, "position2D", 1, 1,
-				 (thisObj->position(parameter[0].to<Geometry::Vec2>(rt)),thisEObj))
+	//!	[ESMF] thisEObj MeshBuilder.color( Color4f | Color4ub, [String attribute] )
+	ES_MFUN(typeObject,MeshBuilder,"color",1,2,
+				( thisObj->color(parameter[0].to<Util::Color4f>(rt), parameter[1].toString(VertexAttributeIds::COLOR.toString())),thisEObj))
+				 
+	//!	[ESMF] thisEObj MeshBuilder.texCoord0( Vec2, [String attribute] )
+	ES_MFUN(typeObject,MeshBuilder,"texCoord0",1,2,
+				( thisObj->texCoord0( parameter[0].to<Geometry::Vec2>(rt), parameter[1].toString(VertexAttributeIds::TEXCOORD0.toString())),thisEObj))
+			
+	//! [ESMF] thisEObj MeshBuilder.value(Number value, String attribute)
+	ES_MFUN(typeObject,MeshBuilder,"value",2,2,(thisObj->value(parameter[0].toFloat(), parameter[1].toString()),thisEObj))
 
-	//!	[ESMF] thisEObj MeshBuilder.texCoord0( Vec2 )
-	ES_MFUN(typeObject,MeshBuilder,"texCoord0",1,1,
-				( thisObj->texCoord0( parameter[0].to<Geometry::Vec2>(rt)),thisEObj))
+	//! [ESMF] thisEObj MeshBuilder.values(Array values, String attribute)
+	ES_MFUNCTION(typeObject,MeshBuilder,"values",2,2,{
+		EScript::Array * a=parameter[0].to<EScript::Array*>(rt);
+		std::vector<float> values;
+		for(auto v : *a)
+			values.push_back(v.toFloat());
+		thisObj->values(values, parameter[1].toString());
+		return thisEObj;
+	})
+		
+	//! [ESMF] thisEObj MeshBuilder.valueUInt(Number value, String attribute)
+	ES_MFUN(typeObject,MeshBuilder,"valueUInt",2,2,(thisObj->value(parameter[0].toUInt(), parameter[1].toString()),thisEObj))
+
+	//! [ESMF] thisEObj MeshBuilder.valuesUInt(Array values, String attribute)
+	ES_MFUNCTION(typeObject,MeshBuilder,"valuesUInt",2,2,{
+		EScript::Array * a=parameter[0].to<EScript::Array*>(rt);
+		std::vector<uint32_t> values;
+		for(auto v : *a)
+			values.push_back(v.toUInt());
+		thisObj->values(values, parameter[1].toString());
+		return thisEObj;
+	})
 
 	//!	[ESMF] thisEObj MeshBuilder.setTransformation( Matrix4x4 | SRT )
 	ES_MFUNCTION(typeObject,MeshBuilder,"setTransformation",1,1,{

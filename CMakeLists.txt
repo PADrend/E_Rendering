@@ -28,12 +28,14 @@ add_library(E_Rendering
 	E_RenderingContext.cpp
 	E_TextRenderer.cpp
 	Mesh/E_Mesh.cpp
+	Mesh/E_VertexAccessor.cpp
 	Mesh/E_VertexAttribute.cpp
 	Mesh/E_VertexAttributeAccessors.cpp
 	Mesh/E_VertexDescription.cpp
 	MeshUtils/E_MeshBuilder.cpp
 	MeshUtils/E_MeshUtils.cpp
 	MeshUtils/E_PlatonicSolids.cpp
+	MeshUtils/E_PrimitiveShapes.cpp
 	MeshUtils/E_TriangleAccessor.cpp
 	MeshUtils/E_ConnectivityAccessor.cpp
 	Shader/E_Shader.cpp

@@ -19,12 +19,14 @@
 #include "E_RenderingContext.h"
 #include "E_TextRenderer.h"
 #include "Mesh/E_Mesh.h"
+#include "Mesh/E_VertexAccessor.h"
 #include "Mesh/E_VertexAttributeAccessors.h"
 #include "Mesh/E_VertexAttribute.h"
 #include "Mesh/E_VertexDescription.h"
 #include "MeshUtils/E_MeshBuilder.h"
 #include "MeshUtils/E_MeshUtils.h"
 #include "MeshUtils/E_PlatonicSolids.h"
+#include "MeshUtils/E_PrimitiveShapes.h"
 #include "MeshUtils/E_TriangleAccessor.h"
 #include "MeshUtils/E_ConnectivityAccessor.h"
 #include "Shader/E_Shader.h"
@@ -78,11 +80,13 @@ void init(EScript::Namespace * globals) {
 	E_OcclusionQuery::init(*lib);
 	E_ParameterStructs::init(*lib);
 	E_PlatonicSolids::init(lib);
+	E_PrimitiveShapes::init(lib);
 	E_RenderingContext::init(*lib);
 	E_Shader::init(*lib);
 	E_TextRenderer::init(*lib);
 	E_Texture::init(*lib);
 	E_Uniform::init(*lib);
+	E_VertexAccessor::init(*lib);
 	E_VertexAttributeAccessor::init(*lib);
 	E_VertexAttribute::init(*lib);
 	E_VertexDescription::init(*lib);
