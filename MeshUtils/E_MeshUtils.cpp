@@ -400,10 +400,10 @@ void initMeshUtils(EScript::Namespace * lib) {
 		Rendering::MeshUtils::applyDisplacementMap(parameter[0].to<Rendering::Mesh*>(rt), 
 		parameter[1].to<Util::PixelAccessor*>(rt), parameter[2].toFloat(1), parameter[3].toBool(false)), EScript::create(nullptr)))
 
-	//! [ESF] void Rendering.applyNoise(Mesh,Number posScale,Number noiseScale,Number seed)
+	//! [ESF] void Rendering.applyNoise(Mesh,Number noiseScale, Matrix4x4 transform,Number seed)
 	ES_FUN(lib,"applyNoise",1,4, (
 		Rendering::MeshUtils::applyNoise(parameter[0].to<Rendering::Mesh*>(rt), 
-		parameter[1].toFloat(1), parameter[2].toFloat(1), parameter[3].toUInt(0)), EScript::create(nullptr)))
+		parameter[1].toFloat(1), parameter[2].to(rt, Geometry::Matrix4x4()), parameter[3].toUInt(0)), EScript::create(nullptr)))
 	
 	//! [ESF] void Rendering.flattenMesh(Mesh,Vec3 pos,Number radius,Number falloff)
 	ES_FUN(lib,"flattenMesh",4,4, (
