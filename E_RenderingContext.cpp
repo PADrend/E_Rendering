@@ -200,6 +200,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "setCullFace", 1, 1,(thisObj->setCullFace(parameter[0].to<const CullFaceParameters&>(rt)),thisEObj))
 
 	// DepthBuffer
+	
+	//!	[ESMF] thisEObj RenderingContext.pushDepthBuffer()
+	ES_MFUN(typeObject,RenderingContext, "pushDepthBuffer", 0, 0,
+				(thisObj->pushDepthBuffer(),thisEObj))
+
 	//!	[ESMF] thisEObj RenderingContext.popDepthBuffer()
 	ES_MFUN(typeObject,RenderingContext, "popDepthBuffer", 0, 0,
 				(thisObj->popDepthBuffer(),thisEObj))
@@ -210,7 +215,14 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 														parameter[0].to<bool>(rt),
 														parameter[1].to<bool>(rt),
 														static_cast<Rendering::Comparison::function_t>(parameter[2].to<uint32_t>(rt)))),thisEObj))
+														
 
+	//!	[ESMF] thisEObj RenderingContext.setDepthBuffer(Bool, Bool, Number)
+	ES_MFUN(typeObject,RenderingContext, "setDepthBuffer", 3, 3,
+	(thisObj->setDepthBuffer(Rendering::DepthBufferParameters(
+											parameter[0].to<bool>(rt),
+											parameter[1].to<bool>(rt),
+											static_cast<Rendering::Comparison::function_t>(parameter[2].to<uint32_t>(rt)))),thisEObj))
 	// Line
 	//! [ESMF] thisEObj RenderingContext.popLine()
 	ES_MFUN(typeObject,RenderingContext, "popLine", 0, 0,
