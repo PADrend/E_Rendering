@@ -34,9 +34,9 @@ EScript::Type * E_BufferObject::getTypeObject() {
 }
 
 template<typename T>
-EScript::Array * downloadToArray(EScript::Runtime& rt, Rendering::BufferObject& bo, uint32_t target, size_t count) {
+EScript::Array * downloadToArray(EScript::Runtime& rt, Rendering::BufferObject& bo, uint32_t target, size_t count, size_t offset) {
 	EScript::Array * a = EScript::Array::create();
-	auto data = bo.downloadData<T>(target, count);
+	auto data = bo.downloadData<T>(target, count, offset);
 	for(T& v : data)
 			a->pushBack(EScript::Number::create(v));
 	return a;
@@ -199,24 +199,25 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 	
-	//! [ESF] Array BufferObject.downloadData(bufferTarget, count, type)
-	ES_MFUNCTION(typeObject,BufferObject,"downloadData", 3, 3, {
+	//! [ESF] Array BufferObject.downloadData(bufferTarget, count, type, [offset])
+	ES_MFUNCTION(typeObject,BufferObject,"downloadData", 3, 4, {
 		uint32_t bufferTarget = parameter[0].toUInt();
 		uint32_t count = parameter[1].toUInt();
 		Util::TypeConstant type = static_cast<Util::TypeConstant>(parameter[2].toUInt());
+		uint32_t offset = parameter[3].toUInt(0);
 		
 		EScript::Array * a = nullptr;
 		switch(type){
-			case Util::TypeConstant::DOUBLE:	a = downloadToArray<double>(rt, *thisObj, bufferTarget, count);		break;
-			case Util::TypeConstant::FLOAT: 	a = downloadToArray<float>(rt, *thisObj, bufferTarget, count);			break;
-			case Util::TypeConstant::INT16: 	a = downloadToArray<int16_t>(rt, *thisObj, bufferTarget, count);		break;
-			case Util::TypeConstant::INT32: 	a = downloadToArray<int32_t>(rt, *thisObj, bufferTarget, count);		break;
-			case Util::TypeConstant::INT64: 	a = downloadToArray<int64_t>(rt, *thisObj, bufferTarget, count);		break;
-			case Util::TypeConstant::INT8: 		a = downloadToArray<int8_t>(rt, *thisObj, bufferTarget, count);		break;
-			case Util::TypeConstant::UINT16: 	a = downloadToArray<uint16_t>(rt, *thisObj, bufferTarget, count);	break;
-			case Util::TypeConstant::UINT32: 	a = downloadToArray<uint32_t>(rt, *thisObj, bufferTarget, count);	break;
-			case Util::TypeConstant::UINT64: 	a = downloadToArray<uint64_t>(rt, *thisObj, bufferTarget, count);	break;
-			case Util::TypeConstant::UINT8:		a = downloadToArray<uint8_t>(rt, *thisObj, bufferTarget, count);		break;
+			case Util::TypeConstant::DOUBLE:	a = downloadToArray<double>(rt, *thisObj, bufferTarget, count, offset);		break;
+			case Util::TypeConstant::FLOAT: 	a = downloadToArray<float>(rt, *thisObj, bufferTarget, count, offset);			break;
+			case Util::TypeConstant::INT16: 	a = downloadToArray<int16_t>(rt, *thisObj, bufferTarget, count, offset);		break;
+			case Util::TypeConstant::INT32: 	a = downloadToArray<int32_t>(rt, *thisObj, bufferTarget, count, offset);		break;
+			case Util::TypeConstant::INT64: 	a = downloadToArray<int64_t>(rt, *thisObj, bufferTarget, count, offset);		break;
+			case Util::TypeConstant::INT8: 		a = downloadToArray<int8_t>(rt, *thisObj, bufferTarget, count, offset);		break;
+			case Util::TypeConstant::UINT16: 	a = downloadToArray<uint16_t>(rt, *thisObj, bufferTarget, count, offset);	break;
+			case Util::TypeConstant::UINT32: 	a = downloadToArray<uint32_t>(rt, *thisObj, bufferTarget, count, offset);	break;
+			case Util::TypeConstant::UINT64: 	a = downloadToArray<uint64_t>(rt, *thisObj, bufferTarget, count, offset);	break;
+			case Util::TypeConstant::UINT8:		a = downloadToArray<uint8_t>(rt, *thisObj, bufferTarget, count, offset);		break;
 		}
 		return a;
 	})
