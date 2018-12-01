@@ -198,6 +198,9 @@ void E_Shader::init(EScript::Namespace & lib) {
 	
 	//! [ESF] Bool Shader.isInvalid()
 	ES_MFUN(typeObject,Shader,"isInvalid",0,0, thisObj->getStatus()==Shader::INVALID);
+	
+	//! [ESF] Bool Shader.isActive(RenderingContext rc)
+	ES_MFUN(typeObject,Shader,"isActive",1,1, thisObj->isActive(parameter[0].to<RenderingContext&>(rt)));
 
 	//! [ESMF] thisEObj Shader.setUniform( RenderingContext rc,Uniform ,bool warnIfUnused = true, bool forced = false )
 	ES_MFUN(typeObject,Shader,"setUniform",2,4,
