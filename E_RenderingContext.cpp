@@ -518,7 +518,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 
 	//!	[ESMF] thisEObj RenderingContext.setViewport(Number, Number, Number, Number | Geometry.Rect)
-	ES_MFUN(typeObject,RenderingContext, "setViewport", 4, 4, (thisObj->setViewport(
+	ES_MFUN(typeObject,RenderingContext, "setViewport", 1, 4, (thisObj->setViewport(
 		parameter.size() == 4 ? Geometry::Rect_i(
 			parameter[0].to<int32_t>(rt),
 			parameter[1].to<int32_t>(rt),
@@ -528,7 +528,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	),thisEObj))
 	
 	//!	[ESMF] thisEObj RenderingContext.pushAndSetViewport(Number, Number, Number, Number | Geometry.Rect)
-	ES_MFUN(typeObject,RenderingContext, "pushAndSetViewport", 4, 4, (thisObj->pushAndSetViewport(
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetViewport", 1, 4, (thisObj->pushAndSetViewport(
 		parameter.size() == 4 ? Geometry::Rect_i(
 			parameter[0].to<int32_t>(rt),
 			parameter[1].to<int32_t>(rt),
