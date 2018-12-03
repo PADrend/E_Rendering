@@ -50,6 +50,9 @@ void E_Texture::init(EScript::Namespace & lib) {
 	//! thisEObj Texture._upload(RenderingContext)
 	ES_MFUN(typeObject,Texture,"_upload",1,1, (thisObj->_uploadGLTexture(parameter[0].to<RenderingContext&>(rt)),thisEObj))
 
+	//! thisEObj Texture.clear([Color])
+	ES_MFUN(typeObject,Texture,"clear",0,1, (thisObj->clearGLData(parameter[0].to(rt,Util::Color4f())),thisEObj))
+
 	//! [ESMF] FileName Texture.getHasMipmaps()
 	ES_MFUN(typeObject,const Texture,"getHasMipmaps",0,0, thisObj->getHasMipmaps())
 
