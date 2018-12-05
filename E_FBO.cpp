@@ -85,8 +85,8 @@ void E_FBO::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,FBO,"isComplete",1,1,Bool::create(thisObj->isComplete(
 							parameter[0].to<RenderingContext&>(rt))))
 
-	//! [ESMF] thisEObj FBO.setDrawBuffers(Number)
-	ES_MFUN(typeObject,FBO, "setDrawBuffers", 1, 1, (thisObj->setDrawBuffers(parameter[0].to<uint32_t>(rt)),thisEObj))
+	//! [ESMF] thisEObj FBO.setDrawBuffers(RenderingContext, Number)
+	ES_MFUN(typeObject,FBO, "setDrawBuffers", 2, 2, (thisObj->setDrawBuffers(parameter[0].to<RenderingContext&>(rt), parameter[1].toUInt()),thisEObj))
 	
 		//! [ESMF] thisEObj FBO.blitToScreen(RenderingContext,Rect,Rect)
 		ES_MFUN(typeObject,FBO,"blitToScreen",3,4,(thisObj->
