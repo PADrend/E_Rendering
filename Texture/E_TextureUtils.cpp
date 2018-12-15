@@ -104,6 +104,9 @@ void initTextureUtils(EScript::Namespace * lib) {
 	//! [ESF] Texture createDepthTexture(Number width, Number height, [Number layers])
 	ES_FUN(lib, "createDepthTexture", 2, 3, TextureUtils::createDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(0)))
 
+	//! [ESF] Texture createHDRDepthTexture(Number width, Number height, [Number layers])
+	ES_FUN(lib, "createHDRDepthTexture", 2, 3, TextureUtils::createHDRDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(0)))
+
 	//! [ESF] Texture createMultisampleDepthTexture(Number width, Number height, [Number samples])
 	ES_FUN(lib, "createMultisampleDepthTexture", 2, 3, TextureUtils::createMultisampleDepthTexture(parameter[0].toUInt(), parameter[1].toUInt(), parameter[2].toUInt(4)))
 
