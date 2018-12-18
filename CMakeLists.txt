@@ -6,13 +6,12 @@
 # You should have received a copy of the MPL along with this library; see the 
 # file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 #
-cmake_minimum_required(VERSION 2.8.11)
-project(E_Rendering CXX)
+cmake_minimum_required(VERSION 3.1.0)
+project(E_Rendering VERSION 0.2.0 LANGUAGES CXX)
 
-set(E_RENDERING_VERSION_MAJOR 0)
-set(E_RENDERING_VERSION_MINOR 2)
-set(E_RENDERING_VERSION_PATCH 0)
-set(E_RENDERING_VERSION_STRING ${E_RENDERING_VERSION_MAJOR}.${E_RENDERING_VERSION_MINOR}.${E_RENDERING_VERSION_PATCH})
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set up install directories
 include(GNUInstallDirs)
@@ -81,19 +80,8 @@ if(NOT TARGET E_Util)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC E_Util)
 
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX11)
-	set_property(TARGET E_Rendering APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++11 ")
-elseif(COMPILER_SUPPORTS_CXX0X)
-	set_property(TARGET E_Rendering APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++0x ")
-else()
-	message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
-endif()
-
 # Set version of library
-set_target_properties(E_Rendering PROPERTIES VERSION ${E_RENDERING_VERSION_STRING}
+set_target_properties(E_Rendering PROPERTIES VERSION ${E_RENDERING_VERSION}
                                              SOVERSION ${E_RENDERING_VERSION_MAJOR})
 
 # Install the header files
@@ -134,7 +122,7 @@ configure_package_config_file(E_RenderingConfig.cmake.in ${CMAKE_CURRENT_BINARY_
                               NO_SET_AND_CHECK_MACRO
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfigVersion.cmake
-                                 VERSION ${E_RENDERING_VERSION_STRING}
+                                 VERSION ${E_RENDERING_VERSION}
                                  COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
