@@ -81,8 +81,8 @@ endif()
 target_link_libraries(E_Rendering LINK_PUBLIC E_Util)
 
 # Set version of library
-set_target_properties(E_Rendering PROPERTIES VERSION ${E_RENDERING_VERSION}
-                                             SOVERSION ${E_RENDERING_VERSION_MAJOR})
+set_target_properties(E_Rendering PROPERTIES VERSION ${E_Rendering_VERSION}
+                                             SOVERSION ${E_Rendering_VERSION_MAJOR})
 
 # Install the header files
 file(GLOB E_RENDERING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CL/*.h")
@@ -122,7 +122,7 @@ configure_package_config_file(E_RenderingConfig.cmake.in ${CMAKE_CURRENT_BINARY_
                               NO_SET_AND_CHECK_MACRO
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfigVersion.cmake
-                                 VERSION ${E_RENDERING_VERSION}
+                                 VERSION ${E_Rendering_VERSION}
                                  COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
@@ -132,13 +132,13 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfig.cmake ${CMAKE_CURREN
 # Packaging
 include(InstallRequiredSystemLibraries)
 
-set(CPACK_PACKAGE_NAME "librendering${E_RENDERING_VERSION_MAJOR}-escript")
+set(CPACK_PACKAGE_NAME "librendering${E_Rendering_VERSION_MAJOR}-escript")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "E_Rendering library")
 set(CPACK_PACKAGE_VENDOR "Benjamin Eikel; Claudius Jaehn; Ralf Petring")
 set(CPACK_PACKAGE_CONTACT "Benjamin Eikel <benjamin@eikel.org>")
-set(CPACK_PACKAGE_VERSION_MAJOR ${E_RENDERING_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${E_RENDERING_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${E_RENDERING_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_MAJOR ${E_Rendering_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${E_Rendering_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${E_Rendering_VERSION_PATCH})
 set(CPACK_PACKAGE_FILE_NAME "libE_Rendering")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_STRIP_FILES ON)
