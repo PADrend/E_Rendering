@@ -72,36 +72,60 @@ public:
 void init(EScript::Namespace * globals) {
 	Namespace * lib=new Namespace();
 	declareConstant(globals,"Rendering",lib);
-
-	E_BufferObject::init(*lib);
+	
+	//! @defgroup draw Draw
+	//! @{
 	E_Draw::init(*lib);
-	E_FBO::init(*lib);
-	E_MeshBuilder::init(*lib);
+	E_TextRenderer::init(*lib);
+	//! @}
+		
+	//! @defgroup mesh Meshes
+	//! @{
 	E_Mesh::init(*lib);
-	E_OcclusionQuery::init(*lib);
-	E_ParameterStructs::init(*lib);
+	E_MeshBuilder::init(*lib);
 	E_PlatonicSolids::init(lib);
 	E_PrimitiveShapes::init(lib);
-	E_RenderingContext::init(*lib);
-	E_StatisticsQuery::init(*lib);
-	E_Shader::init(*lib);
-	E_TextRenderer::init(*lib);
-	E_Texture::init(*lib);
-	E_Uniform::init(*lib);
 	E_VertexAccessor::init(*lib);
 	E_VertexAttributeAccessor::init(*lib);
 	E_VertexAttribute::init(*lib);
 	E_VertexDescription::init(*lib);
 	E_TriangleAccessor::init(*lib);
 	E_ConnectivityAccessor::init(*lib);
-
-	initMeshUtils(lib);
-	initTextureUtils(lib);
-
+	E_MeshUtils::init(lib);
+	//! @}
+		
+	//! @defgroup context Rendering Context
+	//! @{
+	E_RenderingContext::init(*lib);
+	E_ParameterStructs::init(*lib);
+	E_BufferObject::init(*lib);
+	//! @}
+		
+	//! @defgroup rendering_helper Helper
+	//! @{
+	E_OcclusionQuery::init(*lib);
+	E_StatisticsQuery::init(*lib);
+	//! @}
+		
+	//! @defgroup shader Shaders
+	//! @{
+	E_Shader::init(*lib);
+	E_Uniform::init(*lib);
+	//! @}
+		
+	//! @defgroup texture Textures
+	//! @{
+	E_Texture::init(*lib);
+	E_FBO::init(*lib);
+	E_TextureUtils::init(lib);
+	//! @}
+	
 	// -----------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------
-	// MeshDataStrategy
-
+	// MeshDataStrategy	
+	//! @addtogroup mesh
+	//! @{
+	
 	//! [ESF] void Rendering.setDefaultMeshDataStrategy(MeshDataStrategy)
 	ES_FUN(lib,"setDefaultMeshDataStrategy",1,1,(
 		MeshDataStrategy::setDefaultStrategy(EScript::assertType<E_MeshDataStrategy>(rt,parameter[0])->get()),EScript::create(nullptr)))
@@ -128,10 +152,14 @@ void init(EScript::Namespace * globals) {
 	//! MeshDataStrategy Rendering.getDynamicVertexStrategy()
 	ES_FUN(lib,"getDynamicVertexStrategy",0,0,
 			new E_MeshDataStrategy(SimpleMeshDataStrategy::getDynamicVertexStrategy()))
+	//! @}
 
 	// -----------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------
-
+	
+	//! @addtogroup rendering_helper
+	//! @{
+	
 	//! [ESF] Void Rendering.enableGLErrorChecking()
 	ES_FUN(lib, "enableGLErrorChecking", 0, 0, (Rendering::enableGLErrorChecking(), EScript::create(nullptr)))
 
@@ -159,5 +187,7 @@ void init(EScript::Namespace * globals) {
 	//! [ESF] Void Rendering.clusterPoints(file,count)
 	ES_FUN(lib, "clusterPoints", 2, 2, (Rendering::StreamerXYZ::clusterPoints(Util::FileName(parameter[0].toString()),
 																					parameter[1].to<uint32_t>(rt)),EScript::create(nullptr)))
+																					
+	//! @}
 }
 }

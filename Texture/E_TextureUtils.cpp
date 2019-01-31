@@ -25,12 +25,13 @@
 #include <EScript/EScript.h>
 
 namespace E_Rendering{
+namespace E_TextureUtils {
 
 using namespace EScript;
 using namespace Rendering;
 
 //! (static)
-void initTextureUtils(EScript::Namespace * lib) {
+void init(EScript::Namespace * lib) {
 
 	//! [ESF] void drawTextureToScreen(RenderingContext,screenRect,(Texture,textureRect) | (TextureArray,textureRectArray))
 	ES_FUNCTION(lib,"drawTextureToScreen",4,4,{
@@ -218,4 +219,6 @@ void initTextureUtils(EScript::Namespace * lib) {
 	})
 
 }
+		
+} /* TextureUtils */
 }

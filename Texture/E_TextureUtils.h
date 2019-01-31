@@ -15,7 +15,9 @@ namespace EScript {
 class Namespace;
 }
 namespace E_Rendering {
-void initTextureUtils(EScript::Namespace * globals);
+namespace E_TextureUtils {
+void init(EScript::Namespace * globals);
+}
 }
 
 #endif // E_TEXUTRE_UTILS_H
