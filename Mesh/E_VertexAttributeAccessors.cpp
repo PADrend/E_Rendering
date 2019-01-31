@@ -40,12 +40,15 @@ void E_VertexAttributeAccessor::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const VertexAttributeAccessor,"checkRange",1,1,
 				thisObj->checkRange(parameter[0].to<uint32_t>(rt)))
 
+	//! @addtogroup mesh
+	//! @{
 	E_ColorAttributeAccessor::init(lib);
 	E_NormalAttributeAccessor::init(lib);
 	E_PositionAttributeAccessor::init(lib);
 	E_TexCoordAttributeAccessor::init(lib);
 	E_FloatAttributeAccessor::init(lib);
 	E_UIntAttributeAccessor::init(lib);
+	//! @}
 }
 
 

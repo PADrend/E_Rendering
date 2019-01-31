@@ -49,17 +49,23 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	declareConstant(&lib,getClassName(),typeObject);
 
 	// (static)
+	//! @name Deprecated
+	//! @{
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createArrow(Number radius, Number length)
+	//! @deprecated use Rendering.createArrow(...) instead.
 	ES_FUN(typeObject,"createArrow", 2, 2, (MeshBuilder::createArrow(parameter[0].toFloat(), parameter[1].toFloat())))
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createCone(Number radius, Number height, Number segments)
+	//! @deprecated use Rendering.createCone(...) instead.
 	ES_FUN(typeObject,"createCone", 3, 3, (MeshBuilder::createCone(parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].to<uint32_t>(rt))))
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createConicalFrustum(Number radiusBottom, Number radiusTop, Number height, Number segments)
+	//! @deprecated use Rendering.createConicalFrustum(...) instead.
 	ES_FUN(typeObject,"createConicalFrustum", 4, 4, (MeshBuilder::createConicalFrustum(parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].toFloat(), parameter[3].to<uint32_t>(rt))))
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createDiscSector(Number radius, Number segments, Number angle)
+	//! @deprecated use Rendering.createDiscSector(...) instead.
 	ES_FUNCTION(typeObject,"createDiscSector",2,3,{
 		if (parameter.count() == 2) {
 			return EScript::create(MeshBuilder::createDiscSector(parameter[0].toFloat(), parameter[1].to<uint32_t>(rt)));
@@ -71,7 +77,8 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	/*! [ESF] (static) Mesh Rendering.MeshBuilder.createDome(radius=100,
 								int horiRes = 40, int vertRes = 40,
 								double halfSphereFraction = 1.0,
-								double imagePercentage = 1.0) */
+								double imagePercentage = 1.0)
+								 @deprecated use Rendering.createDome(...) instead. */
 	ES_FUN(typeObject,"createDome",0,5,(MeshBuilder::createDome(
 				parameter[0].toFloat(100.0),
 				parameter[1].toInt(40),
@@ -80,6 +87,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 				parameter[4].toFloat(1.0))))
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createRectangle([VertexDescription],width,height)
+	//! @deprecated use Rendering.createRectangle(...) instead.
 	ES_FUNCTION(typeObject, "createRectangle", 2, 3, {
 		if (parameter.count() == 3) {
 			return EScript::create(MeshBuilder::createRectangle(parameter[0].to<const VertexDescription&>(rt),parameter[1].toFloat(), parameter[2].toFloat()));
@@ -94,6 +102,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESF] (static) Mesh Rendering.MeshBuilder.createRingSector(Number innerRadius, Number outerRadius, Number segments, Number angle)
+	//! @deprecated use Rendering.createRingSector(...) instead.
 	ES_FUNCTION(typeObject,"createRingSector",3,4,{
 		if (parameter.count() == 3) {
 			return EScript::create(MeshBuilder::createRingSector(parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].to<uint32_t>(rt)));
@@ -103,6 +112,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createSphere(Number, Number)
+	//! @deprecated use Rendering.(...) instead.
 	ES_FUNCTION(typeObject, "createSphere", 2, 2, {
 		Rendering::VertexDescription vertexDescription;
 		vertexDescription.appendPosition3D();
@@ -113,6 +123,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createBox(Box)
+	//! @deprecated use Rendering.(...) instead.
 	ES_FUNCTION(typeObject, "createBox", 1, 1, {
 		Rendering::VertexDescription vertexDescription;
 		vertexDescription.appendPosition3D();
@@ -124,6 +135,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 
 	// EXPERIMENTAL!!!!!!!!!!!!!!
 	//!	[ESMF] new Rendering.MeshBuilder.createMeshFromBitmaps(Util.Bitmap depth[, Util.Bitmap color[, Util.Bitmap normals]])
+	//! @deprecated use Rendering.createMeshFromBitmaps(...) instead.
 	ES_FUNCTION(typeObject,"createMeshFromBitmaps",1,3,{
 		Util::Reference<Util::Bitmap> depth = parameter[0].to<Util::Reference<Util::Bitmap>>(rt);
 		Util::Reference<Util::Bitmap> color;
@@ -149,18 +161,21 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 	})
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createHexGrid(VertexDescription, Number width, Number height, Number rows, Number columns)
+	//! @deprecated use Rendering.createHexGrid(...) instead.
 	ES_FUN(typeObject,"createHexGrid", 5, 5,(
 		MeshBuilder::createHexGrid(parameter[0].to<const VertexDescription&>(rt), parameter[1].toFloat(), parameter[2].toFloat(), parameter[3].toUInt(), parameter[4].toUInt())
 	))
 	// ----
 	
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createVoxelMesh(VertexDescription, Util.PixelAccessor voxelBitmap, Number depth)
+	//! @deprecated use Rendering.createVoxelMesh(...) instead.
 	ES_FUN(typeObject,"createVoxelMesh", 3, 3,(
 		MeshBuilder::createVoxelMesh(parameter[0].to<const VertexDescription&>(rt), parameter[1].to<Util::PixelAccessor&>(rt), parameter[2].toUInt())
 	))
 	// ----
 
 	//!	[ESF] (static) Mesh Rendering.MeshBuilder.createTorus(Number, Number, Number, Number)
+	//! @deprecated use Rendering.createTorus(...) instead.
 	ES_FUNCTION(typeObject, "createTorus", 4, 4, {
 		Rendering::VertexDescription vertexDescription;
 		vertexDescription.appendPosition3D();
@@ -169,6 +184,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		vertexDescription.appendTexCoord();
 		return EScript::create(MeshBuilder::createTorus(vertexDescription, parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].toUInt(), parameter[3].toUInt()));
 	})
+	// @}
 		
 	// --------------------------------------------------
 

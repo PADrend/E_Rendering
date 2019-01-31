@@ -26,6 +26,9 @@ using namespace Rendering::MeshUtils::PlatonicSolids;
 void init(EScript::Namespace * lib) {
 	auto mbTypeObject = E_MeshBuilder::getTypeObject();
 	
+	//! @name MeshBuilder
+	//! @{
+	
 	//! [ESF] (static) Mesh Rendering.createTetrahedron()
 	ES_FUN(lib, "createTetrahedron", 0, 1, parameter.count() == 0 ? createTetrahedron() : createTetrahedron(parameter[0].to<VertexDescription&>(rt)))
 	
@@ -59,6 +62,8 @@ void init(EScript::Namespace * lib) {
 	//! [ESF] (static) Mesh Rendering.createEdgeSubdivisionSphere(E_Mesh platonicSolid, Number subdivisions)
 	ES_FUN(lib, "createEdgeSubdivisionSphere", 2, 2,
 			createEdgeSubdivisionSphere(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].to<uint32_t>(rt)))
+	
+	// @}
 }
 
 }

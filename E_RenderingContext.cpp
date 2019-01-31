@@ -44,13 +44,17 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	EScript::Type * typeObject = getTypeObject();
 	declareConstant(&lib,getClassName(),typeObject);
-
-	// Genreal
+	
+	//! @name General
+	//! @{
 	ES_MFUN(typeObject,RenderingContext, "applyChanges", 0,1, (thisObj->applyChanges(parameter[0].toBool(false)),thisEObj))
 	ES_MFUN(typeObject,const RenderingContext, "getImmediateMode", 0, 0, thisObj->getImmediateMode())
 	ES_MFUN(typeObject,RenderingContext, "setImmediateMode", 1, 1, (thisObj->setImmediateMode(parameter[0].toBool()),thisEObj))
-
-	// GL Helper
+	
+	//! @}
+		
+	//! @name GL Helper
+	//! @{
 	//! [ESMF] thisEObj RenderingContext.initGLState()
 	ES_FUN(typeObject,"initGLState",0,0,
 				(RenderingContext::initGLState(), EScript::create(nullptr)))
@@ -87,8 +91,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	//!	[ESMF] thisEObj RenderingContext.barrier()
 	ES_MFUN(typeObject,RenderingContext, "barrier", 0, 0, (thisObj->barrier(parameter[0].toUInt(0)),thisEObj))
-	
-	// Atomic counter buffers
+		
+	//! @}
+		
+	//! @name Atomic counter buffers
+	//! @{
 	//! [ESF] Bool RenderingContext.isAtomicCountersSupported( )
 	ES_FUN(typeObject,"isAtomicCountersSupported",0,0, RenderingContext::isAtomicCountersSupported())
 
@@ -129,7 +136,10 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 	
-	// Blending
+	//! @}
+		
+	//! @name Blending
+	//! @{
 	//!	[ESMF] BlendingParameters RenderingContext.getBlendingParameters()
 	ES_MFUN(typeObject,RenderingContext, "getBlendingParameters", 0, 0,
 				new E_BlendingParameters(thisObj->getBlendingParameters()))
@@ -150,8 +160,10 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "setBlending", 1, 1,
 				(thisObj->setBlending( parameter[0].to<const BlendingParameters&>(rt)),thisEObj))
 
-
-	// Lighting
+	//! @}
+		
+	//! @name Lighting
+	//! @{
 	//! [ESMF] LightingParameters RenderingContext.getLightingParamters()
 	ES_MFUN(typeObject,RenderingContext, "getLightingParamters", 0, 0,
 				new E_LightingParameters(thisObj->getLightingParameters()))
@@ -181,8 +193,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 			thisObj->setLighting( parameter[0].to<const LightingParameters&>(rt));
 		return thisEObj;
 	})
-
-	// CullFace
+	
+	//! @}
+		
+	//! @name Cull Face
+	//! @{
 
 	//!	[ESMF] CullFaceParameters RenderingContext.getCullFaceParameters( )
 	ES_MFUN(typeObject,RenderingContext, "getCullFaceParameters", 0, 0,thisObj->getCullFaceParameters())
@@ -198,8 +213,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	//!	[ESMF] thisEObj RenderingContext.setCullFace( Rendering.CullFaceParameters )
 	ES_MFUN(typeObject,RenderingContext, "setCullFace", 1, 1,(thisObj->setCullFace(parameter[0].to<const CullFaceParameters&>(rt)),thisEObj))
-
-	// DepthBuffer
+	
+	//! @}
+		
+	//! @name Depth Buffer
+	//! @{
 	
 	//!	[ESMF] thisEObj RenderingContext.pushDepthBuffer()
 	ES_MFUN(typeObject,RenderingContext, "pushDepthBuffer", 0, 0,
@@ -223,7 +241,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 											parameter[0].to<bool>(rt),
 											parameter[1].to<bool>(rt),
 											static_cast<Rendering::Comparison::function_t>(parameter[2].to<uint32_t>(rt)))),thisEObj))
-	// Line
+
+	//! @}
+
+	//! @name Line
+	//! @{
 	//! [ESMF] thisEObj RenderingContext.popLine()
 	ES_MFUN(typeObject,RenderingContext, "popLine", 0, 0,
 				 (thisObj->popLine(),thisEObj))
@@ -242,8 +264,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 	//! [ESMF] Number RenderingContext.getLineWidth()
 	ES_MFUN(typeObject,RenderingContext, "getLineWidth", 0, 0,thisObj->getLineParameters().getWidth())
-	// Point
-
+	
+	//! @}
+		
+	//! @name Point
+	//! @{
 	//!	[ESMF] thisEObj RenderingContext.getPointParamters( )
 	ES_MFUN(typeObject,RenderingContext, "getPointParameters", 0, 0,thisObj->getPointParameters())
 
@@ -262,8 +287,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.setPointParameters( PointParameters )
 	ES_MFUN(typeObject,RenderingContext, "setPointParameters", 1, 1,
 				(thisObj->setPointParameters(parameter[0].to<const PointParameters&>(rt)),thisEObj))
-
-	// PolygonMode
+				
+	//! @}
+		
+	//! @name Polygon mode
+	//! @{
 	//!	[ESMF] thisEObj RenderingContext.popPolygonMode()
 	ES_MFUN(typeObject,RenderingContext, "popPolygonMode", 0, 0,
 				(thisObj->popPolygonMode(),thisEObj))
@@ -275,8 +303,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.pushAndSetPolygonMode(Number)
 	ES_MFUN(typeObject,RenderingContext, "pushAndSetPolygonMode", 1, 1,
 				(thisObj->pushAndSetPolygonMode(Rendering::PolygonModeParameters(static_cast<Rendering::PolygonModeParameters::polygonModeMode_t>(parameter[0].toUInt()))),thisEObj))
-
-	// PolygonOffset
+				
+	//! @}
+		
+	//! @name Polygon offset
+	//! @{
 	//!	[ESMF] thisEObj RenderingContext.popPolygonOffset()
 	ES_MFUN(typeObject,RenderingContext, "popPolygonOffset", 0, 0,
 				(thisObj->popPolygonOffset(),thisEObj))
@@ -284,8 +315,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.pushAndSetPolygonOffset(Number, Number)
 	ES_MFUN(typeObject,RenderingContext, "pushAndSetPolygonOffset", 2, 2,
 				(thisObj->pushAndSetPolygonOffset(Rendering::PolygonOffsetParameters(parameter[0].toFloat(), parameter[1].toFloat())),thisEObj))
-
-	// Scissor
+				
+	//! @}
+		
+	//! @name Scissor
+	//! @{
 	//!	[ESMF] ScissorParameters RenderingContext.getScissor()
 	ES_MFUN(typeObject,RenderingContext, "getScissor", 0, 0, new E_ScissorParameters(thisObj->getScissor()))
 
@@ -302,8 +336,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.setScissor(ScissorParameters)
 	ES_MFUN(typeObject,RenderingContext, "setScissor", 1, 1,
 				(thisObj->setScissor(parameter[0].to<const ScissorParameters&>(rt)),thisEObj))
-
-	// Scissor
+				
+	//! @}
+		
+	//! @name Stencil
+	//! @{
 	//!	[ESMF] StencilParameters RenderingContext.getStencilParamters()
 	ES_MFUN(typeObject,RenderingContext, "getStencilParamters", 0, 0, new E_StencilParameters(thisObj->getStencilParamters()))
 
@@ -320,9 +357,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.setStencil(ScissorParameters)
 	ES_MFUN(typeObject,RenderingContext, "setStencil", 1, 1,
 				(thisObj->setStencil(parameter[0].to<const StencilParameters&>(rt)),thisEObj))
-
-
-	// FBO
+			
+	//! @}
+		
+	//! @name fbo
+	//! @{
 	//!	[ESMF] thisEObj void RenderingContext.pushFBO( [FBO|void] )
 	ES_MFUNCTION(typeObject,RenderingContext, "pushFBO",0,0,{
 		thisObj->pushFBO();
@@ -351,15 +390,12 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 
 		return thisEObj;
 	})
-	// global uniform
-
-		//! [ESMF] thisEObj RenderingContext.setUniform( Uniform )
-	ES_MFUN(typeObject,RenderingContext,"setGlobalUniform",1,1,
-		(thisObj->setGlobalUniform(	parameter[0].to<const Rendering::Uniform&>(rt) ),thisEObj))
+	
+	//! @}
 		
+	//! @name Image binding
+	//! @{
 		
-		
-	// image binding
 	//! [ESF] Bool RenderingContext.isImageBindingSupported( )
 	ES_FUN(typeObject,"isImageBindingSupported",0,0, RenderingContext::isImageBindingSupported())
 
@@ -380,7 +416,11 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext,"pushAndSetBoundImage",2,2,
 				(thisObj->pushAndSetBoundImage(parameter[0].to<uint32_t>(rt),parameter[1].to<const ImageBindParameters&>(rt)),thisEObj))
 	
-	// Material
+	//! @}
+		
+	//! @name Material
+	//! @{
+				
 	//! [ESMF] thisEObj pushAndSetColorMaterial( [color] )
 	ES_MFUNCTION(typeObject,RenderingContext, "pushAndSetColorMaterial", 0, 1,{
 		if(parameter.count()==1){
@@ -393,32 +433,52 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 	ES_MFUN(typeObject,RenderingContext, "popMaterial", 0,0, (thisObj->popMaterial(),thisEObj))
-
-	// Matrix
-	ES_MFUN(typeObject,RenderingContext, "multMatrix", 1, 1, (thisObj->multMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj)) //! \deprecated alias.
+	
+	//! @}
+		
+	//! @name Matrix
+	//! @{
+	
+	//! \deprecated
+	ES_MFUN(typeObject,RenderingContext, "multMatrix", 1, 1, (thisObj->multMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "multMatrix_modelToCamera", 1, 1, (thisObj->multMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "pushAndSetMatrix_modelToCamera", 1, 1, (thisObj->pushAndSetMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "pushMatrix", 0,0, (thisObj->pushMatrix_modelToCamera(),thisEObj))		//! \deprecated alias.
+	
+	//! \deprecated
+	ES_MFUN(typeObject,RenderingContext, "pushMatrix", 0,0, (thisObj->pushMatrix_modelToCamera(),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "pushMatrix_modelToCamera", 0,0, (thisObj->pushMatrix_modelToCamera(),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "popMatrix", 0,0, (thisObj->popMatrix_modelToCamera(),thisEObj))		//! \deprecated alias.
+	
+	//! \deprecated
+	ES_MFUN(typeObject,RenderingContext, "popMatrix", 0,0, (thisObj->popMatrix_modelToCamera(),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "popMatrix_modelToCamera", 0,0, (thisObj->popMatrix_modelToCamera(),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "resetMatrix", 0,0, (thisObj->resetMatrix(),thisEObj))
-	ES_MFUN(typeObject,RenderingContext, "getMatrix", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix_modelToCamera()))	//! \deprecated alias.
+	
+	//! \deprecated
+	ES_MFUN(typeObject,RenderingContext, "getMatrix", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix_modelToCamera()))
 	ES_MFUN(typeObject,RenderingContext, "getMatrix_modelToCamera", 0,0, new E_Geometry::E_Matrix4x4(thisObj->getMatrix_modelToCamera()))
 	
-	ES_MFUN(typeObject,RenderingContext, "setMatrix", 1, 1, (thisObj->setMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj)) //! \deprecated alias.
+	//! \deprecated
+	ES_MFUN(typeObject,RenderingContext, "setMatrix", 1, 1, (thisObj->setMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
 	ES_MFUN(typeObject,RenderingContext, "setMatrix_modelToCamera", 1, 1, (thisObj->setMatrix_modelToCamera(parameter[0].to<const Geometry::Matrix4x4&>(rt)),thisEObj))
-
-	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getMatrix_worldToCamera()) //! \deprecated alias.
+	
+	//! \deprecated
+	ES_MFUN(typeObject,const RenderingContext, "getCameraMatrix", 0,0, thisObj->getMatrix_worldToCamera())
 	ES_MFUN(typeObject,const RenderingContext, "getMatrix_worldToCamera", 0,0, thisObj->getMatrix_worldToCamera())
 	
-	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())  //! \deprecated alias.
+	//! \deprecated
+	ES_MFUN(typeObject,const RenderingContext, "getInverseCameraMatrix", 0,0, thisObj->getMatrix_cameraToWorld())
 	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToWorld", 0,0, thisObj->getMatrix_cameraToWorld())
-	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getMatrix_cameraToClipping())	//! \deprecated alias.
+	
+	//! \deprecated
+	ES_MFUN(typeObject,const RenderingContext, "getProjectionMatrix", 0,0, thisObj->getMatrix_cameraToClipping())
 	ES_MFUN(typeObject,const RenderingContext, "getMatrix_cameraToClipping", 0,0, thisObj->getMatrix_cameraToClipping())
 
 	
-	// Textures
+	//! @}
+		
+	//! @name Textures
+	//! @{
+	
 	//!	[ESMF] Texture|void RenderingContext.getTexture( unit )
 	ES_MFUNCTION(typeObject,RenderingContext, "getTexture",1,1,{
 		Texture * t=thisObj->getTexture(parameter[0].to<uint32_t>(rt));
@@ -448,8 +508,16 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 			return thisEObj;
 		})
 
-
-	// Shader
+	//! @}
+		
+	//! @name Shader
+	//! @{
+	
+		//! [ESMF] thisEObj RenderingContext.setUniform( Uniform )
+	ES_MFUN(typeObject,RenderingContext,"setGlobalUniform",1,1,
+		(thisObj->setGlobalUniform(	parameter[0].to<const Rendering::Uniform&>(rt) ),thisEObj))
+		
+		
 	//!	[ESMF] thisEObj RenderingContext.pushShader()
 	ES_MFUNCTION(typeObject,RenderingContext, "pushShader", 0, 0,{
 		thisObj->pushShader();
@@ -496,7 +564,10 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 	
-	// Viewport & Window's size
+	//! @}
+		
+	//! @name Viewport & Window's size
+	//! @{
 
 	//!	[ESMF] Vec2 RenderingContext.getWindowClientArea()
 	ES_MFUN(typeObject,RenderingContext, "getWindowClientArea", 0, 0, Geometry::Rect(thisObj->getWindowClientArea()))
@@ -542,8 +613,10 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 				parameter.count() == 1 	? Geometry::Rect_i(parameter[0].to<const Geometry::Rect&>(rt))
 										: Geometry::Rect_i(parameter[0].to<int32_t>(rt), parameter[1].to<int32_t>(rt), parameter[2].to<int32_t>(rt), parameter[3].to<int32_t>(rt)))
 				,thisEObj))
+	//! @}
 				
-	// Color Buffer
+	//! @name Color Buffer
+	//! @{
 	
 	//!	[ESMF] thisEObj RenderingContext.popColorBuffer()
 	ES_MFUN(typeObject,RenderingContext, "popColorBuffer", 0, 0,
@@ -564,7 +637,8 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 				(thisObj->setColorBuffer(
 					ColorBufferParameters(parameter[0].toBool(), parameter[1].toBool(), parameter[2].toBool(), parameter[3].toBool())
 				),thisEObj))
-
+				
+	//! @}
 
 
 }

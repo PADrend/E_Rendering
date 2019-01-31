@@ -29,7 +29,10 @@ using namespace Rendering::MeshUtils;
 
 void init(EScript::Namespace * lib) {
 	auto mbTypeObject = E_MeshBuilder::getTypeObject();
-	
+  
+	//! @name MeshBuilder
+	//! @{
+  
 	//! [ESF] (static) Mesh Rendering.createBox(VertexDescription, Box)
 	ES_FUN(lib, "createBox", 2, 2, createBox(parameter[0].to<VertexDescription&>(rt), parameter[1].to<Box>(rt)))
 	
@@ -148,6 +151,8 @@ void init(EScript::Namespace * lib) {
 			parameter[2].to<Util::PixelAccessor*>(rt, nullptr)
 		), thisEObj)
 	)
+  
+  //! @}
 }
 
 }

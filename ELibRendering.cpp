@@ -99,6 +99,7 @@ void init(EScript::Namespace * globals) {
 	E_RenderingContext::init(*lib);
 	E_ParameterStructs::init(*lib);
 	E_BufferObject::init(*lib);
+	E_FBO::init(*lib);
 	//! @}
 		
 	//! @defgroup rendering_helper Helper
@@ -116,7 +117,6 @@ void init(EScript::Namespace * globals) {
 	//! @defgroup texture Textures
 	//! @{
 	E_Texture::init(*lib);
-	E_FBO::init(*lib);
 	E_TextureUtils::init(lib);
 	//! @}
 	
