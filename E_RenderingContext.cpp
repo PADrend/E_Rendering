@@ -360,7 +360,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 			
 	//! @}
 		
-	//! @name fbo
+	//! @name FBO
 	//! @{
 	//!	[ESMF] thisEObj void RenderingContext.pushFBO( [FBO|void] )
 	ES_MFUNCTION(typeObject,RenderingContext, "pushFBO",0,0,{

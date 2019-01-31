@@ -184,7 +184,7 @@ void E_MeshBuilder::init(EScript::Namespace & lib) {
 		vertexDescription.appendTexCoord();
 		return EScript::create(MeshBuilder::createTorus(vertexDescription, parameter[0].toFloat(), parameter[1].toFloat(), parameter[2].toUInt(), parameter[3].toUInt()));
 	})
-	// @}
+	//! @}
 		
 	// --------------------------------------------------
 
