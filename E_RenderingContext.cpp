@@ -318,6 +318,22 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 				
 	//! @}
 		
+	//! @name Primitive Restart
+	//! @{
+	//!	[ESMF] thisEObj RenderingContext.popPrimitiveRestart()
+	ES_MFUN(typeObject,RenderingContext, "popPrimitiveRestart", 0, 0,
+				(thisObj->popPrimitiveRestart(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushPrimitiveRestart()
+	ES_MFUN(typeObject,RenderingContext, "pushPrimitiveRestart", 0, 0,
+				(thisObj->pushPrimitiveRestart(),thisEObj))
+
+	//!	[ESMF] thisEObj RenderingContext.pushAndSetPrimitiveRestart(Number)
+	ES_MFUN(typeObject,RenderingContext, "pushAndSetPrimitiveRestart", 1, 1,
+				(thisObj->pushAndSetPrimitiveRestart(Rendering::PrimitiveRestartParameters(parameter[0].toUInt())),thisEObj))
+				
+	//! @}
+		
 	//! @name Scissor
 	//! @{
 	//!	[ESMF] ScissorParameters RenderingContext.getScissor()
