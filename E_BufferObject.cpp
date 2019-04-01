@@ -222,8 +222,12 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 		return a;
 	})
 	
-	//! [ESMF] thisEObj BufferObject.clear(bufferTarget, [internalFormat=GL_R8UI, format=GL_RED_INTEGER, type=GL_UNSIGNED_BYTE])
-	ES_MFUN(typeObject,BufferObject,"clear",1,4,(thisObj->clear(parameter[0].toUInt(), parameter[1].toUInt(0x8232), parameter[2].toUInt(0x8D94), parameter[3].toUInt(0x1401)), thisEObj))
+	//! [ESMF] thisEObj BufferObject.clear(bufferTarget, [Number value, [internalFormat=GL_R32UI, format=GL_RED_INTEGER, type=GL_UNSIGNED_INT]])
+	ES_MFUNCTION(typeObject,BufferObject,"clear",1,5,{
+		uint32_t data = parameter[1].toUInt(0);
+		thisObj->clear(parameter[0].toUInt(), parameter[2].toUInt(0x8236), parameter[3].toUInt(0x8D94), parameter[4].toUInt(0x1405), reinterpret_cast<uint8_t*>(&data));
+		return thisEObj;
+	})
 	
 	//! [ESMF] thisEObj BufferObject.copy(BufferObject source, sourceOffset, targetOffset, size)
 	ES_MFUN(typeObject,BufferObject,"copy",4,4,(thisObj->copy(*parameter[0].to<BufferObject*>(rt), parameter[1].toUInt(), parameter[2].toUInt(), parameter[3].toUInt()), thisEObj))
