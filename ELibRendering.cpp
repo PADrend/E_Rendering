@@ -30,6 +30,7 @@
 #include "MeshUtils/E_PrimitiveShapes.h"
 #include "MeshUtils/E_TriangleAccessor.h"
 #include "MeshUtils/E_ConnectivityAccessor.h"
+#include "MeshUtils/E_WireShapes.h"
 #include "Shader/E_Shader.h"
 #include "Shader/E_Uniform.h"
 #include "Texture/E_Texture.h"
@@ -85,6 +86,7 @@ void init(EScript::Namespace * globals) {
 	E_MeshBuilder::init(*lib);
 	E_PlatonicSolids::init(lib);
 	E_PrimitiveShapes::init(lib);
+	E_WireShapes::init(lib);
 	E_VertexAccessor::init(*lib);
 	E_VertexAttributeAccessor::init(*lib);
 	E_VertexAttribute::init(*lib);

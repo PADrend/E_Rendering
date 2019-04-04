@@ -38,6 +38,7 @@ add_library(E_Rendering
 	MeshUtils/E_PrimitiveShapes.cpp
 	MeshUtils/E_TriangleAccessor.cpp
 	MeshUtils/E_ConnectivityAccessor.cpp
+	MeshUtils/E_WireShapes.cpp
 	Shader/E_Shader.cpp
 	Shader/E_Uniform.cpp
 	Texture/E_Texture.cpp

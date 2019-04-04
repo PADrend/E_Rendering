@@ -18,6 +18,7 @@
 #include <E_Geometry/E_Rect.h>
 #include <E_Geometry/E_Vec3.h>
 #include <E_Geometry/E_Matrix4x4.h>
+#include <E_Geometry/E_Sphere.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <Rendering/Draw.h>
 #include <Rendering/DrawCompound.h>
@@ -95,6 +96,16 @@ void E_Draw::init(EScript::Namespace & lib) {
 			Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt));
 		} else {
 			Rendering::drawWireframeBox(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Box&>(rt), parameter[2].to<Util::Color4f>(rt));
+		}
+		return EScript::create(nullptr);
+	})
+
+	//! [[ESF] void Rendering.drawWireframeSphere(RenderingContext, Sphere, [Color])
+	ES_FUNCTION(&lib,"drawWireframeSphere", 2, 3, {
+		if(parameter.count() == 2) {
+			Rendering::drawWireframeSphere(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Sphere&>(rt));
+		} else {
+			Rendering::drawWireframeSphere(parameter[0].to<Rendering::RenderingContext&>(rt), parameter[1].to<const Geometry::Sphere&>(rt), parameter[2].to<Util::Color4f>(rt));
 		}
 		return EScript::create(nullptr);
 	})
