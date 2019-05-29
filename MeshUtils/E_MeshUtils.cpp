@@ -59,9 +59,9 @@ void init(EScript::Namespace * lib) {
 	//! [ESF] Sphere Rendering.calculateBoundingSphere(Mesh)
 	//! [ESF] Sphere Rendering.calculateBoundingSphere(Array of Meshes [,Array of Transformation Matrixes])
 	ES_FUNCTION(lib,"calculateBoundingSphere",1,2,{
-		Mesh* m = parameter[0].toType<Mesh>();
+		E_Mesh* m = parameter[0].toType<E_Mesh>();
 		if(m)
-			return EScript::create(calculateBoundingSphere(m));
+			return EScript::create(calculateBoundingSphere((**m).get()));
 		
 		Array * a = parameter[0].to<EScript::Array*>(rt);
 		std::vector<MeshMatPair_t> meshes;
