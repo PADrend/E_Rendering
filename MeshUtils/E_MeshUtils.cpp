@@ -25,6 +25,7 @@
 #include <E_Geometry/E_Matrix4x4.h>
 #include <E_Geometry/E_Vec3.h>
 #include <E_Geometry/E_Ray3.h>
+#include <E_Geometry/E_Sphere.h>
 #include <E_Util/Graphics/E_Color.h>
 #include <E_Util/Graphics/E_PixelAccessor.h>
 #include <E_Util/Graphics/E_Bitmap.h>
@@ -33,6 +34,7 @@
 #include <EScript/StdObjects.h>
 #include <memory>
 #include <set>
+#include <vector>
 
 namespace E_Rendering{
 namespace E_MeshUtils {
@@ -43,6 +45,7 @@ using namespace Rendering::MeshUtils;
 using namespace E_Geometry;
 using namespace Geometry;
 
+typedef std::pair<Mesh *, Geometry::Matrix4x4> MeshMatPair_t;
 
 void init(EScript::Namespace * lib) {
 
@@ -52,9 +55,54 @@ void init(EScript::Namespace * lib) {
 	
 	//! @name MeshUtils
 	//! @{
+	
+	//! [ESF] Sphere Rendering.calculateBoundingSphere(Mesh)
+	//! [ESF] Sphere Rendering.calculateBoundingSphere(Array of Meshes [,Array of Transformation Matrixes])
+	ES_FUNCTION(lib,"calculateBoundingSphere",1,2,{
+		Mesh* m = parameter[0].toType<Mesh>();
+		if(m)
+			return EScript::create(calculateBoundingSphere(m));
+		
+		Array * a = parameter[0].to<EScript::Array*>(rt);
+		std::vector<MeshMatPair_t> meshes;
 
+		if(a->empty())
+			return EScript::create(new E_Geometry::E_Sphere);
+
+		for(auto& e : *a)
+			meshes.emplace_back(e.to<Mesh*>(rt), Geometry::Matrix4x4());
+		
+		if(parameter.count()==1)
+			return EScript::create(calculateBoundingSphere(meshes));
+		
+		Array * t = parameter[1].to<EScript::Array*>(rt);
+		std::deque<Matrix4x4> matrices;
+		for(uint32_t i=0; i<std::min(t->count(), a->count()); ++i) {
+			ObjRef value = t->get(i);
+			meshes[i].second = value.to<const Geometry::Matrix4x4&>(rt);
+		}
+		return EScript::create(calculateBoundingSphere(meshes));
+	})
+	
+	//! [ESF] Number Rendering.calculateHash(Mesh)
+	ES_FUN(lib,"calculateHash", 1, 1, calculateHash(parameter[0].to<Rendering::Mesh*>(rt)))
+	
 	//! [ESF] void Rendering.calculateNormals(Mesh)
-	ES_FUN(lib,"calculateNormals", 1, 1, (Rendering::MeshUtils::calculateNormals(parameter[0].to<Rendering::Mesh*>(rt)), EScript::create(nullptr)))
+	ES_FUN(lib,"calculateNormals", 1, 1, (calculateNormals(parameter[0].to<Rendering::Mesh*>(rt)), EScript::create(nullptr)))
+	
+	//! [ESF] void Rendering.calculateTangentVectors(Mesh mesh, [String uvName, [String tangentVecName]])
+	ES_FUN(lib,"calculateTangentVectors", 1, 3, (calculateTangentVectors(
+		parameter[0].to<Rendering::Mesh*>(rt),
+		parameter[1].toString(VertexAttributeIds::TEXCOORD0.toString()),
+		parameter[2].toString(VertexAttributeIds::TANGENT.toString())
+	), EScript::create(nullptr)))
+	
+	//! [ESF] void Rendering.calculateTextureCoordinates_projection(Mesh mesh, Matrix4x4 projection, [String uvName])
+	ES_FUN(lib,"calculateTextureCoordinates_projection", 2, 3, (calculateTextureCoordinates_projection(
+		parameter[0].to<Rendering::Mesh*>(rt),
+		parameter[2].toString(VertexAttributeIds::TEXCOORD0.toString()),
+		parameter[1].to<const Geometry::Matrix4x4&>(rt)
+	), EScript::create(nullptr)))
 
 	//! [ESF] Mesh Rendering.combineMeshes(Array of Meshes)
 	//! [ESF] Mesh Rendering.combineMeshes(Array of Meshes [,Array of Transformation Matrixes])
@@ -141,14 +189,8 @@ void init(EScript::Namespace * lib) {
 			return EScript::create(result);
 	})
 
-	//! [ESF] void Rendering.calculateTangentVectors(Mesh, String uvAttrName, String tanAttrName)
-	ES_FUN(lib,"calculateTangentVectors", 3, 3, (Rendering::MeshUtils::calculateTangentVectors(
-			parameter[0].to<Rendering::Mesh*>(rt),parameter[1].toString(),parameter[2].toString()), EScript::create(nullptr)))
-
-	//! [ESF] void Rendering.calculateTextureCoordinates_projection(Mesh, String AttrName, Matrix4x4 projection)
-	ES_FUN(lib,"calculateTextureCoordinates_projection", 3, 3, (Rendering::MeshUtils::calculateTextureCoordinates_projection(
-			parameter[0].to<Rendering::Mesh*>(rt),parameter[1].toString(),
-				parameter[2].to<const Geometry::Matrix4x4&>(rt)), EScript::create(nullptr)))
+	//! [ESF] Bool Rendering.compareMeshes(Mesh, Mesh)
+	ES_FUN(lib, "compareMeshes", 2, 2, compareMeshes(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].to<Rendering::Mesh*>(rt)))
 
 	//! [ESF] Void Rendering.convertVertices(Mesh, VertexDescription)
 	ES_FUNCTION(lib, "convertVertices", 2, 2, {
