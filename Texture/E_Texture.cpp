@@ -52,7 +52,11 @@ void E_Texture::init(EScript::Namespace & lib) {
 
 	//! thisEObj Texture.clear([Color])
 	ES_MFUN(typeObject,Texture,"clear",0,1, (thisObj->clearGLData(parameter[0].to(rt,Util::Color4f())),thisEObj))
-
+	
+	//! [ESMF] self Texture.enableComparision(RenderingContext, Number)
+	ES_MFUN(typeObject,Texture,"enableComparision",2,2,
+		(thisObj->enableComparision(parameter[0].to<RenderingContext&>(rt), static_cast<Rendering::Comparison::function_t>(parameter[1].toUInt())), thisEObj))
+	
 	//! [ESMF] FileName Texture.getHasMipmaps()
 	ES_MFUN(typeObject,const Texture,"getHasMipmaps",0,0, thisObj->getHasMipmaps())
 
@@ -109,7 +113,7 @@ void E_Texture::init(EScript::Namespace & lib) {
 	EScript::declareConstant( typeObject, "TEXTURE_CUBE_MAP_ARRAY",	static_cast<uint32_t>(TextureType::TEXTURE_CUBE_MAP_ARRAY) );
 	EScript::declareConstant( typeObject, "TEXTURE_BUFFER",			static_cast<uint32_t>(TextureType::TEXTURE_BUFFER) );
 	EScript::declareConstant( typeObject, "TEXTURE_2D_MULTISAMPLE",	static_cast<uint32_t>(TextureType::TEXTURE_2D_MULTISAMPLE) );
-
+	
 }
 
 E_Texture::E_Texture(Rendering::Texture * t) : ReferenceObject<Util::Reference<Rendering::Texture> >(t,getTypeObject()){}

@@ -186,6 +186,15 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		}
 		return thisEObj;
 	})
+
+	//! [ESMF] thisEObj Mesh._resize(Number)
+	ES_MFUNCTION(typeObject,Mesh,"_resize",1,1,{
+		auto& vd = thisObj->openVertexData();
+		vd.allocate(parameter[0].toUInt(), vd.getVertexDescription());
+		vd.updateBoundingBox();
+		vd.removeGlBuffer();
+		return thisEObj;
+	})
 	
 	E_Util::E_Utils::registerConverter(new E_Util::E_Utils::CountedRefAttrConverter<Rendering::Mesh,E_Mesh>);
 }
