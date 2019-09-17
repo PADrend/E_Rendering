@@ -1,13 +1,14 @@
 #
 # This file is part of the E_Rendering library.
 # Copyright (C) 2009-2013 Benjamin Eikel <benjamin@eikel.org>
+# Copyright (C) 2014-2019 Sascha Brandt <sascha@brandt.graphics>
 #
 # This library is subject to the terms of the Mozilla Public License, v. 2.0.
 # You should have received a copy of the MPL along with this library; see the 
 # file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 #
 cmake_minimum_required(VERSION 3.1.0)
-project(E_Rendering VERSION 0.2.0 LANGUAGES CXX)
+project(E_Rendering VERSION 0.3.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -53,31 +54,31 @@ target_link_libraries(E_Rendering LINK_PUBLIC EScript)
 
 # Dependency to Geometry
 if(NOT TARGET Geometry)
-	find_package(Geometry 0.2.0 REQUIRED NO_MODULE)
+	find_package(Geometry 0.3.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC Geometry)
 
 # Dependency to Rendering
 if(NOT TARGET Rendering)
-	find_package(Rendering 0.2.0 REQUIRED NO_MODULE)
+	find_package(Rendering 0.3.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC Rendering)
 
 # Dependency to Util
 if(NOT TARGET Util)
-	find_package(Util 0.2.0 REQUIRED NO_MODULE)
+	find_package(Util 0.3.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC Util)
 
 # Dependency to E_Geometry
 if(NOT TARGET E_Geometry)
-	find_package(E_Geometry 0.2.0 REQUIRED NO_MODULE)
+	find_package(E_Geometry 0.3.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC E_Geometry)
 
 # Dependency to E_Util
 if(NOT TARGET E_Util)
-	find_package(E_Util 0.2.0 REQUIRED NO_MODULE)
+	find_package(E_Util 0.3.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC E_Util)
 
@@ -86,8 +87,6 @@ set_target_properties(E_Rendering PROPERTIES VERSION ${E_Rendering_VERSION}
                                              SOVERSION ${E_Rendering_VERSION_MAJOR})
 
 # Install the header files
-file(GLOB E_RENDERING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/CL/*.h")
-install(FILES ${E_RENDERING_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/E_Rendering/CL COMPONENT headers)
 file(GLOB E_RENDERING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/Mesh/*.h")
 install(FILES ${E_RENDERING_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/E_Rendering/Mesh COMPONENT headers)
 file(GLOB E_RENDERING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/MeshUtils/*.h")
@@ -135,7 +134,7 @@ include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_NAME "librendering${E_Rendering_VERSION_MAJOR}-escript")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "E_Rendering library")
-set(CPACK_PACKAGE_VENDOR "Benjamin Eikel; Claudius Jaehn; Ralf Petring")
+set(CPACK_PACKAGE_VENDOR "Benjamin Eikel; Claudius Jaehn; Ralf Petring; Sascha Brandt")
 set(CPACK_PACKAGE_CONTACT "Benjamin Eikel <benjamin@eikel.org>")
 set(CPACK_PACKAGE_VERSION_MAJOR ${E_Rendering_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${E_Rendering_VERSION_MINOR})
