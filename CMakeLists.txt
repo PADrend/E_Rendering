@@ -84,7 +84,9 @@ target_link_libraries(E_Rendering LINK_PUBLIC E_Util)
 
 # Set version of library
 set_target_properties(E_Rendering PROPERTIES VERSION ${E_Rendering_VERSION}
-                                             SOVERSION ${E_Rendering_VERSION_MAJOR})
+																						 SOVERSION ${E_Rendering_VERSION_MAJOR}
+																						 POSITION_INDEPENDENT_CODE ON
+																						 LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 # Install the header files
 file(GLOB E_RENDERING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/Mesh/*.h")
@@ -107,9 +109,9 @@ install(TARGETS E_Rendering EXPORT LibraryExport
 
 # Set include directories for users of this library
 target_include_directories(E_Rendering
-                           INTERFACE
-                           "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
-                           "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+													 INTERFACE
+													 "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
+													 "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
 # Library export
 install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE E_RenderingTargets.cmake COMPONENT developmentlibraries)
@@ -117,17 +119,17 @@ install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE E_
 # Create the configuration files
 include(CMakePackageConfigHelpers)
 configure_package_config_file(E_RenderingConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfig.cmake
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR}
-                              PATH_VARS CMAKE_INSTALL_CMAKECONFIGDIR
-                              NO_SET_AND_CHECK_MACRO
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+															INSTALL_DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR}
+															PATH_VARS CMAKE_INSTALL_CMAKECONFIGDIR
+															NO_SET_AND_CHECK_MACRO
+															NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfigVersion.cmake
-                                 VERSION ${E_Rendering_VERSION}
-                                 COMPATIBILITY SameMajorVersion)
+																 VERSION ${E_Rendering_VERSION}
+																 COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/E_RenderingConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
+				DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
 
 # Packaging
 include(InstallRequiredSystemLibraries)
