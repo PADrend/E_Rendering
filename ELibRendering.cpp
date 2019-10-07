@@ -189,7 +189,21 @@ void init(EScript::Namespace * globals) {
 	//! [ESF] Void Rendering.clusterPoints(file,count)
 	ES_FUN(lib, "clusterPoints", 2, 2, (Rendering::StreamerXYZ::clusterPoints(Util::FileName(parameter[0].toString()),
 																					parameter[1].to<uint32_t>(rt)),EScript::create(nullptr)))
-																					
+	
+	//! [ESF] void Rendering.startCapture()
+	ES_FUN(lib, "startCapture", 0, 0, (Rendering::startCapture(), nullptr))
+
+	//! [ESF] void Rendering.endCapture()
+	ES_FUN(lib, "endCapture", 0, 0, (Rendering::endCapture(), nullptr))
+
+	//! [ESF] void Rendering.pushDebugGroup(String name)
+	ES_FUN(lib, "pushDebugGroup", 1, 1, (Rendering::pushDebugGroup(parameter[0].toString()), nullptr))
+
+	//! [ESF] void Rendering.popDebugGroup()
+	ES_FUN(lib, "popDebugGroup", 0, 0, (Rendering::popDebugGroup(), nullptr))
+	  
+	//! [ESF] void Rendering.triggerCapture()
+	ES_FUN(lib, "triggerCapture", 0, 0, 		(Rendering::triggerCapture(), nullptr))
 	//! @}
 }
 }
