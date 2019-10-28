@@ -9,7 +9,7 @@
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_VertexAttribute.h"
-#include <Rendering/Mesh/VertexAttribute.h>
+#include <Rendering/Mesh/VertexDescription.h>
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 #include <cstddef>
@@ -30,7 +30,8 @@ void E_VertexAttribute::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const VertexAttribute, "empty", 0, 0, thisObj->empty())
 
 	//! Bool VertexAttribute.getNormalize()
-	ES_MFUN(typeObject,const VertexAttribute, "getNormalize", 0, 0, thisObj->getNormalize())
+	ES_MFUN(typeObject,const VertexAttribute, "getNormalize", 0, 0, thisObj->isNormalized())
+	ES_MFUN(typeObject,const VertexAttribute, "isNormalized", 0, 0, thisObj->isNormalized())
 
 	//! Number VertexAttribute.getOffset()
 	ES_MFUN(typeObject,const VertexAttribute, "getOffset", 0, 0, EScript::Number::create(thisObj->getOffset()))
@@ -39,7 +40,7 @@ void E_VertexAttribute::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,const VertexAttribute, "getDataSize", 0, 0, EScript::Number::create(thisObj->getDataSize()))
 
 	//! Number VertexAttribute.getDataType()
-	ES_MFUN(typeObject,const VertexAttribute, "getDataType", 0, 0, EScript::Number::create(thisObj->getDataType()))
+	ES_MFUN(typeObject,const VertexAttribute, "getDataType", 0, 0, EScript::Number::create(static_cast<uint32_t>(thisObj->getDataType())))
 
 	//! Number VertexAttribute.getNumValues()
 	ES_MFUN(typeObject,const VertexAttribute, "getNumValues", 0, 0, EScript::Number::create(thisObj->getNumValues()))

@@ -173,7 +173,10 @@ void init(EScript::Namespace * globals) {
 
 	//! [ESF] String Rendering.getGLTypeString(Number)
 	ES_FUN(lib, "getGLTypeString", 1, 1, Rendering::getGLTypeString(parameter[0].to<uint32_t>(rt)))
-
+	
+	//! [ESF] Number Rendering.getGLType(TypeConstant)
+	ES_FUN(lib, "getGLType", 1, 1, Rendering::getGLType(static_cast<Util::TypeConstant>(parameter[0].toUInt())))
+		
 	//! [ESF] Void Rendering.outputGLInformation()
 	ES_FUN(lib, "outputGLInformation", 0, 0, (Rendering::outputGLInformation(std::cout), EScript::create(nullptr)))
 

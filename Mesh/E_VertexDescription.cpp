@@ -15,6 +15,7 @@
 #include <Rendering/Mesh/VertexDescription.h>
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
+#include <Util/TypeConstant.h>
 #include <cstddef>
 #include <deque>
 
@@ -60,10 +61,10 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 	//! VertexDescription new VertexDescription()
 	ES_CTOR(typeObject,0, 0, Rendering::VertexDescription())
 
-	//! Attribute VertexDescription.appendAttribute(String name, Number numValues, Number type, Bool normalize)
+	//! Attribute VertexDescription.appendAttribute(String name, Number type, Number numValues, Bool normalize)
 	//! \note only string constants can be used.
 	ES_MFUN(typeObject,VertexDescription, "appendAttribute", 4, 4,
-				new E_VertexAttribute(thisObj->appendAttribute(parameter[0].toString(), parameter[1].to<uint32_t>(rt), parameter[2].to<uint32_t>(rt), parameter[3].toBool())))
+				new E_VertexAttribute(thisObj->appendAttribute(parameter[0].toString(), static_cast<Util::TypeConstant>(parameter[1].toUInt()), parameter[2].toUInt(), parameter[3].toBool())))
 
 	//! Number VertexDescription.getVertexSize()
 	ES_MFUN(typeObject,const VertexDescription, "getVertexSize", 0, 0, EScript::Number::create(thisObj->getVertexSize()))
