@@ -50,6 +50,7 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,RenderingContext, "applyChanges", 0,1, (thisObj->applyChanges(parameter[0].toBool(false)),thisEObj))
 	ES_MFUN(typeObject,const RenderingContext, "getImmediateMode", 0, 0, thisObj->getImmediateMode())
 	ES_MFUN(typeObject,RenderingContext, "setImmediateMode", 1, 1, (thisObj->setImmediateMode(parameter[0].toBool()),thisEObj))
+	ES_MFUN(typeObject,const RenderingContext, "getCompabilityMode", 0, 0, thisObj->getCompabilityMode())
 	
 	//! @}
 		
