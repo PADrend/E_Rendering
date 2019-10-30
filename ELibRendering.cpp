@@ -187,7 +187,7 @@ void init(EScript::Namespace * globals) {
 	ES_FUN(lib, "disableDebugOutput", 0, 0, (Rendering::disableDebugOutput(), EScript::create(nullptr)))
 
 	//! [ESF] Void Rendering.clusterPoints(file,count)
-	ES_FUN(lib, "clusterPoints", 2, 2, (Rendering::StreamerXYZ::clusterPoints(Util::FileName(parameter[0].toString()),
+	ES_FUN(lib, "clusterPoints", 2, 2, (Rendering::Serialization::StreamerXYZ::clusterPoints(Util::FileName(parameter[0].toString()),
 																					parameter[1].to<uint32_t>(rt)),EScript::create(nullptr)))
 	
 	//! [ESF] void Rendering.startCapture()
