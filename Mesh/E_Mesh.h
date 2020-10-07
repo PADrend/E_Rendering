@@ -23,8 +23,8 @@ namespace E_Rendering{
 class E_Mesh : public EScript::ReferenceObject<Util::Reference<Rendering::Mesh> > {
 		ES_PROVIDES_TYPE_NAME(Mesh)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_Mesh(Rendering::Mesh * t):ReferenceObject<Util::Reference<Rendering::Mesh> >(t,getTypeObject()){}
 		E_Mesh(const Util::Reference<Rendering::Mesh>& t):ReferenceObject<Util::Reference<Rendering::Mesh> >(t,getTypeObject()){}
@@ -33,7 +33,7 @@ class E_Mesh : public EScript::ReferenceObject<Util::Reference<Rendering::Mesh> 
 		E_Mesh * clone() const override {
 			return new E_Mesh((**this)->clone());
 		}
-		std::string toString() const override;
+		ERENDERINGAPI std::string toString() const override;
 };
 }
 

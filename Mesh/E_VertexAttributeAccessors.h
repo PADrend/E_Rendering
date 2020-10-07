@@ -28,8 +28,8 @@ namespace E_Rendering{
 class E_VertexAttributeAccessor : public EScript::ReferenceObject<Util::Reference<Rendering::VertexAttributeAccessor> > {
 		ES_PROVIDES_TYPE_NAME(VertexAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		virtual ~E_VertexAttributeAccessor() {}
 
@@ -43,8 +43,8 @@ class E_VertexAttributeAccessor : public EScript::ReferenceObject<Util::Referenc
 class E_ColorAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(ColorAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_ColorAttributeAccessor(Util::Reference<Rendering::ColorAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_ColorAttributeAccessor::getTypeObject()) {}
@@ -57,8 +57,8 @@ class E_ColorAttributeAccessor : public E_VertexAttributeAccessor {
 class E_NormalAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(NormalAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_NormalAttributeAccessor(Util::Reference<Rendering::NormalAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_NormalAttributeAccessor::getTypeObject()) {}
@@ -71,8 +71,8 @@ class E_NormalAttributeAccessor : public E_VertexAttributeAccessor {
 class E_PositionAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(PositionAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_PositionAttributeAccessor(Util::Reference<Rendering::PositionAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_PositionAttributeAccessor::getTypeObject()) {}
@@ -85,8 +85,8 @@ class E_PositionAttributeAccessor : public E_VertexAttributeAccessor {
 class E_TexCoordAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(TexCoordAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_TexCoordAttributeAccessor(Util::Reference<Rendering::TexCoordAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_TexCoordAttributeAccessor::getTypeObject()) {}
@@ -99,8 +99,8 @@ class E_TexCoordAttributeAccessor : public E_VertexAttributeAccessor {
 class E_FloatAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(FloatAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_FloatAttributeAccessor(Util::Reference<Rendering::FloatAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_FloatAttributeAccessor::getTypeObject()) {}
@@ -113,8 +113,8 @@ class E_FloatAttributeAccessor : public E_VertexAttributeAccessor {
 class E_UIntAttributeAccessor : public E_VertexAttributeAccessor {
 		ES_PROVIDES_TYPE_NAME(UIntAttributeAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_UIntAttributeAccessor(Util::Reference<Rendering::UIntAttributeAccessor> _obj) :
 				E_VertexAttributeAccessor(_obj.get(), E_UIntAttributeAccessor::getTypeObject()) {}

@@ -26,8 +26,8 @@ namespace E_Rendering{
 class E_VertexAccessor : public EScript::ReferenceObject<Util::Reference<Rendering::VertexAccessor> > {
 		ES_PROVIDES_TYPE_NAME(VertexAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 		
 		E_VertexAccessor(Rendering::VertexAccessor * t):ReferenceObject<Util::Reference<Rendering::VertexAccessor> >(t,getTypeObject()){}
 		E_VertexAccessor(const Util::Reference<Rendering::VertexAccessor>& t):ReferenceObject<Util::Reference<Rendering::VertexAccessor> >(t,getTypeObject()){}

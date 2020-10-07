@@ -17,7 +17,7 @@ class Namespace;
 }
 
 namespace E_Rendering {
-void init(EScript::Namespace * globals);
+ERENDERINGAPI void init(EScript::Namespace * globals);
 }
 
 #endif // ELIBRENDERING_H
