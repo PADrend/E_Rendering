@@ -45,6 +45,8 @@ void E_Device::init(EScript::Namespace & lib) {
 	//! [ESMF] new Rendering.Device(Window window)
 	ES_CTOR(typeObject,1,2,Device::create(parameter[0].to<Util::UI::Window*>(rt), toStringArray(parameter[1].toType<EScript::Array>())))
 
+	//! [ESMF] thisEObj Device.waitIdle()
+	ES_MFUN(typeObject,Device,"waitIdle",0,0,(thisObj->waitIdle(), thisEObj))
 }
 
 }
