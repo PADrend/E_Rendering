@@ -22,8 +22,8 @@ namespace E_Rendering{
 class E_BufferObject : public EScript::ReferenceObject<Rendering::BufferObject::Ref> {
 		ES_PROVIDES_TYPE_NAME(BufferObject)
 	public:
-		static void init(EScript::Namespace & lib);
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 
 		E_BufferObject(Rendering::BufferObject::Ref t) : ReferenceObject_t(t,getTypeObject()){}
 		virtual ~E_BufferObject(){}

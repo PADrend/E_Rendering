@@ -47,6 +47,14 @@ add_library(E_Rendering
 	Texture/E_TextureUtils.cpp
 )
 
+if(MSVC)
+	target_compile_definitions(E_Rendering PRIVATE "ERENDERINGAPI=__declspec(dllexport)")
+	target_compile_definitions(E_Rendering INTERFACE "ERENDERINGAPI=__declspec(dllimport)")
+else()
+	target_compile_definitions(E_Rendering PRIVATE "ERENDERINGAPI=")
+	target_compile_definitions(E_Rendering INTERFACE "ERENDERINGAPI=")
+endif()
+
 # Dependency to EScript
 if(NOT TARGET EScript)
 	find_package(EScript 0.6.7 REQUIRED NO_MODULE)

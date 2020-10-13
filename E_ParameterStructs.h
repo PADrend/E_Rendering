@@ -26,7 +26,7 @@ void init(EScript::Namespace & lib);
 class E_AlphaTestParameters : public EScript::ReferenceObject<Rendering::AlphaTestParameters> {
 		ES_PROVIDES_TYPE_NAME(AlphaTestParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_AlphaTestParameters(const Rendering::AlphaTestParameters & p) : EScript::ReferenceObject<Rendering::AlphaTestParameters>(p,getTypeObject()){
 		}
 
@@ -39,7 +39,7 @@ class E_AlphaTestParameters : public EScript::ReferenceObject<Rendering::AlphaTe
 class E_BlendingParameters : public EScript::ReferenceObject<Rendering::BlendingParameters> {
 		ES_PROVIDES_TYPE_NAME(BlendingParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_BlendingParameters(const Rendering::BlendingParameters & p) : EScript::ReferenceObject<Rendering::BlendingParameters>(p,getTypeObject()){
 		}
 
@@ -52,7 +52,7 @@ class E_BlendingParameters : public EScript::ReferenceObject<Rendering::Blending
 class E_CullFaceParameters : public EScript::ReferenceObject<Rendering::CullFaceParameters> {
 		ES_PROVIDES_TYPE_NAME(CullFaceParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_CullFaceParameters(const Rendering::CullFaceParameters & p) : EScript::ReferenceObject<Rendering::CullFaceParameters>(p, getTypeObject()) {
 		}
 
@@ -65,9 +65,9 @@ class E_CullFaceParameters : public EScript::ReferenceObject<Rendering::CullFace
 class E_ImageBindParameters : public EScript::ReferenceObject<Rendering::ImageBindParameters> {
 		ES_PROVIDES_TYPE_NAME(ImageBindParameters)
 	public:
-		static EScript::Type* getTypeObject();
-		E_ImageBindParameters(const Rendering::ImageBindParameters & p);
-		virtual ~E_ImageBindParameters();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI E_ImageBindParameters(const Rendering::ImageBindParameters & p);
+		ERENDERINGAPI virtual ~E_ImageBindParameters();
 
 		//! ---|> Object
 		E_ImageBindParameters * clone() const override      {   return new E_ImageBindParameters(ref());  }
@@ -78,7 +78,7 @@ class E_ImageBindParameters : public EScript::ReferenceObject<Rendering::ImageBi
 class E_LightingParameters : public EScript::ReferenceObject<Rendering::LightingParameters> {
 		ES_PROVIDES_TYPE_NAME(LightingParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_LightingParameters(const Rendering::LightingParameters & p) : EScript::ReferenceObject<Rendering::LightingParameters>(p, getTypeObject()) {
 		}
 
@@ -91,7 +91,7 @@ class E_LightingParameters : public EScript::ReferenceObject<Rendering::Lighting
 class E_MaterialParameters : public EScript::ReferenceObject<Rendering::MaterialParameters> {
 		ES_PROVIDES_TYPE_NAME(MaterialParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_MaterialParameters(const Rendering::MaterialParameters & p) : EScript::ReferenceObject<Rendering::MaterialParameters>(p, getTypeObject()) {
 		}
 
@@ -104,7 +104,7 @@ class E_MaterialParameters : public EScript::ReferenceObject<Rendering::Material
 class E_PointParameters : public EScript::ReferenceObject<Rendering::PointParameters> {
 		ES_PROVIDES_TYPE_NAME(PointParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_PointParameters(const Rendering::PointParameters & p) : 
 					EScript::ReferenceObject<Rendering::PointParameters>(p, getTypeObject()) {}
 		virtual ~E_PointParameters(){}
@@ -117,7 +117,7 @@ class E_PointParameters : public EScript::ReferenceObject<Rendering::PointParame
 class E_PolygonModeParameters : public EScript::ReferenceObject<Rendering::PolygonModeParameters> {
 		ES_PROVIDES_TYPE_NAME(PolygonModeParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_PolygonModeParameters(const Rendering::PolygonModeParameters & p) : EScript::ReferenceObject<Rendering::PolygonModeParameters>(p,getTypeObject()){
 		}
 
@@ -130,7 +130,7 @@ class E_PolygonModeParameters : public EScript::ReferenceObject<Rendering::Polyg
 class E_StencilParameters : public EScript::ReferenceObject<Rendering::StencilParameters> {
 		ES_PROVIDES_TYPE_NAME(StencilParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_StencilParameters(const Rendering::StencilParameters & p) : EScript::ReferenceObject<Rendering::StencilParameters>(p,getTypeObject()){
 		}
 
@@ -143,7 +143,7 @@ class E_StencilParameters : public EScript::ReferenceObject<Rendering::StencilPa
 class E_ScissorParameters : public EScript::ReferenceObject<Rendering::ScissorParameters> {
 		ES_PROVIDES_TYPE_NAME(ScissorParameters)
 	public:
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 		E_ScissorParameters(const Rendering::ScissorParameters & p) : EScript::ReferenceObject<Rendering::ScissorParameters>(p, getTypeObject()) {
 		}
 

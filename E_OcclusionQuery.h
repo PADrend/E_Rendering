@@ -23,11 +23,11 @@ namespace E_Rendering{
 class E_OcclusionQuery : public EScript::ReferenceObject<Rendering::OcclusionQuery,EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(OcclusionQuery)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
-		E_OcclusionQuery();
-		virtual ~E_OcclusionQuery();
+		ERENDERINGAPI E_OcclusionQuery();
+		ERENDERINGAPI virtual ~E_OcclusionQuery();
 };
 
 }

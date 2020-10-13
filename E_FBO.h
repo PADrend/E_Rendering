@@ -22,8 +22,8 @@ namespace E_Rendering{
 class E_FBO : public EScript::ReferenceObject<Util::Reference<Rendering::FBO> > {
 		ES_PROVIDES_TYPE_NAME(FBO)
 	public:
-		static void init(EScript::Namespace & lib);
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 
 		E_FBO(Rendering::FBO * t) : ReferenceObject_t(t,getTypeObject()){}
 		virtual ~E_FBO(){}

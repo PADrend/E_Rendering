@@ -21,8 +21,8 @@ namespace E_Rendering{
 class E_TriangleAccessor : public EScript::ReferenceObject<Util::Reference<Rendering::MeshUtils::TriangleAccessor> > {
 		ES_PROVIDES_TYPE_NAME(TriangleAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_TriangleAccessor(Util::Reference<Rendering::MeshUtils::TriangleAccessor> _obj,EScript::Type * type=nullptr) :
 				ReferenceObject_t(_obj, type ? type : E_TriangleAccessor::getTypeObject()) {}

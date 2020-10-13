@@ -24,8 +24,8 @@ namespace E_Rendering{
 class E_StatisticsQuery : public EScript::ReferenceObject<Rendering::StatisticsQuery,EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(StatisticsQuery)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_StatisticsQuery(Rendering::StatisticsQuery && qo):
 			ReferenceObject<Rendering::StatisticsQuery,EScript::Policies::SameEObjects_ComparePolicy>(std::move(qo),getTypeObject()){ }

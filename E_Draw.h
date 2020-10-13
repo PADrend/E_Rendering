@@ -20,7 +20,7 @@ namespace E_Rendering {
 
 class E_Draw {
 	public:
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 };
 
 }

@@ -26,18 +26,18 @@ namespace E_Rendering{
 class E_Texture : public EScript::ReferenceObject<Util::Reference<Rendering::Texture> > {
 		ES_PROVIDES_TYPE_NAME(Texture)
 	public:
-		static void init(EScript::Namespace & lib);
-		static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
 
-		E_Texture(Rendering::Texture * t);
-		E_Texture(const Util::Reference<Rendering::Texture> & t);
-		E_Texture(Util::Reference<Rendering::Texture> && t);
+		ERENDERINGAPI E_Texture(Rendering::Texture * t);
+		ERENDERINGAPI E_Texture(const Util::Reference<Rendering::Texture> & t);
+		ERENDERINGAPI E_Texture(Util::Reference<Rendering::Texture> && t);
 		
 		Rendering::Texture * get()const{
 			return ref().isNull()?nullptr:ref().get();
 		}
 
-		std::string toString() const override;
+		ERENDERINGAPI std::string toString() const override;
 };
 
 }
