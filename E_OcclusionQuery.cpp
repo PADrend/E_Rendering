@@ -39,10 +39,10 @@ void E_OcclusionQuery::init(EScript::Namespace & lib) {
 	ES_FUN(typeObject, "disableTestMode", 1, 1, (OcclusionQuery::disableTestMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
 
 	//! methods
-	ES_MFUN(typeObject,OcclusionQuery, "isResultAvailable", 0, 0, thisObj->isResultAvailable())
-	ES_MFUN(typeObject,OcclusionQuery, "getResult", 0, 0, thisObj->getResult())
-	ES_MFUN(typeObject,OcclusionQuery, "begin", 0, 0, (thisObj->begin(), EScript::create(nullptr)))
-	ES_MFUN(typeObject,OcclusionQuery, "end", 0, 0, (thisObj->end(), EScript::create(nullptr)))
+	ES_MFUN(typeObject,OcclusionQuery, "isResultAvailable", 1, 1, thisObj->isResultAvailable(parameter[0].to<Rendering::RenderingContext&>(rt)))
+	ES_MFUN(typeObject,OcclusionQuery, "getResult", 1, 1, thisObj->getResult(parameter[0].to<Rendering::RenderingContext&>(rt)))
+	ES_MFUN(typeObject,OcclusionQuery, "begin", 1, 1, (thisObj->begin(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
+	ES_MFUN(typeObject,OcclusionQuery, "end", 1, 1, (thisObj->end(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
 }
 
 //---

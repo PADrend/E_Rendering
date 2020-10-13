@@ -35,11 +35,11 @@ void E_StatisticsQuery::init(EScript::Namespace & lib) {
 	ES_FUN(typeObject, "createTimeElapsedQuery", 0, 0, new E_StatisticsQuery(StatisticsQuery::createTimeElapsedQuery()));
 	
 	//! methods
-	ES_MFUN(typeObject,StatisticsQuery, "isResultAvailable", 0, 0, thisObj->isResultAvailable())
-	ES_MFUN(typeObject,StatisticsQuery, "getResult", 0, 0, thisObj->getResult())
-	ES_MFUN(typeObject,StatisticsQuery, "getResult64", 0, 0, static_cast<double>(thisObj->getResult64()))
-	ES_MFUN(typeObject,StatisticsQuery, "begin", 0, 0, (thisObj->begin(), EScript::create(nullptr)))
-	ES_MFUN(typeObject,StatisticsQuery, "end", 0, 0, (thisObj->end(), EScript::create(nullptr)))
+	ES_MFUN(typeObject,StatisticsQuery, "isResultAvailable", 1, 1, thisObj->isResultAvailable(parameter[0].to<Rendering::RenderingContext&>(rt)))
+	ES_MFUN(typeObject,StatisticsQuery, "getResult", 1, 1, thisObj->getResult(parameter[0].to<Rendering::RenderingContext&>(rt)))
+	ES_MFUN(typeObject,StatisticsQuery, "getResult64", 1, 1, static_cast<double>(thisObj->getResult64(parameter[0].to<Rendering::RenderingContext&>(rt))))
+	ES_MFUN(typeObject,StatisticsQuery, "begin", 1, 1, (thisObj->begin(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
+	ES_MFUN(typeObject,StatisticsQuery, "end", 1, 1, (thisObj->end(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
 }
 
 }
