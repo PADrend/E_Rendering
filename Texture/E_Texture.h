@@ -13,6 +13,7 @@
 
 #include <EScript/Objects/ReferenceObject.h>
 #include <Util/References.h>
+#include <Rendering/Texture/Texture.h>
 
 namespace Rendering{
 class Texture;
