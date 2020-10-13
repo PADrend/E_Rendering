@@ -14,6 +14,8 @@
 #include <Util/Macros.h>
 #include "../E_RenderingContext.h"
 #include "E_Uniform.h"
+#include <Rendering/Shader/ShaderUtils.h>
+#include <Rendering/Core/Device.h>
 
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
@@ -67,6 +69,14 @@ void E_Shader::init(EScript::Namespace & lib) {
 				Shader::createShader(parameter[0].to<uint32_t>(rt,Shader::USE_GL | Shader::USE_UNIFORMS)));
 		}
 	})
+
+	//! [ESF] (static) Shader Shader.createDefaultShader()
+	ES_FUN(typeObject,"createDefaultShader",0,0,
+		EScript::create(ShaderUtils::createDefaultShader(Device::getDefault()).detachAndDecrease()))
+
+	//! [ESF] (static) Shader Shader.createPassThroughShader()
+	ES_FUN(typeObject,"createPassThroughShader",0,0,
+		EScript::create(ShaderUtils::createPassThroughShader(Device::getDefault()).detachAndDecrease()))
 
 	// -------------
 	//! [ESF] thisEObj Shader.attachFS(string code[, Map defines])
