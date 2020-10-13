@@ -16,7 +16,7 @@ class Namespace;
 }
 namespace E_Rendering {
 namespace E_TextureUtils {
-void init(EScript::Namespace * globals);
+ERENDERINGAPI void init(EScript::Namespace * globals);
 }
 }
 

@@ -18,8 +18,8 @@ namespace E_Rendering {
 class E_TextRenderer : public EScript::ReferenceObject<Rendering::TextRenderer, EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(TextRenderer)
 	public:
-		static void init(EScript::Namespace & lib);
-		static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
 
 		template<typename...args>
 		explicit E_TextRenderer(args&&... params) :

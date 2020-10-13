@@ -23,8 +23,8 @@ namespace E_Rendering{
 class E_Uniform : public EScript::ReferenceObject<Rendering::Uniform>{
 	ES_PROVIDES_TYPE_NAME(Uniform)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_Uniform(const Rendering::Uniform & uniform,EScript::Type * type=nullptr) : ReferenceObject_t(uniform,type?type:getTypeObject()) {}
 		virtual ~E_Uniform() {}

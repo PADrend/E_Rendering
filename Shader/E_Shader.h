@@ -24,8 +24,8 @@ class E_Shader : public EScript::ReferenceObject<Util::Reference<Rendering::Shad
 	ES_PROVIDES_TYPE_NAME(Shader)
 
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_Shader(Rendering::Shader * shader,EScript::Type * type=nullptr) : ReferenceObject_t(shader,type?type:getTypeObject())	{}
 		virtual ~E_Shader()	{}

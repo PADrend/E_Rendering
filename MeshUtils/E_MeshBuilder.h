@@ -23,8 +23,8 @@ namespace E_Rendering{
 class E_MeshBuilder : public EScript::ReferenceObject<Util::Reference<Rendering::MeshUtils::MeshBuilder> > {
 		ES_PROVIDES_TYPE_NAME(MeshBuilder)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_MeshBuilder(Rendering::MeshUtils::MeshBuilder * t):ReferenceObject_t(t,getTypeObject())	{}
 		virtual ~E_MeshBuilder()	{}

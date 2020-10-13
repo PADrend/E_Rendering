@@ -28,8 +28,8 @@ namespace E_Rendering {
 class E_VertexDescription : public EScript::ReferenceObject<Rendering::VertexDescription> {
 		ES_PROVIDES_TYPE_NAME(VertexDescription)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_VertexDescription(const Rendering::VertexDescription & description) : ReferenceObject_t(description, getTypeObject()) {}
 		virtual ~E_VertexDescription() {}

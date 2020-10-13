@@ -25,8 +25,8 @@ class E_RenderingContext : public EScript::ReferenceObject<Rendering::RenderingC
 	ES_PROVIDES_TYPE_NAME(RenderingContext)
 
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type* getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		//! (ctor)
 		E_RenderingContext(Rendering::RenderingContext * manager) : ReferenceObject_t(manager,getTypeObject()) {}

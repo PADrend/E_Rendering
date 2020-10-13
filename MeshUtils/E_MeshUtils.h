@@ -18,7 +18,7 @@ class Namespace;
 
 namespace E_Rendering {
 namespace E_MeshUtils {
-void init(EScript::Namespace * lib);
+ERENDERINGAPI void init(EScript::Namespace * lib);
 }
 }
 

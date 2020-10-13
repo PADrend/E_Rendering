@@ -21,8 +21,8 @@ namespace E_Rendering{
 class E_ConnectivityAccessor : public EScript::ReferenceObject<Util::Reference<Rendering::MeshUtils::ConnectivityAccessor> > {
 		ES_PROVIDES_TYPE_NAME(ConnectivityAccessor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		ERENDERINGAPI static EScript::Type * getTypeObject();
+		ERENDERINGAPI static void init(EScript::Namespace & lib);
 
 		E_ConnectivityAccessor(Util::Reference<Rendering::MeshUtils::ConnectivityAccessor> _obj,EScript::Type * type=nullptr) :
 				ReferenceObject_t(_obj, type ? type : E_ConnectivityAccessor::getTypeObject()) {}
