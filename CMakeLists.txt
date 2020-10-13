@@ -1,16 +1,16 @@
 #
 # This file is part of the E_Rendering library.
 # Copyright (C) 2009-2013 Benjamin Eikel <benjamin@eikel.org>
-# Copyright (C) 2014-2019 Sascha Brandt <sascha@brandt.graphics>
+# Copyright (C) 2014-2020 Sascha Brandt <sascha@brandt.graphics>
 #
 # This library is subject to the terms of the Mozilla Public License, v. 2.0.
 # You should have received a copy of the MPL along with this library; see the 
 # file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 #
 cmake_minimum_required(VERSION 3.1.0)
-project(E_Rendering VERSION 0.3.0 LANGUAGES CXX)
+project(E_Rendering VERSION 1.3.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -28,6 +28,7 @@ add_library(E_Rendering
 	E_RenderingContext.cpp
 	E_StatisticsQuery.cpp
 	E_TextRenderer.cpp
+	Core/E_Device.cpp
 	Mesh/E_Mesh.cpp
 	Mesh/E_VertexAccessor.cpp
 	Mesh/E_VertexAttribute.cpp

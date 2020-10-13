@@ -19,20 +19,20 @@ namespace E_Rendering{
 
 /*! EScript wrapper for Rendering::BufferObject.
 	[E_BufferObject] ---|> [ReferenceObject] ---|> [Object]  */
-class E_BufferObject : public EScript::ReferenceObject<Util::Reference<Rendering::CountedBufferObject> > {
+class E_BufferObject : public EScript::ReferenceObject<Rendering::BufferObject::Ref> {
 		ES_PROVIDES_TYPE_NAME(BufferObject)
 	public:
 		static void init(EScript::Namespace & lib);
 		static EScript::Type* getTypeObject();
 
-		E_BufferObject(Rendering::CountedBufferObject * t) : ReferenceObject_t(t,getTypeObject()){}
+		E_BufferObject(Rendering::BufferObject::Ref t) : ReferenceObject_t(t,getTypeObject()){}
 		virtual ~E_BufferObject(){}
 };
 
 }
 
-ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_BufferObject,		Rendering::CountedBufferObject*,	(**eObj).get())
-ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_BufferObject,		Rendering::BufferObject*,			&(**eObj).get()->get())
-ES_CONV_OBJ_TO_EOBJ(Rendering::CountedBufferObject*, 	E_Rendering::E_BufferObject,		obj ? new E_Rendering::E_BufferObject(obj) : nullptr)
+ES_CONV_EOBJ_TO_OBJ(E_Rendering::E_BufferObject, Rendering::BufferObject*, (**eObj).get())
+ES_CONV_OBJ_TO_EOBJ(Rendering::BufferObject*, E_Rendering::E_BufferObject, obj ? new E_Rendering::E_BufferObject(obj) : nullptr)
+ES_CONV_OBJ_TO_EOBJ(Rendering::BufferObject::Ref, E_Rendering::E_BufferObject, obj ? new E_Rendering::E_BufferObject(obj) : nullptr)
 
 #endif // E_BUFFER_OBJECT_H

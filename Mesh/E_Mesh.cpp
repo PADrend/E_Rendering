@@ -168,13 +168,6 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		return thisEObj;
 	})
 
-
-	//! [ESMF] thisEObj Mesh._swapVertexBuffer(BufferObject)
-	ES_MFUN(typeObject,Mesh,"_swapVertexBuffer",1,1,(thisObj->_getVertexData()._swapBufferObject(parameter[0].to<CountedBufferObject*>(rt)->get()),thisEObj))
-
-	//! [ESMF] thisEObj Mesh._swapIndexBuffer(BufferObject)
-	ES_MFUN(typeObject,Mesh,"_swapIndexBuffer",1,1,(thisObj->_getIndexData()._swapBufferObject(parameter[0].to<CountedBufferObject*>(rt)->get()),thisEObj))
-
 	//! [ESMF] thisEObj Mesh._upload([usageHint])
 	ES_MFUNCTION(typeObject,Mesh,"_upload",0,1,{
 		if(parameter.size() > 0) {

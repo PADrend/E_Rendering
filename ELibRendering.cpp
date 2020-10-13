@@ -19,6 +19,7 @@
 #include "E_RenderingContext.h"
 #include "E_StatisticsQuery.h"
 #include "E_TextRenderer.h"
+#include "Core/E_Device.h"
 #include "Mesh/E_Mesh.h"
 #include "Mesh/E_VertexAccessor.h"
 #include "Mesh/E_VertexAttributeAccessors.h"
@@ -73,7 +74,13 @@ public:
 void init(EScript::Namespace * globals) {
 	Namespace * lib=new Namespace();
 	declareConstant(globals,"Rendering",lib);
-	
+			
+	//! @defgroup core Core
+	//! @{
+	E_Device::init(*lib);
+	//! @}
+		
+
 	//! @defgroup draw Draw
 	//! @{
 	E_Draw::init(*lib);

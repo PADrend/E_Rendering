@@ -90,6 +90,9 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	//!	[ESMF] thisEObj RenderingContext.flush()
 	ES_MFUN(typeObject,RenderingContext, "flush", 0, 0, (thisObj->flush(),thisEObj))
 
+	//!	[ESMF] thisEObj RenderingContext.present()
+	ES_MFUN(typeObject,RenderingContext, "present", 0, 0, (thisObj->present(),thisEObj))
+
 	//!	[ESMF] thisEObj RenderingContext.barrier()
 	ES_MFUN(typeObject,RenderingContext, "barrier", 0, 0, (thisObj->barrier(parameter[0].toUInt(0)),thisEObj))
 		
@@ -498,10 +501,10 @@ void E_RenderingContext::init(EScript::Namespace & lib) {
 	
 	//!	[ESMF] Texture|void RenderingContext.getTexture( unit )
 	ES_MFUNCTION(typeObject,RenderingContext, "getTexture",1,1,{
-		Texture * t=thisObj->getTexture(parameter[0].to<uint32_t>(rt));
+		Texture::Ref t=thisObj->getTexture(parameter[0].to<uint32_t>(rt));
 		if(t==nullptr)
 			return EScript::create(nullptr);
-		else return EScript::create(t);
+		else return EScript::create(t.get());
 	})
 
 	//!	[ESMF] thisEObj RenderingContext.pushTexture( unit )

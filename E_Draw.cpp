@@ -144,32 +144,7 @@ void E_Draw::init(EScript::Namespace & lib) {
 
 	//! [ESF] Void Rendering.disable2DMode(RenderingContext)
 	ES_FUN(&lib, "disable2DMode", 1, 1, (Rendering::disable2DMode(parameter[0].to<Rendering::RenderingContext&>(rt)), EScript::create(nullptr)))
-	
-	//! [ESF] void Rendering.enableInstanceBuffer(RenderingContext, BufferObject positions, location, elements)
-	ES_FUN(&lib, "enableInstanceBuffer", 4, 4, (	Rendering::enableInstanceBuffer(
-		parameter[0].to<Rendering::RenderingContext&>(rt),
-		parameter[1].to<Rendering::CountedBufferObject*>(rt)->get(),
-		parameter[2].toUInt(),
-		parameter[3].toUInt()
-	), EScript::create(nullptr)))
-	
-	//! [ESF] void Rendering.disableInstanceBuffer(RenderingContext, BufferObject positions, location, elements)
-	ES_FUN(&lib, "disableInstanceBuffer", 4, 4, (	Rendering::disableInstanceBuffer(
-		parameter[0].to<Rendering::RenderingContext&>(rt),
-		parameter[1].to<Rendering::CountedBufferObject*>(rt)->get(),
-		parameter[2].toUInt(),
-		parameter[3].toUInt()
-	), EScript::create(nullptr)))
-	
-	//! [ESF] void Rendering.drawInstances(RenderingContext, Mesh, firstElement, elementCount, instanceCount))
-	ES_FUN(&lib, "drawInstances", 5, 5, (	Rendering::drawInstances(
-		parameter[0].to<Rendering::RenderingContext&>(rt),
-		parameter[1].to<Rendering::Mesh*>(rt),
-		parameter[2].toUInt(),
-		parameter[3].toUInt(),
-		parameter[4].toUInt()
-	), EScript::create(nullptr)))
-		
+			
 }
 
 }

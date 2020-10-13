@@ -13,6 +13,8 @@
 #include "E_Geometry/E_Vec4.h"
 #include "E_Geometry/E_Matrix4x4.h"
 
+#include <Rendering/Core/Device.h>
+
 #include <Util/TypeConstant.h>
 #include <Util/Macros.h>
 
@@ -116,7 +118,7 @@ void E_BufferObject::init(EScript::Namespace & lib) {
 	declareConstant(&lib,"USAGE_DYNAMIC_COPY", Number::create(BufferObject::USAGE_DYNAMIC_COPY));
 
 	//! [ESMF] BufferObject new BufferObject()
-	ES_CTOR(typeObject,0,0,new CountedBufferObject(BufferObject()));
+	ES_CTOR(typeObject,0,0,BufferObject::create(Device::getDefault()));
 
 	//! [ESMF] Bool BufferObject.isValid()
 	ES_MFUN(typeObject,BufferObject,"isValid",0,0,thisObj->isValid())
