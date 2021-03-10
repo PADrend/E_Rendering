@@ -38,7 +38,7 @@ EScript::Array * downloadToArray(EScript::Runtime& rt, Rendering::BufferObject& 
 	EScript::Array * a = EScript::Array::create();
 	auto data = bo.downloadData<T>(target, count, offset);
 	for(T& v : data)
-			a->pushBack(EScript::Number::create(v));
+			a->pushBack(EScript::Number::create(static_cast<double>(v)));
 	return a;
 }
 

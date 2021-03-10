@@ -399,9 +399,9 @@ void init(EScript::Namespace * lib) {
 			std::set<uint32_t> uniqueIndices;
 			for(auto val : *arr)
 				uniqueIndices.insert(val.toUInt());
-			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), uniqueIndices, parameter[4].toFloat(0.00001));
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), uniqueIndices, parameter[4].toFloat(0.00001f));
 		} else {
-			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), {}, parameter[3].toFloat(0.00001));
+			Rendering::MeshUtils::cutMesh(mesh, Geometry::Plane(position, normal), {}, parameter[3].toFloat(0.00001f));
 		}
 		return EScript::create(nullptr);
 	})
@@ -427,13 +427,13 @@ void init(EScript::Namespace * lib) {
 
 	//! [ESF] void Rendering.eliminateDuplicateVertices(Mesh,[Number])
 	ES_FUN(lib,"mergeCloseVertices",1,2,
-		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001))
+		Rendering::MeshUtils::mergeCloseVertices(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.0001f))
 	)
 	
 
 	//! [ESF] [Array|Void] Rendering.splitIntoConnectedComponents(Mesh, [Number])
 	ES_FUNCTION(lib, "splitIntoConnectedComponents", 1, 2, {
-			auto result = Rendering::MeshUtils::splitIntoConnectedComponents(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.001));
+			auto result = Rendering::MeshUtils::splitIntoConnectedComponents(parameter[0].to<Rendering::Mesh*>(rt), parameter[1].toFloat(0.001f));
 			Array * a = Array::create();
 			for(auto* mesh : result) {
 				a->pushBack(EScript::create(mesh));

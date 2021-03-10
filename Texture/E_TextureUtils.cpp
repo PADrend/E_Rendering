@@ -150,7 +150,7 @@ void init(EScript::Namespace * lib) {
 		E_Geometry::E_Rect * er = parameter[0].toType<E_Geometry::E_Rect>();
 		if(er!=nullptr){
 			return EScript::create(TextureUtils::createTextureFromScreen(
-									(**er).getMinX(),(**er).getMinY(), (**er).getWidth(), (**er).getHeight(),parameter[1].toBool(true)));
+									static_cast<int>((**er).getMinX()),static_cast<int>((**er).getMinY()), static_cast<int>((**er).getWidth()), static_cast<int>((**er).getHeight()),parameter[1].toBool(true)));
 		}else{
 			assertParamCount(rt,parameter,0,1);
 			return EScript::create(TextureUtils::createTextureFromScreen(0,0,-1,-1,parameter[0].toBool(true)));
