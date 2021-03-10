@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_CMAKECONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/E_Rendering)
 
-add_library(E_Rendering
+add_library(E_Rendering SHARED
 	ELibRendering.cpp
 	E_BufferObject.cpp
 	E_Draw.cpp
