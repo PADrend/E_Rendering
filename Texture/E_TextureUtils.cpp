@@ -140,10 +140,10 @@ void init(EScript::Namespace * lib) {
 			parameter[0].to<uint32_t>(rt), parameter[1].to<uint32_t>(rt),parameter[2].toBool(),parameter[3].toFloat(1.0)))
 
 
-	//! [ESF] Texture createTextureFromFile(String fileName, [Texture::TextureTyp, int layerNum])
-	ES_FUN(lib, "createTextureFromFile", 1, 3, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString()),
+	//! [ESF] Texture createTextureFromFile(String fileName, [Texture::TextureTyp, int layerNum, int desiredChannels])
+	ES_FUN(lib, "createTextureFromFile", 1, 4, Rendering::Serialization::loadTexture( Util::FileName(parameter[0].toString()),
                                                                                   static_cast<TextureType>(parameter[1].toUInt(static_cast<uint32_t>(TextureType::TEXTURE_2D))),
-                                                                                  parameter[2].toUInt(static_cast<uint32_t>(1))) )
+                                                                                  parameter[2].toUInt(static_cast<uint32_t>(1)), parameter[3].toUInt(0)) )
 
 	//! [ESF] Texture createTextureFromScreen( Rect screenRect,bool alpha=true] |  [bool alpha=true])
 	ES_FUNCTION(lib,"createTextureFromScreen",0,2,{
