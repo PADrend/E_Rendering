@@ -1,18 +1,14 @@
 #
 # This file is part of the E_Rendering library.
 # Copyright (C) 2009-2013 Benjamin Eikel <benjamin@eikel.org>
-# Copyright (C) 2014-2019 Sascha Brandt <sascha@brandt.graphics>
+# Copyright (C) 2014-2021 Sascha Brandt <sascha@brandt.graphics>
 #
 # This library is subject to the terms of the Mozilla Public License, v. 2.0.
 # You should have received a copy of the MPL along with this library; see the 
 # file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 #
 cmake_minimum_required(VERSION 3.1.0)
-project(E_Rendering VERSION 0.3.0 LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+project(E_Rendering VERSION 0.4.0 LANGUAGES CXX)
 
 # Set up install directories
 include(GNUInstallDirs)
@@ -46,6 +42,9 @@ add_library(E_Rendering SHARED
 	Texture/E_TextureUtils.cpp
 )
 
+#set c++ standard to c++17
+target_compile_features(E_Rendering PUBLIC cxx_std_17)
+
 if(MSVC)
 	target_compile_definitions(E_Rendering PRIVATE "ERENDERINGAPI=__declspec(dllexport)")
 	target_compile_definitions(E_Rendering INTERFACE "ERENDERINGAPI=__declspec(dllimport)")
@@ -68,13 +67,13 @@ target_link_libraries(E_Rendering LINK_PUBLIC Geometry)
 
 # Dependency to Rendering
 if(NOT TARGET Rendering)
-	find_package(Rendering 0.3.0 REQUIRED NO_MODULE)
+	find_package(Rendering 0.4.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC Rendering)
 
 # Dependency to Util
 if(NOT TARGET Util)
-	find_package(Util 0.3.0 REQUIRED NO_MODULE)
+	find_package(Util 0.4.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC Util)
 
@@ -86,7 +85,7 @@ target_link_libraries(E_Rendering LINK_PUBLIC E_Geometry)
 
 # Dependency to E_Util
 if(NOT TARGET E_Util)
-	find_package(E_Util 0.3.0 REQUIRED NO_MODULE)
+	find_package(E_Util 0.4.0 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Rendering LINK_PUBLIC E_Util)
 
