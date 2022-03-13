@@ -67,7 +67,7 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 				new E_VertexAttribute(thisObj->appendAttribute(parameter[0].toString(), static_cast<Util::TypeConstant>(parameter[1].toUInt()), parameter[2].toUInt(), parameter[3].toBool())))
 
 	//! Number VertexDescription.getVertexSize()
-	ES_MFUN(typeObject,const VertexDescription, "getVertexSize", 0, 0, EScript::Number::create(thisObj->getVertexSize()))
+	ES_MFUN(typeObject,const VertexDescription, "getVertexSize", 0, 0, EScript::Number::create(static_cast<double>(thisObj->getVertexSize())))
 
 	//! Number VertexDescription.getNumAttributes()
 	ES_MFUN(typeObject,const VertexDescription, "getNumAttributes", 0, 0, EScript::Number::create(thisObj->getNumAttributes()))
@@ -77,10 +77,10 @@ void E_VertexDescription::init(EScript::Namespace & lib) {
 	//! \note the result type may be different to the c++ version (void)
 	ES_MFUNCTION(typeObject, const VertexDescription, "getAttribute", 1, 1, {
 		const Rendering::VertexAttribute & attr = thisObj->getAttribute(parameter[0].toString());
-		if(attr.empty()) {
-			return EScript::create(nullptr);
-		} else {
+		if(attr.isValid()) {
 			return EScript::create(attr);
+		} else {
+			return EScript::create(nullptr);
 		}
 	})
 

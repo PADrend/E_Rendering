@@ -69,7 +69,7 @@ void E_Mesh::init(EScript::Namespace & lib) {
 		MeshIndexData & indexData = thisObj->openIndexData();
 		auto arr = EScript::Array::create();
 		arr->reserve(indexData.getIndexCount());
-		for(size_t idx = 0; idx<indexData.getIndexCount(); ++idx)
+		for(uint32_t idx = 0; idx<indexData.getIndexCount(); ++idx)
 			arr->pushBack(EScript::create(indexData[idx]));
 		return arr;
 	})
@@ -131,8 +131,8 @@ void E_Mesh::init(EScript::Namespace & lib) {
 	ES_MFUNCTION(typeObject,Mesh,"_setIndices",1,1,{
 		auto arr = parameter[0].to<EScript::Array*>(rt);
 		MeshIndexData & indices = thisObj->_getIndexData();
-		indices.allocate(arr->size());
-		for(size_t i=0;i<arr->size();++i)
+		indices.allocate(static_cast<uint32_t>(arr->size()));
+		for(uint32_t i=0;i<arr->size();++i)
 			indices[i] = arr->at(i).to<uint32_t>(rt);
 		indices.updateIndexRange();
 		return thisEObj;

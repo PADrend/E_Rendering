@@ -26,15 +26,15 @@ void E_VertexAttribute::init(EScript::Namespace & lib) {
 	declareConstant(&lib, getClassName(), typeObject);
 	using namespace Rendering;
 
-	//! Bool VertexAttribute.empty()
-	ES_MFUN(typeObject,const VertexAttribute, "empty", 0, 0, thisObj->empty())
+	//! Bool VertexAttribute.isValid()
+	ES_MFUN(typeObject,const VertexAttribute, "isValid", 0, 0, thisObj->isValid())
 
 	//! Bool VertexAttribute.getNormalize()
 	ES_MFUN(typeObject,const VertexAttribute, "getNormalize", 0, 0, thisObj->isNormalized())
 	ES_MFUN(typeObject,const VertexAttribute, "isNormalized", 0, 0, thisObj->isNormalized())
 
 	//! Number VertexAttribute.getOffset()
-	ES_MFUN(typeObject,const VertexAttribute, "getOffset", 0, 0, EScript::Number::create(thisObj->getOffset()))
+	ES_MFUN(typeObject,const VertexAttribute, "getOffset", 0, 0, EScript::Number::create(static_cast<double>(thisObj->getOffset())))
 
 	//! Number VertexAttribute.getDataSize()
 	ES_MFUN(typeObject,const VertexAttribute, "getDataSize", 0, 0, EScript::Number::create(thisObj->getDataSize()))
@@ -42,8 +42,8 @@ void E_VertexAttribute::init(EScript::Namespace & lib) {
 	//! Number VertexAttribute.getDataType()
 	ES_MFUN(typeObject,const VertexAttribute, "getDataType", 0, 0, EScript::Number::create(static_cast<uint32_t>(thisObj->getDataType())))
 
-	//! Number VertexAttribute.getNumValues()
-	ES_MFUN(typeObject,const VertexAttribute, "getNumValues", 0, 0, EScript::Number::create(thisObj->getNumValues()))
+	//! Number VertexAttribute.getComponentCount()
+	ES_MFUN(typeObject,const VertexAttribute, "getComponentCount", 0, 0, EScript::Number::create(thisObj->getComponentCount()))
 
 	//! String VertexAttribute.getName()
 	ES_MFUN(typeObject,const VertexAttribute, "getName", 0, 0, thisObj->getName())
